@@ -40,6 +40,13 @@ public class UserMap : IEntityTypeConfiguration<User>
         builder.Property(x => x.Email).IsRequired();
 
         builder.Property(x => x.Language).HasColumnName("idioma");
-        builder.Property(x => x.Email).IsRequired();
+        builder.Property(x => x.Language).IsRequired();
+
+        builder.Property(x => x.RefreshToken).HasColumnName("refresh_token");
+        builder.Property(x => x.RefreshToken).HasMaxLength(100);
+        builder.Property(x => x.RefreshToken).IsRequired();
+
+        builder.Property(x => x.LoginKey).HasColumnName("chave_login");
+        builder.Property(x => x.LoginKey).IsRequired();
     }
 }
