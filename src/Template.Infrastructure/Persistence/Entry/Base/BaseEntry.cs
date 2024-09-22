@@ -5,7 +5,7 @@ public class BaseEntry<TEntry> where TEntry : BaseEntry<TEntry>
     public long Id { get; private set; }
     public virtual DateTime CreationDate { get; private set; }
     public virtual DateTime? ChangeDate { get; private set; }
-    public virtual long CreationUserId { get; private set; }
+    public virtual long? CreationUserId { get; private set; }
     public virtual long? ChangeUserId { get; private set; }
 
     #region Virtual Properties
@@ -25,7 +25,7 @@ public class BaseEntry<TEntry> where TEntry : BaseEntry<TEntry>
         return (TEntry)this;
     }
 
-    public TEntry SetInternalData(long id, DateTime creationDate, DateTime? changeDate, long creationUserId, long? changeUserId)
+    public TEntry SetInternalData(long id, DateTime creationDate, DateTime? changeDate, long? creationUserId, long? changeUserId)
     {
         Id = id;
         CreationDate = creationDate;
@@ -35,7 +35,7 @@ public class BaseEntry<TEntry> where TEntry : BaseEntry<TEntry>
         return (TEntry)this;
     }
 
-    public TEntry SetInternalDataCreate(DateTime creationDate, long creationUserId)
+    public TEntry SetInternalDataCreate(DateTime creationDate, long? creationUserId)
     {
         CreationDate = creationDate;
         CreationUserId = creationUserId;

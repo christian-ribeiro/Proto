@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Template.Arguments.Arguments.Base;
+using Template.Arguments.General.Session;
+using Template.Domain.Interface.Service;
 using Template.Domain.Interface.Service.Base;
 
 namespace Template.Api.Controllers.Base;
@@ -9,8 +11,8 @@ namespace Template.Api.Controllers.Base;
 [Authorize]
 [ApiController]
 [Route("/api/[controller]")]
-public class BaseController_0<TService, TOutput, TInputIdentifier, TInputCreate, TInputUpdate, TInputIdentityUpdate, TInputReplace, TInputIdentityDelete>(TService service) : Controller
-        where TService : IBaseService_0<TOutput, TInputIdentifier, TInputCreate, TInputUpdate, TInputIdentityUpdate, TInputReplace, TInputIdentityDelete>
+public class BaseController_0<TService, TOutput, TInputIdentifier, TInputCreate, TInputUpdate, TInputIdentityUpdate, TInputIdentityDelete>(TService service, IUserService userService) : Controller
+        where TService : IBaseService_0<TOutput, TInputIdentifier, TInputCreate, TInputUpdate, TInputIdentityUpdate, TInputIdentityDelete>
         where TOutput : BaseOutput<TOutput>
         where TInputIdentifier : BaseInputIdentifier<TInputIdentifier>, new()
         where TInputCreate : BaseInputCreate<TInputCreate>
@@ -18,10 +20,25 @@ public class BaseController_0<TService, TOutput, TInputIdentifier, TInputCreate,
         where TInputIdentityUpdate : BaseInputIdentityUpdate<TInputUpdate>
         where TInputIdentityDelete : BaseInputIdentityDelete<TInputIdentityDelete>
 {
+    public Guid _guidSessionDataRequest;
     protected readonly TService _service = service;
+    protected readonly IUserService _userService = userService;
 
     public override void OnActionExecuting(ActionExecutingContext context)
     {
+        var allowAnonymous = context.ActionDescriptor.EndpointMetadata.Any(em => em.GetType() == typeof(AllowAnonymousAttribute));
+
+        if (!allowAnonymous)
+        {
+            long userId = Convert.ToInt64(Request.HttpContext.User.FindFirst("UserId")!.Value ?? "0");
+            var loggedUser = _userService.Get(userId);
+            if (loggedUser != null)
+            {
+                SessionData.SetLoggedUser(_guidSessionDataRequest, new LoggedUser(loggedUser.Id, loggedUser.Name, loggedUser.Email));
+                SetData();
+            }
+        }
+
         base.OnActionExecuting(context);
     }
 
@@ -195,5 +212,20 @@ public class BaseController_0<TService, TOutput, TInputIdentifier, TInputCreate,
     {
         return await Task.FromResult(BadRequest(new BaseResponseApi<string> { ErrorMessage = ex.Message }));
     }
+
+    [NonAction]
+    public void SetData()
+    {
+        Guid guidSessionDataRequest = SessionData.Initialize();
+        SetGuid(guidSessionDataRequest);
+    }
+
+    [NonAction]
+    public void SetGuid(Guid guidSessionDataRequest)
+    {
+        _guidSessionDataRequest = guidSessionDataRequest;
+        SessionHelper.SetGuidSessionDataRequest(this, guidSessionDataRequest);
+    }
+
     #endregion
 }

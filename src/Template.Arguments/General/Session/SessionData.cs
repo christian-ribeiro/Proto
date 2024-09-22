@@ -11,29 +11,24 @@ public static class SessionData
         return Add(new SessionDataRequest());
     }
 
-    public static Guid Add(SessionDataRequest sessionDataRequest)
+    public static Guid Add(SessionDataRequest guidSessionDataRequest)
     {
-        ListSessionDataRequest.TryAdd(sessionDataRequest.SessionDataRequestId, sessionDataRequest);
-        return sessionDataRequest.SessionDataRequestId;
+        ListSessionDataRequest.TryAdd(guidSessionDataRequest.GuidSessionDataRequest, guidSessionDataRequest);
+        return guidSessionDataRequest.GuidSessionDataRequest;
     }
 
-    public static void SetLoggedUser(Guid sessionDataRequestId, LoggedUser loggedUser)
+    public static void SetLoggedUser(Guid guidSessionDataRequest, LoggedUser loggedUser)
     {
-        ListSessionDataRequest[sessionDataRequestId].LoggedUser = loggedUser;
+        ListSessionDataRequest[guidSessionDataRequest].LoggedUser = loggedUser;
     }
 
-    public static LoggedUser? GetLoggedUser(Guid sessionDataRequestId)
+    public static LoggedUser? GetLoggedUser(Guid guidSessionDataRequest)
     {
-        return ListSessionDataRequest[sessionDataRequestId].LoggedUser;
-    }
-
-    public static SessionDataRequest Get(Guid sessionDataRequestId)
-    {
-        return ListSessionDataRequest[sessionDataRequestId];
+        return ListSessionDataRequest[guidSessionDataRequest].LoggedUser;
     }
 
     public static void Remove(Guid sessionDataId)
     {
-        ListSessionDataRequest.TryRemove(sessionDataId, out SessionDataRequest? sessionDataRequest);
+        ListSessionDataRequest.TryRemove(sessionDataId, out SessionDataRequest? guidSessionDataRequest);
     }
 }

@@ -9,10 +9,10 @@ public class BaseInternalPropertiesDTO<TInternalPropertiesDTO> : BaseSetProperty
     public long Id { get; private set; }
     public virtual DateTime CreationDate { get; private set; }
     public virtual DateTime? ChangeDate { get; private set; }
-    public virtual long CreationUserId { get; private set; }
+    public virtual long? CreationUserId { get; private set; }
     public virtual long? ChangeUserId { get; private set; }
 
-    public TInternalPropertiesDTO SetInternalData(long id, DateTime creationDate, DateTime? changeDate, long creationUserId, long? changeUserId)
+    public TInternalPropertiesDTO SetInternalData(long id, DateTime creationDate, DateTime? changeDate, long? creationUserId, long? changeUserId)
     {
         Id = id;
         CreationDate = creationDate;
@@ -22,7 +22,7 @@ public class BaseInternalPropertiesDTO<TInternalPropertiesDTO> : BaseSetProperty
         return (TInternalPropertiesDTO)this;
     }
 
-    public TInternalPropertiesDTO SetInternalDataCreate(DateTime creationDate, long creationUserId)
+    public TInternalPropertiesDTO SetInternalDataCreate(DateTime creationDate, long? creationUserId)
     {
         CreationDate = creationDate;
         CreationUserId = creationUserId;
@@ -42,22 +42,22 @@ public class BaseInternalPropertiesDTO<TInternalPropertiesDTO> : BaseSetProperty
         return (TInternalPropertiesDTO)this;
     }
 
-    public TInternalPropertiesDTO SetCreateData(Guid sessionDataRequestId)
+    public TInternalPropertiesDTO SetCreateData(Guid guidSessionDataRequest)
     {
         CreationDate = DateTime.Now;
 
-        LoggedUser? loggedUser = SessionData.GetLoggedUser(sessionDataRequestId);
+        LoggedUser? loggedUser = SessionData.GetLoggedUser(guidSessionDataRequest);
         if (loggedUser != null)
             CreationUserId = loggedUser.Id;
 
         return (TInternalPropertiesDTO)this;
     }
 
-    public TInternalPropertiesDTO SetUpdateData(Guid sessionDataRequestId)
+    public TInternalPropertiesDTO SetUpdateData(Guid guidSessionDataRequest)
     {
         ChangeDate = DateTime.Now;
 
-        LoggedUser? loggedUser = SessionData.GetLoggedUser(sessionDataRequestId);
+        LoggedUser? loggedUser = SessionData.GetLoggedUser(guidSessionDataRequest);
         if (loggedUser != null)
             ChangeUserId = loggedUser.Id;
 

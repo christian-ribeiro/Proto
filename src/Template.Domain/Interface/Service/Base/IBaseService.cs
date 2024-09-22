@@ -2,7 +2,7 @@
 
 namespace Template.Domain.Interface.Service.Base;
 
-public interface IBaseService_0<TOutput, TInputIdentifier, TInputCreate, TInputUpdate, TInputIdentityUpdate, TInputReplace, TInputIdentityDelete>
+public interface IBaseService_0<TOutput, TInputIdentifier, TInputCreate, TInputUpdate, TInputIdentityUpdate, TInputIdentityDelete>
         where TOutput : BaseOutput<TOutput>
         where TInputIdentifier : BaseInputIdentifier<TInputIdentifier>, new()
         where TInputCreate : BaseInputCreate<TInputCreate>
@@ -10,6 +10,7 @@ public interface IBaseService_0<TOutput, TInputIdentifier, TInputCreate, TInputU
         where TInputIdentityUpdate : BaseInputIdentityUpdate<TInputUpdate>
         where TInputIdentityDelete : BaseInputIdentityDelete<TInputIdentityDelete>
 {
+    void SetGuid(Guid guidSessionDataRequest);
     TOutput Get(long id);
     TOutput GetByIdentifier(TInputIdentifier inputIdentifier);
     List<TOutput> GetAll();

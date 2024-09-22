@@ -2,11 +2,11 @@
 
 public class SessionDataRequest
 {
-    public Guid SessionDataRequestId { get; }
+    public Guid GuidSessionDataRequest { get; }
     public LoggedUser? LoggedUser { get; set; }
 
     public SessionDataRequest()
     {
-        SessionDataRequestId = Guid.NewGuid();
+        GuidSessionDataRequest = Guid.NewGuid();
     }
 }

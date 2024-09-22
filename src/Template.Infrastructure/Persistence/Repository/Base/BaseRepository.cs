@@ -8,16 +8,16 @@ using Template.Infrastructure.Persistence.Entry.Base;
 
 namespace Template.Infrastructure.Persistence.Repository.Base;
 
-public abstract class BaseRepository_0<TContext, TEntry, TOutput, TInputIdentifier, TInputCreate, TInputUpdate, TInputIdentityUpdate, TInputReplace, TInputIdentityDelete, TDTO, TInternalPropertiesDTO, TExternalPropertiesDTO, TAuxiliaryPropertiesDTO>(TContext context) : IBaseRepository_0<TOutput, TInputIdentifier, TInputCreate, TInputUpdate, TInputIdentityUpdate, TInputReplace, TInputIdentityDelete, TDTO, TInternalPropertiesDTO, TExternalPropertiesDTO, TAuxiliaryPropertiesDTO>
+public abstract class BaseRepository_0<TContext, TEntry, TOutput, TInputIdentifier, TInputCreate, TInputUpdate, TInputIdentityUpdate, TInputIdentityDelete, TDTO, TInternalPropertiesDTO, TExternalPropertiesDTO, TAuxiliaryPropertiesDTO>(TContext context) : IBaseRepository_0<TOutput, TInputIdentifier, TInputCreate, TInputUpdate, TInputIdentityUpdate, TInputIdentityDelete, TDTO, TInternalPropertiesDTO, TExternalPropertiesDTO, TAuxiliaryPropertiesDTO>
     where TContext : DbContext
-    where TEntry : BaseEntry<TEntry>, new()
+    where TEntry : BaseEntry<TEntry>
     where TOutput : BaseOutput<TOutput>
     where TInputIdentifier : BaseInputIdentifier<TInputIdentifier>, new()
     where TInputCreate : BaseInputCreate<TInputCreate>
     where TInputUpdate : BaseInputUpdate<TInputUpdate>
     where TInputIdentityUpdate : BaseInputIdentityUpdate<TInputUpdate>
     where TInputIdentityDelete : BaseInputIdentityDelete<TInputIdentityDelete>
-    where TDTO : BaseDTO_0<TOutput, TInputIdentifier, TInputCreate, TInputUpdate, TInputIdentityUpdate, TInputReplace, TInputIdentityDelete, TDTO, TInternalPropertiesDTO, TExternalPropertiesDTO, TAuxiliaryPropertiesDTO>, new()
+    where TDTO : BaseDTO_0<TOutput, TInputIdentifier, TInputCreate, TInputUpdate, TInputIdentityUpdate, TInputIdentityDelete, TDTO, TInternalPropertiesDTO, TExternalPropertiesDTO, TAuxiliaryPropertiesDTO>, new()
     where TInternalPropertiesDTO : BaseInternalPropertiesDTO<TInternalPropertiesDTO>, new()
     where TExternalPropertiesDTO : BaseExternalPropertiesDTO<TExternalPropertiesDTO>, new()
     where TAuxiliaryPropertiesDTO : BaseAuxiliaryPropertiesDTO<TAuxiliaryPropertiesDTO>, new()
