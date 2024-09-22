@@ -8,6 +8,9 @@ public class UserMap : IEntityTypeConfiguration<User>
 {
     public void Configure(EntityTypeBuilder<User> builder)
     {
+        builder.HasOne(x => x.CreationUser).WithMany(x => x.ListCreationUserUser).HasForeignKey(x => x.CreationUserId).HasConstraintName("fk_usuario_id_usuario_criacao");
+        builder.HasOne(x => x.ChangeUser).WithMany(x => x.ListChangeUserUser).HasForeignKey(x => x.ChangeUserId).HasConstraintName("fk_usuario_id_usuario_alteracao");
+
         builder.ToTable("usuario");
 
         builder.HasKey(x => x.Id).HasName("id");
@@ -19,6 +22,10 @@ public class UserMap : IEntityTypeConfiguration<User>
         builder.Property(x => x.ChangeUserId).HasColumnName("id_usuario_alteracao");
 
         builder.Property(x => x.ChangeDate).HasColumnName("data_alteracao");
+
+        builder.Property(x => x.Code).HasColumnName("codigo");
+        builder.Property(x => x.Code).HasMaxLength(6);
+        builder.Property(x => x.Code).IsRequired();
 
         builder.Property(x => x.Name).HasColumnName("nome");
         builder.Property(x => x.Name).HasMaxLength(100);

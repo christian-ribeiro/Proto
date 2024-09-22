@@ -1,15 +1,25 @@
-﻿namespace Template.Infrastructure.Persistence.Entry.Base;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Template.Infrastructure.Persistence.Entry.Base;
 
 public class BaseEntry<TEntry> where TEntry : BaseEntry<TEntry>
 {
     public long Id { get; private set; }
+    [NotMapped]
     public virtual DateTime CreationDate { get; private set; }
+    [NotMapped]
     public virtual DateTime? ChangeDate { get; private set; }
+    [NotMapped]
     public virtual long? CreationUserId { get; private set; }
+    [NotMapped]
     public virtual long? ChangeUserId { get; private set; }
 
     #region Virtual Properties
     #region Internal
+    [NotMapped]
+    public virtual User? CreationUser { get; private set; }
+    [NotMapped]
+    public virtual User? ChangeUser { get; private set; }
     #endregion
     #endregion
 
