@@ -177,12 +177,12 @@ public abstract class BaseRepository_0<TContext, TEntry, TOutput, TInputIdentifi
 
     internal TEntry FromDTOToEntry(TDTO dto)
     {
-        return (TEntry)(dynamic)dto;
+        return SessionData.Mapper!.MapperEntryDTO.Map<TDTO, TEntry>(dto);
     }
 
     internal TDTO FromEntryToDTO(TEntry entry)
     {
-        return (TDTO)(dynamic)entry;
+        return SessionData.Mapper!.MapperEntryDTO.Map<TEntry, TDTO>(entry);
     }
 
     internal List<TEntry> FromDTOToEntry(List<TDTO> listDTO)

@@ -78,12 +78,12 @@ public class BaseService_0<TRepository, TOutput, TInputIdentifier, TInputCreate,
 
     internal TOutput FromDTOToOutput(TDTO dto)
     {
-        return (TOutput)(dynamic)dto;
+        return SessionData.Mapper!.MapperDTOOutput.Map<TDTO, TOutput>(dto);
     }
 
     internal List<TOutput> FromDTOToOutput(List<TDTO> listDTO)
     {
-        return (from i in listDTO select (TOutput)(dynamic)i).ToList();
+        return SessionData.Mapper!.MapperDTOOutput.Map<List<TDTO>, List<TOutput>>(listDTO);
     }
 
     public void SetGuid(Guid guidSessionDataRequest)

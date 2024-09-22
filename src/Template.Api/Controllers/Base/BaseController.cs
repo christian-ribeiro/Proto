@@ -34,8 +34,8 @@ public class BaseController_0<TService, TOutput, TInputIdentifier, TInputCreate,
             var loggedUser = _userService.Get(userId);
             if (loggedUser != null)
             {
-                SessionData.SetLoggedUser(_guidSessionDataRequest, new LoggedUser(loggedUser.Id, loggedUser.Name, loggedUser.Email));
                 SetData();
+                SessionData.SetLoggedUser(_guidSessionDataRequest, new LoggedUser(loggedUser.Id, loggedUser.Name, loggedUser.Email));
             }
         }
 
