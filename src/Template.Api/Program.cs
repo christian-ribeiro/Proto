@@ -8,6 +8,7 @@ builder.Services.ConfigureAuthentication();
 builder.Services.ConfigureSwagger();
 builder.Services.ConfigureController();
 builder.Services.ConfigureDependencyInjection();
+builder.Services.ConfigureMapper();
 
 var app = builder.Build();
 

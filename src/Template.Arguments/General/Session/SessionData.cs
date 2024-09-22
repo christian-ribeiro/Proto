@@ -1,10 +1,12 @@
 ﻿using System.Collections.Concurrent;
+using Template.Api.Mapper;
 
 namespace Template.Arguments.General.Session;
 
 public static class SessionData
 {
     public static ConcurrentDictionary<Guid, SessionDataRequest> ListSessionDataRequest = new();
+    public static Mapper? Mapper { get; private set; }
 
     public static Guid Initialize()
     {
@@ -30,5 +32,10 @@ public static class SessionData
     public static void Remove(Guid sessionDataId)
     {
         ListSessionDataRequest.TryRemove(sessionDataId, out SessionDataRequest? guidSessionDataRequest);
+    }
+
+    public static void SetMapper(Mapper mapper)
+    {
+        Mapper = mapper;
     }
 }

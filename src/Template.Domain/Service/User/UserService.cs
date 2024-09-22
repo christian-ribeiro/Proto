@@ -1,4 +1,5 @@
 ﻿using Template.Arguments.Arguments;
+using Template.Arguments.General.Session;
 using Template.Domain.DTO;
 using Template.Domain.Interface.Repository;
 using Template.Domain.Interface.Service;
@@ -11,7 +12,7 @@ namespace Template.Domain.Service
         public OutputUser Authenticate(InputAuthenticateUser inputAuthenticateUser)
         {
             UserDTO userDTO = _repository.GetByIdentifier(new InputIdentifierUser(inputAuthenticateUser.Email));
-            return new OutputUser("", "", "", "", Arguments.Enum.EnumLanguage.Portuguese);
+            return SessionData.Mapper!.MapperDTOOutput.Map<UserDTO, OutputUser>(userDTO);
         }
     }
 }

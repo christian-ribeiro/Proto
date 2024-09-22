@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using Template.Arguments.Arguments.Base;
+using Template.Arguments.General.Session;
 using Template.Domain.DTO.Base;
 using Template.Domain.Interface.Repository.Base;
 using Template.Infrastructure.Extension;
@@ -185,11 +187,11 @@ public abstract class BaseRepository_0<TContext, TEntry, TOutput, TInputIdentifi
 
     internal List<TEntry> FromDTOToEntry(List<TDTO> listDTO)
     {
-        return (from i in listDTO select (TEntry)(dynamic)i).ToList();
+        return SessionData.Mapper!.MapperEntryDTO.Map<List<TDTO>, List<TEntry>>(listDTO);
     }
 
     internal List<TDTO> FromEntryToDTO(List<TEntry> listEntry)
     {
-        return (from i in listEntry select (TDTO)(dynamic)i).ToList();
+        return SessionData.Mapper!.MapperEntryDTO.Map<List<TEntry>, List<TDTO>>(listEntry);
     }
 }
