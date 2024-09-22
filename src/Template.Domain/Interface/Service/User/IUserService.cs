@@ -6,4 +6,5 @@ namespace Template.Domain.Interface.Service;
 public interface IUserService : IBaseService_0<OutputUser, InputIdentifierUser, InputCreateUser, InputUpdateUser, InputIdentityUpdateUser, InputIdentityDeleteUser>
 {
     OutputAuthenticateUser Authenticate(InputAuthenticateUser inputAuthenticateUser);
+    OutputAuthenticateUser RefreshToken(InputRefreshTokenUser inputRefreshTokenUser);
 }

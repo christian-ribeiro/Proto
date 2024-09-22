@@ -11,7 +11,7 @@ public class UserController(IUserService service) : BaseController_0<IUserServic
 {
     [AllowAnonymous]
     [HttpPost("Authenticate")]
-    public async Task<ActionResult<BaseResponseApi<OutputUser>>> Authenticate([FromBody] InputAuthenticateUser inputAuthenticateUser)
+    public async Task<ActionResult<BaseResponseApi<OutputAuthenticateUser>>> Authenticate([FromBody] InputAuthenticateUser inputAuthenticateUser)
     {
         try
         {
@@ -19,6 +19,21 @@ public class UserController(IUserService service) : BaseController_0<IUserServic
             if (result == null)
                 return NotFound();
 
+            return await ResponseAsync(result);
+        }
+        catch (Exception ex)
+        {
+            return await ResponseExceptionAsync(ex);
+        }
+    }
+
+    [AllowAnonymous]
+    [HttpPost("RefreshToken")]
+    public async Task<ActionResult<BaseResponseApi<OutputAuthenticateUser>>> RefreshToken([FromBody] InputRefreshTokenUser inputRefreshTokenUser)
+    {
+        try
+        {
+            var result = _userService.RefreshToken(inputRefreshTokenUser);
             return await ResponseAsync(result);
         }
         catch (Exception ex)
