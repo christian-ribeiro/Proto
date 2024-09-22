@@ -7,6 +7,4 @@ using Template.Infrastructure.Persistence.Repository.Base;
 
 namespace Template.Infrastructure.Persistence.Repository;
 
-public class UserRepository(AppDbContext context) : BaseRepository_0<AppDbContext, User, OutputUser, InputIdentifierUser, InputCreateUser, InputUpdateUser, InputIdentityUpdateUser, InputIdentityDeleteUser, UserDTO, InternalPropertiesUserDTO, ExternalPropertiesUserDTO, AuxiliaryPropertiesUserDTO>(context), IUserRepository
-{
-}
+public class UserRepository(AppDbContext context) : BaseRepository_0<AppDbContext, User, OutputUser, InputIdentifierUser, InputCreateUser, InputUpdateUser, InputIdentityUpdateUser, InputIdentityDeleteUser, UserDTO, InternalPropertiesUserDTO, ExternalPropertiesUserDTO, AuxiliaryPropertiesUserDTO>(context), IUserRepository { }
