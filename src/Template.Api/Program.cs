@@ -12,6 +12,7 @@ builder.Services.ConfigureMapper();
 
 var app = builder.Build();
 
+app.UseStaticFiles();
 app.ApplyCors();
 app.ApplyAuthentication();
 app.ApplySwagger();

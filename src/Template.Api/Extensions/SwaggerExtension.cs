@@ -56,6 +56,7 @@ public static class SwaggerExtension
         app.UseSwaggerUI(c =>
         {
             c.SwaggerEndpoint("/swagger/v1/swagger.json", "Template API v1");
+            c.InjectStylesheet("/swagger-ui/SwaggerDark.css");
             c.DocumentTitle = "Template API Documentation";
             c.EnableFilter();
             c.DocExpansion(DocExpansion.None);
