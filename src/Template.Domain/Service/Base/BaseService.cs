@@ -27,7 +27,7 @@ public class BaseService_0<TRepository, TOutput, TInputIdentifier, TInputCreate,
 
     public virtual TOutput GetByIdentifier(TInputIdentifier inputIdentifier)
     {
-        return FromDTOToOutput(_repository.GetByIdentifier(inputIdentifier));
+        return FromDTOToOutput(_repository.GetByIdentifier(inputIdentifier)!);
     }
 
     public virtual List<TOutput> GetAll()

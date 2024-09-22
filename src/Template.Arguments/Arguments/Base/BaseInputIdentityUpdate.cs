@@ -1,4 +1,6 @@
-﻿namespace Template.Arguments.Arguments.Base;
+﻿using System.Text.Json.Serialization;
+
+namespace Template.Arguments.Arguments.Base;
 
 public class BaseInputIdentityUpdate<TInputUpdate> where TInputUpdate : BaseInputUpdate<TInputUpdate>
 {
@@ -7,6 +9,7 @@ public class BaseInputIdentityUpdate<TInputUpdate> where TInputUpdate : BaseInpu
 
     public BaseInputIdentityUpdate() { }
 
+    [JsonConstructor]
     public BaseInputIdentityUpdate(long id, TInputUpdate? inputUpdate)
     {
         Id = id;

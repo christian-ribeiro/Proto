@@ -27,7 +27,7 @@ public class BaseDTO_0<TOutput, TInputIdentifier, TInputCreate, TInputUpdate, TI
         AuxiliaryPropertiesDTO = new TAuxiliaryPropertiesDTO();
     }
 
-    public TDTO Create(TInputCreate inputCreate, TInternalPropertiesDTO internalPropertiesDTO = null, TAuxiliaryPropertiesDTO auxiliaryPropertiesDTO = null)
+    public TDTO Create(TInputCreate inputCreate, TInternalPropertiesDTO? internalPropertiesDTO = default, TAuxiliaryPropertiesDTO? auxiliaryPropertiesDTO = default)
     {
         foreach (PropertyInfo item in ExternalPropertiesDTO.GetType().GetProperties().ToList())
         {

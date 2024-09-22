@@ -60,7 +60,7 @@ public abstract class BaseRepository_0<TContext, TEntry, TOutput, TInputIdentifi
         if (!getOnlyPrincipal)
             query = query.IncludeVirtualProperties();
 
-        return FromEntryToDTO(query.FirstOrDefault());
+        return FromEntryToDTO(query.FirstOrDefault()!);
     }
 
     public List<TDTO> GetAll(bool getOnlyPrincipal = false)
@@ -85,7 +85,7 @@ public abstract class BaseRepository_0<TContext, TEntry, TOutput, TInputIdentifi
 
     public TDTO GetByIdentifier(TInputIdentifier inputIdentifier, bool getOnlyPrincipal = false)
     {
-        return GetListByListIdentifier([inputIdentifier], getOnlyPrincipal).FirstOrDefault();
+        return GetListByListIdentifier([inputIdentifier], getOnlyPrincipal).FirstOrDefault()!;
     }
 
     public List<TDTO> GetListByListIdentifier(List<TInputIdentifier> listInputIdentifier, bool getOnlyPrincipal = false)
@@ -95,11 +95,11 @@ public abstract class BaseRepository_0<TContext, TEntry, TOutput, TInputIdentifi
         if (listInputIdentifier == null || listInputIdentifier.Count == 0)
             return [];
 
-        Expression<Func<TEntry, bool>> combinedExpression = null;
+        Expression<Func<TEntry, bool>>? combinedExpression = null;
 
         foreach (var inputIdentifier in listInputIdentifier)
         {
-            Expression<Func<TEntry, bool>> individualExpression = null;
+            Expression<Func<TEntry, bool>>? individualExpression = null;
 
             foreach (var property in typeof(TInputIdentifier).GetProperties())
             {
@@ -119,10 +119,10 @@ public abstract class BaseRepository_0<TContext, TEntry, TOutput, TInputIdentifi
                 }
             }
 
-            combinedExpression = combinedExpression == null ? individualExpression : CombineExpressions(combinedExpression, individualExpression, Expression.OrElse);
+            combinedExpression = combinedExpression == null ? individualExpression! : CombineExpressions(combinedExpression, individualExpression!, Expression.OrElse)!;
         }
 
-        query = query.Where(combinedExpression);
+        query = query.Where(combinedExpression!);
 
         if (!getOnlyPrincipal)
             query = query.IncludeVirtualProperties();
@@ -133,7 +133,7 @@ public abstract class BaseRepository_0<TContext, TEntry, TOutput, TInputIdentifi
     private static Expression<Func<T, bool>> CombineExpressions<T>(
     Expression<Func<T, bool>> expr1,
     Expression<Func<T, bool>> expr2,
-    Func<Expression, Expression, BinaryExpression> combiner = null)
+    Func<Expression, Expression, BinaryExpression>? combiner = null)
     {
         combiner = combiner ?? Expression.AndAlso;
 
