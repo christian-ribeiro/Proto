@@ -8,7 +8,7 @@ public static class ContextExtension
     public static IServiceCollection ConfigureContext(this IServiceCollection services)
     {
         var connectionString = Environment.GetEnvironmentVariable("ConnectionString") ?? "Server=127.0.0.1;Database=template;Uid=root;Pwd=root;";
-        services.AddDbContext<AppDbContext>(cfg => cfg.UseMySQL(connectionString!).EnableSensitiveDataLogging());
+        services.AddDbContext<AppDbContext>(cfg => cfg.UseMySQL(connectionString!));
 
         return services;
     }
