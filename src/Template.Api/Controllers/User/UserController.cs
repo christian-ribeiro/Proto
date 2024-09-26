@@ -3,11 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using Template.Api.Controllers.Base;
 using Template.Arguments.Arguments;
 using Template.Arguments.Arguments.Base;
+using Template.Domain.Interface;
 using Template.Domain.Interface.Service;
 
 namespace Template.Api.Controllers;
 
-public class UserController(IUserService service) : BaseController_0<IUserService, OutputUser, InputIdentifierUser, InputCreateUser, InputUpdateUser, InputIdentityUpdateUser, InputIdentityDeleteUser>(service, service)
+public class UserController(IUnitOfWork unitOfWork, IUserService service) : BaseController_0<IUserService, OutputUser, InputIdentifierUser, InputCreateUser, InputUpdateUser, InputIdentityUpdateUser, InputIdentityDeleteUser>(unitOfWork, service, service)
 {
     [AllowAnonymous]
     [HttpPost("Authenticate")]

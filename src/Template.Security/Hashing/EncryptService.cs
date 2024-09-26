@@ -1,26 +1,25 @@
 ﻿using BCrypt.Net;
 
-namespace Template.Security.Hashing
+namespace Template.Security.Hashing;
+
+public static class EncryptService
 {
-    public static class EncryptService
+    private static readonly string Key = "$2a$11$252h2vGrxOa1D/ZO.SCree";
+
+    public static string Encrypt(this string value) => BCrypt.Net.BCrypt.HashPassword(value, Key);
+
+    public static bool CompareHash(this string value, string hash)
     {
-        private static readonly string Key = "$2a$11$252h2vGrxOa1D/ZO.SCree";
-
-        public static string Encrypt(this string value) => BCrypt.Net.BCrypt.HashPassword(value, Key);
-
-        public static bool CompareHash(this string value, string hash)
+        try
         {
-            try
-            {
-                if (string.IsNullOrWhiteSpace(hash) || !hash.StartsWith("$2"))
-                    return false;
+            if (string.IsNullOrWhiteSpace(hash) || !hash.StartsWith("$2"))
+                return false;
 
-                return BCrypt.Net.BCrypt.Verify(value, hash);
-            }
-            catch (SaltParseException)
-            {
-                throw new Exception("Hash inválido");
-            }
+            return BCrypt.Net.BCrypt.Verify(value, hash);
+        }
+        catch (SaltParseException)
+        {
+            throw new Exception("Hash inválido");
         }
     }
 }

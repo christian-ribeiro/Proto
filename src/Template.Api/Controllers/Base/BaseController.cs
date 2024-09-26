@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Template.Arguments.Arguments.Base;
 using Template.Arguments.General.Session;
+using Template.Domain.Interface;
 using Template.Domain.Interface.Service;
 using Template.Domain.Interface.Service.Base;
 
@@ -11,7 +12,7 @@ namespace Template.Api.Controllers.Base;
 [Authorize]
 [ApiController]
 [Route("/api/[controller]")]
-public class BaseController_0<TService, TOutput, TInputIdentifier, TInputCreate, TInputUpdate, TInputIdentityUpdate, TInputIdentityDelete>(TService service, IUserService userService) : Controller
+public class BaseController_0<TService, TOutput, TInputIdentifier, TInputCreate, TInputUpdate, TInputIdentityUpdate, TInputIdentityDelete>(IUnitOfWork unitOfWork, TService service, IUserService userService) : Controller
         where TService : IBaseService_0<TOutput, TInputIdentifier, TInputCreate, TInputUpdate, TInputIdentityUpdate, TInputIdentityDelete>
         where TOutput : BaseOutput<TOutput>
         where TInputIdentifier : BaseInputIdentifier<TInputIdentifier>, new()
@@ -40,6 +41,11 @@ public class BaseController_0<TService, TOutput, TInputIdentifier, TInputCreate,
         }
 
         base.OnActionExecuting(context);
+    }
+
+    public override void OnActionExecuted(ActionExecutedContext context)
+    {
+        unitOfWork.CommitAsync();
     }
 
     #region Read

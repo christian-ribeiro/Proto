@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using Template.Arguments.AutoMapper;
+using Template.Domain.Interface;
 using Template.Domain.Interface.Repository;
 using Template.Domain.Interface.Service;
 using Template.Domain.Service;
+using Template.Infrastructure.Persistence;
 using Template.Infrastructure.Persistence.Repository;
 
 namespace Template.Api.Extensions;
@@ -15,6 +17,8 @@ public static class DependencyInjectionExtension
         IMapper mapperGeneric = configure.CreateMapper();
         services.AddSingleton(mapperGeneric);
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+        services.AddScoped<IUnitOfWork, UnityOfWork>();
 
         #region Services
         services.AddScoped<IUserService, UserService>();
