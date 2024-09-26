@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using Template.Arguments.Arguments;
+using Template.Arguments.General.Session;
 
 namespace Template.Domain.Extension;
 
@@ -24,12 +25,12 @@ public static class JwtExtension
 
     public static string GenerateJwtToken(List<Claim> claims)
     {
-        SymmetricSecurityKey securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JwtKey")!));
+        SymmetricSecurityKey securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(SessionData.Configuration!["Jwt:Key"]!));
         SigningCredentials credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
         JwtSecurityToken token = new JwtSecurityToken(
-            issuer: Environment.GetEnvironmentVariable("JwtIssuer"),
-            audience: Environment.GetEnvironmentVariable("JwtAudience"),
+            issuer: SessionData.Configuration!["Jwt:Issuer"],
+            audience: SessionData.Configuration!["Jwt:Audience"],
             claims: claims,
             expires: DateTime.Now.AddHours(24),
             signingCredentials: credentials);
@@ -45,9 +46,9 @@ public static class JwtExtension
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = Environment.GetEnvironmentVariable("JwtIssuer"),
-            ValidAudience = Environment.GetEnvironmentVariable("JwtAudience"),
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JwtKey")!))
+            ValidIssuer = SessionData.Configuration!["Jwt:Issuer"],
+            ValidAudience = SessionData.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(SessionData.Configuration["Jwt:Key"]!))
         };
 
         JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();

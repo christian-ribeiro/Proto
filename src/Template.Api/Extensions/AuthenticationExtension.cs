@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Template.Arguments.General.Session;
 
 namespace Template.Api.Extensions;
 
@@ -17,9 +18,9 @@ public static class AuthenticationExtension
                 ValidateAudience = true,
                 ValidateLifetime = true,
                 ValidateIssuerSigningKey = true,
-                ValidIssuer = Environment.GetEnvironmentVariable("JwtIssuer"),
-                ValidAudience = Environment.GetEnvironmentVariable("JwtAudience"),
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JwtKey")!))
+                ValidIssuer = SessionData.Configuration!["Jwt:Issuer"],
+                ValidAudience = SessionData.Configuration!["Jwt:Audience"],
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(SessionData.Configuration!["Jwt:Key"]!))
             };
         });
 

@@ -8,11 +8,7 @@
       "launchUrl": "swagger",
       "applicationUrl": "http://localhost:5005",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development",
-        "JwtIssuer": "http://localhost:5005",
-        "JwtAudience": "http://localhost:5005",
-        "JwtKey": "84fa1474-5eaf-46a5-9e8a-7e6ee694d48f",
-        "ConnectionString": "Server=127.0.0.1;Database=template;Uid=root;Pwd=root;"
+        "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
     "Development HTTPS": {

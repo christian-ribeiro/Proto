@@ -1,6 +1,9 @@
 using Template.Api.Extensions;
+using Template.Arguments.General.Session;
 
 var builder = WebApplication.CreateBuilder(args);
+
+SessionData.SetConfiguration(builder.Configuration);
 
 builder.Services.ConfigureContext();
 builder.Services.ConfigureCors();
