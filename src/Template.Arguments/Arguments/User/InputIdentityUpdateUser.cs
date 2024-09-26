@@ -1,5 +1,7 @@
-﻿using Template.Arguments.Arguments.Base;
+﻿using System.Text.Json.Serialization;
+using Template.Arguments.Arguments.Base;
 
 namespace Template.Arguments.Arguments;
 
-public class InputIdentityUpdateUser : BaseInputIdentityUpdate<InputUpdateUser> { }
+[method: JsonConstructor]
+public class InputIdentityUpdateUser(long id, InputUpdateUser? inputUpdate) : BaseInputIdentityUpdate<InputUpdateUser>(id, inputUpdate) { }

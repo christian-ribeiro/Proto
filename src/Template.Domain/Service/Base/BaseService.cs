@@ -1,12 +1,14 @@
 ﻿using Template.Arguments.Arguments.Base;
+using Template.Arguments.Enum;
 using Template.Arguments.General.Session;
+using Template.Domain.DTO;
 using Template.Domain.DTO.Base;
 using Template.Domain.Interface.Repository.Base;
 using Template.Domain.Interface.Service.Base;
 
 namespace Template.Domain.Service.Base;
 
-public class BaseService_0<TRepository, TOutput, TInputIdentifier, TInputCreate, TInputUpdate, TInputIdentityUpdate, TInputIdentityDelete, TDTO, TInternalPropertiesDTO, TExternalPropertiesDTO, TAuxiliaryPropertiesDTO>(TRepository repository) : IBaseService_0<TOutput, TInputIdentifier, TInputCreate, TInputUpdate, TInputIdentityUpdate, TInputIdentityDelete>
+public class BaseService_0<TRepository, TOutput, TInputIdentifier, TInputCreate, TInputUpdate, TInputIdentityUpdate, TInputIdentityDelete, TDTO, TValidateDTO, TInternalPropertiesDTO, TExternalPropertiesDTO, TAuxiliaryPropertiesDTO>(TRepository repository) : IBaseService_0<TOutput, TInputIdentifier, TInputCreate, TInputUpdate, TInputIdentityUpdate, TInputIdentityDelete>
         where TRepository : IBaseRepository_0<TOutput, TInputIdentifier, TInputCreate, TInputUpdate, TInputIdentityUpdate, TInputIdentityDelete, TDTO, TInternalPropertiesDTO, TExternalPropertiesDTO, TAuxiliaryPropertiesDTO>
         where TOutput : BaseOutput<TOutput>
         where TInputIdentifier : BaseInputIdentifier<TInputIdentifier>, new()
@@ -15,6 +17,7 @@ public class BaseService_0<TRepository, TOutput, TInputIdentifier, TInputCreate,
         where TInputIdentityUpdate : BaseInputIdentityUpdate<TInputUpdate>
         where TInputIdentityDelete : BaseInputIdentityDelete<TInputIdentityDelete>
         where TDTO : BaseDTO_0<TOutput, TInputIdentifier, TInputCreate, TInputUpdate, TInputIdentityUpdate, TInputIdentityDelete, TDTO, TInternalPropertiesDTO, TExternalPropertiesDTO, TAuxiliaryPropertiesDTO>, new()
+        where TValidateDTO : BaseValidateDTO
         where TInternalPropertiesDTO : BaseInternalPropertiesDTO<TInternalPropertiesDTO>, new()
         where TExternalPropertiesDTO : BaseExternalPropertiesDTO<TExternalPropertiesDTO>, new()
         where TAuxiliaryPropertiesDTO : BaseAuxiliaryPropertiesDTO<TAuxiliaryPropertiesDTO>, new()
@@ -22,6 +25,29 @@ public class BaseService_0<TRepository, TOutput, TInputIdentifier, TInputCreate,
     public Guid _guidSessionDataRequest;
     protected readonly TRepository _repository = repository;
 
+    #region Validate
+    public virtual bool CanExecuteProcess(List<TValidateDTO> listValidateDTO, EnumProcessType processType)
+    {
+        throw new NotImplementedException();
+    }
+
+    public List<TValidateDTO> GetListValidDTO(List<TValidateDTO> listValidateDTO)
+    {
+        return (from i in listValidateDTO where !i.Invalid select i).ToList();
+    }
+
+    public bool HasValidItem(List<TValidateDTO> listValidateDTO)
+    {
+        return (from i in listValidateDTO where !i.Invalid select i).Any();
+    }
+
+    public bool InvalidLength(int minLength, int maxLength, string? value)
+    {
+        return value?.Length < minLength || value?.Length > maxLength;
+    }
+    #endregion
+
+    #region Read
     public virtual TOutput Get(long id)
     {
         return FromDTOToOutput(_repository.Get(id));
@@ -46,7 +72,9 @@ public class BaseService_0<TRepository, TOutput, TInputIdentifier, TInputCreate,
     {
         return FromDTOToOutput(_repository.GetListByListId(listId));
     }
+    #endregion
 
+    #region Create
     public long Create(TInputCreate inputCreate)
     {
         return Create([inputCreate]).FirstOrDefault();
@@ -56,6 +84,9 @@ public class BaseService_0<TRepository, TOutput, TInputIdentifier, TInputCreate,
     {
         throw new NotImplementedException();
     }
+    #endregion
+
+    #region Update
     public long Update(TInputIdentityUpdate inputIdentityUpdate)
     {
         return Update([inputIdentityUpdate]).FirstOrDefault();
@@ -65,7 +96,9 @@ public class BaseService_0<TRepository, TOutput, TInputIdentifier, TInputCreate,
     {
         throw new NotImplementedException();
     }
+    #endregion
 
+    #region Delete
     public bool Delete(TInputIdentityDelete inputIdentityDelete)
     {
         return Delete([inputIdentityDelete]);
@@ -75,7 +108,9 @@ public class BaseService_0<TRepository, TOutput, TInputIdentifier, TInputCreate,
     {
         throw new NotImplementedException();
     }
+    #endregion
 
+    #region Custom
     internal TOutput FromDTOToOutput(TDTO dto)
     {
         return SessionData.Mapper!.MapperDTOOutput.Map<TDTO, TOutput>(dto);
@@ -85,10 +120,13 @@ public class BaseService_0<TRepository, TOutput, TInputIdentifier, TInputCreate,
     {
         return SessionData.Mapper!.MapperDTOOutput.Map<List<TDTO>, List<TOutput>>(listDTO);
     }
+    #endregion
 
+    #region Internal
     public void SetGuid(Guid guidSessionDataRequest)
     {
         _guidSessionDataRequest = guidSessionDataRequest;
         SessionHelper.SetGuidSessionDataRequest(this, guidSessionDataRequest);
     }
+    #endregion
 }

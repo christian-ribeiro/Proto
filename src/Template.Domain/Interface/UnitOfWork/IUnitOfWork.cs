@@ -1,7 +1,6 @@
-﻿namespace Template.Domain.Interface
+﻿namespace Template.Domain.Interface;
+
+public interface IUnitOfWork
 {
-    public interface IUnitOfWork
-    {
-        Task CommitAsync();
-    }
+    Task CommitAsync();
 }

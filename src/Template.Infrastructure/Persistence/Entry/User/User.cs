@@ -10,8 +10,8 @@ public class User : BaseEntry<User>
     public string Password { get; private set; }
     public string Email { get; private set; }
     public EnumLanguage Language { get; private set; }
-    public string RefreshToken { get; private set; }
-    public Guid LoginKey { get; private set; }
+    public string? RefreshToken { get; private set; }
+    public Guid? LoginKey { get; private set; }
 
     #region Virtual Properties
     #region External
@@ -22,7 +22,7 @@ public class User : BaseEntry<User>
 
     public User() { }
 
-    public User(string code, string name, string password, string email, EnumLanguage language, string refreshToken, Guid loginKey, List<User> listCreationUserUser, List<User> listChangeUserUser)
+    public User(string code, string name, string password, string email, EnumLanguage language, string? refreshToken, Guid? loginKey, List<User> listCreationUserUser, List<User> listChangeUserUser)
     {
         Code = code;
         Name = name;
