@@ -22,10 +22,12 @@ public static class DependencyInjectionExtension
 
         #region Services
         services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IMenuService, MenuService>();
         #endregion
 
         #region Repositories
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IMenuRepository, MenuRepository>();
         #endregion
 
         return services;

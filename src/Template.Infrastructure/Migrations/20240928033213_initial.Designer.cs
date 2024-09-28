@@ -11,8 +11,8 @@ using Template.Infrastructure.Persistence.Context;
 namespace Template.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240926215418_update-nullable-field")]
-    partial class updatenullablefield
+    [Migration("20240928033213_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,6 +21,65 @@ namespace Template.Infrastructure.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "8.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
+
+            modelBuilder.Entity("Template.Infrastructure.Persistence.Entry.Menu", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("descricao");
+
+                    b.Property<string>("Icon")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("icone");
+
+                    b.Property<long?>("ParentMenuId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("id_menu_pai");
+
+                    b.Property<int>("Position")
+                        .HasColumnType("int")
+                        .HasColumnName("posicao");
+
+                    b.Property<string>("Route")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("rota");
+
+                    b.HasKey("Id")
+                        .HasName("id");
+
+                    b.HasIndex("ParentMenuId");
+
+                    b.ToTable("menu", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Description = "Sistema",
+                            Icon = "icon-sistema",
+                            Position = 1,
+                            Route = "/Sistema"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            Description = "Usuário",
+                            Icon = "icon-user",
+                            ParentMenuId = 1L,
+                            Position = 2,
+                            Route = "/Usuario"
+                        });
+                });
 
             modelBuilder.Entity("Template.Infrastructure.Persistence.Entry.User", b =>
                 {
@@ -89,6 +148,28 @@ namespace Template.Infrastructure.Migrations
                     b.HasIndex("CreationUserId");
 
                     b.ToTable("usuario", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Code = "001",
+                            CreationDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "christian.des.ribeiro@gmail.com",
+                            Language = 0,
+                            Name = "Christian Ribeiro",
+                            Password = "$2a$11$252h2vGrxOa1D/ZO.SCreebeBKyQfoa8MAo4V6wx7O21U3nfxbXWO"
+                        });
+                });
+
+            modelBuilder.Entity("Template.Infrastructure.Persistence.Entry.Menu", b =>
+                {
+                    b.HasOne("Template.Infrastructure.Persistence.Entry.Menu", "ParentMenu")
+                        .WithMany("ListMenu")
+                        .HasForeignKey("ParentMenuId")
+                        .HasConstraintName("fk_menu_id_menu_pai");
+
+                    b.Navigation("ParentMenu");
                 });
 
             modelBuilder.Entity("Template.Infrastructure.Persistence.Entry.User", b =>
@@ -106,6 +187,11 @@ namespace Template.Infrastructure.Migrations
                     b.Navigation("ChangeUser");
 
                     b.Navigation("CreationUser");
+                });
+
+            modelBuilder.Entity("Template.Infrastructure.Persistence.Entry.Menu", b =>
+                {
+                    b.Navigation("ListMenu");
                 });
 
             modelBuilder.Entity("Template.Infrastructure.Persistence.Entry.User", b =>

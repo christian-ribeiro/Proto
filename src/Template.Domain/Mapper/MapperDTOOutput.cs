@@ -22,7 +22,19 @@ public class MapperDTOOutput : Profile
         CreateMap<InternalPropertiesUserDTO, OutputUser>();
         CreateMap<ExternalPropertiesUserDTO, OutputUser>();
         CreateMap<AuxiliaryPropertiesUserDTO, OutputUser>();
+        #endregion
 
+        #region Menu
+        CreateMap<OutputMenu, MenuDTO>()
+            .ForMember(dest => dest.InternalPropertiesDTO, opt => opt.MapFrom(src => src))
+            .ForMember(dest => dest.AuxiliaryPropertiesDTO, opt => opt.MapFrom(src => src))
+            .ReverseMap();
+
+        CreateMap<OutputMenu, InternalPropertiesMenuDTO>();
+        CreateMap<OutputMenu, AuxiliaryPropertiesMenuDTO>();
+
+        CreateMap<InternalPropertiesMenuDTO, OutputMenu>();
+        CreateMap<AuxiliaryPropertiesMenuDTO, OutputMenu>();
         #endregion
     }
 }

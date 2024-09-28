@@ -1,5 +1,4 @@
-﻿using Template.Arguments.Arguments;
-using Template.Domain.DTO.Base;
+﻿using Template.Domain.DTO.Base;
 
 namespace Template.Domain.DTO;
 

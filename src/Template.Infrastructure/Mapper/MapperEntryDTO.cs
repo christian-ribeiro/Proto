@@ -23,5 +23,18 @@ public class MapperEntryDTO : Profile
         CreateMap<ExternalPropertiesUserDTO, User>();
         CreateMap<AuxiliaryPropertiesUserDTO, User>();
         #endregion
+
+        #region Menu
+        CreateMap<Menu, MenuDTO>()
+            .ForMember(dest => dest.InternalPropertiesDTO, opt => opt.MapFrom(src => src))
+            .ForMember(dest => dest.AuxiliaryPropertiesDTO, opt => opt.MapFrom(src => src))
+            .ReverseMap();
+
+        CreateMap<Menu, InternalPropertiesMenuDTO>();
+        CreateMap<Menu, AuxiliaryPropertiesMenuDTO>();
+
+        CreateMap<InternalPropertiesMenuDTO, Menu>();
+        CreateMap<AuxiliaryPropertiesMenuDTO, Menu>();
+        #endregion
     }
 }
