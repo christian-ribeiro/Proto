@@ -86,5 +86,21 @@ public class MapperDTOOutput : Profile
         CreateMap<ExternalPropertiesBrandDTO, OutputBrand>();
         CreateMap<AuxiliaryPropertiesBrandDTO, OutputBrand>();
         #endregion
+
+        #region Product
+        CreateMap<OutputProduct, ProductDTO>()
+            .ForMember(dest => dest.InternalPropertiesDTO, opt => opt.MapFrom(src => src))
+            .ForMember(dest => dest.ExternalPropertiesDTO, opt => opt.MapFrom(src => src))
+            .ForMember(dest => dest.AuxiliaryPropertiesDTO, opt => opt.MapFrom(src => src))
+            .ReverseMap();
+
+        CreateMap<OutputProduct, InternalPropertiesProductDTO>();
+        CreateMap<OutputProduct, ExternalPropertiesProductDTO>();
+        CreateMap<OutputProduct, AuxiliaryPropertiesProductDTO>();
+
+        CreateMap<InternalPropertiesProductDTO, OutputProduct>();
+        CreateMap<ExternalPropertiesProductDTO, OutputProduct>();
+        CreateMap<AuxiliaryPropertiesProductDTO, OutputProduct>();
+        #endregion
     }
 }

@@ -51,6 +51,6 @@ public class UserMap : IEntityTypeConfiguration<User>
         builder.Property(x => x.PasswordRecoveryCode).HasColumnName("codigo_recuperacao_senha");
         builder.Property(x => x.PasswordRecoveryCode).HasMaxLength(6);
 
-        builder.HasData(new User("001", "Christian Ribeiro", "$2a$11$252h2vGrxOa1D/ZO.SCreebeBKyQfoa8MAo4V6wx7O21U3nfxbXWO", "christian.des.ribeiro@gmail.com", EnumLanguage.Portuguese, default, default, default, default, default, default, default, default, default, default, default).SetInternalData(1, DateTime.MinValue, default, default, default));
+        builder.HasData(new User("001", "Christian Ribeiro", "$2a$11$252h2vGrxOa1D/ZO.SCreebeBKyQfoa8MAo4V6wx7O21U3nfxbXWO", "christian.des.ribeiro@gmail.com", EnumLanguage.Portuguese, default, default, default, default, default, default, default, default, default, default, default, default, default).SetInternalData(1, DateTime.MinValue, default, default, default));
     }
 }

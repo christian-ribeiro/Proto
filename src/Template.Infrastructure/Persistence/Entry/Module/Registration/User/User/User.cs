@@ -34,13 +34,17 @@ public class User : BaseEntry<User>
     public virtual List<Brand>? ListCreationUserBrand { get; private set; }
     public virtual List<Brand>? ListChangeUserBrand { get; private set; }
     #endregion
+    #region Brand
+    public virtual List<Product>? ListCreationUserProduct { get; private set; }
+    public virtual List<Product>? ListChangeUserProduct { get; private set; }
+    #endregion
     #endregion
     #endregion
 
     public User() { }
 
     [JsonConstructor]
-    public User(string code, string name, string password, string email, EnumLanguage language, string? refreshToken, Guid? loginKey, string? passwordRecoveryCode, List<User>? listCreationUserUser, List<User>? listChangeUserUser, List<UserMenu>? listCreationUserUserMenu, List<UserMenu>? listChangeUserUserMenu, List<EmailConfiguration>? listCreationUserEmailConfiguration, List<EmailConfiguration>? listChangeUserEmailConfiguration, List<Brand>? listCreationUserBrand, List<Brand>? listChangeUserBrand)
+    public User(string code, string name, string password, string email, EnumLanguage language, string? refreshToken, Guid? loginKey, string? passwordRecoveryCode, List<User>? listCreationUserUser, List<User>? listChangeUserUser, List<UserMenu>? listCreationUserUserMenu, List<UserMenu>? listChangeUserUserMenu, List<EmailConfiguration>? listCreationUserEmailConfiguration, List<EmailConfiguration>? listChangeUserEmailConfiguration, List<Brand>? listCreationUserBrand, List<Brand>? listChangeUserBrand, List<Product>? listCreationUserProduct, List<Product>? listChangeUserProduct)
     {
         Code = code;
         Name = name;
@@ -58,5 +62,7 @@ public class User : BaseEntry<User>
         ListChangeUserEmailConfiguration = listChangeUserEmailConfiguration;
         ListCreationUserBrand = listCreationUserBrand;
         ListChangeUserBrand = listChangeUserBrand;
+        ListCreationUserProduct = listCreationUserProduct;
+        ListChangeUserProduct = listChangeUserProduct;
     }
 }
