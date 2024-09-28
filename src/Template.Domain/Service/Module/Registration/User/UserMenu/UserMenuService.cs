@@ -1,5 +1,6 @@
 ﻿using Template.Arguments.Arguments.Module.Registration;
 using Template.Arguments.Enum;
+using Template.Arguments.General.Session;
 using Template.Domain.DTO.Module.Registration;
 using Template.Domain.Interface.Repository.Module.Registration;
 using Template.Domain.Interface.Service.Module.Registration;
@@ -101,6 +102,41 @@ public class UserMenuService(IUserMenuRepository repository, IMenuRepository men
 
         List<UserMenuDTO> listUpdateUserMenu = (from i in GetListValidDTO(listUserMenuValidateDTO) select i.OriginalUserMenuDTO).ToList();
         return _repository.Delete(listUpdateUserMenu);
+    }
+    #endregion
+
+    #region Replace
+    public List<long> Replace(List<InputReplaceUserMenu> listInputReplaceUserMenu)
+    {
+        long loggedUserId = SessionData.GetLoggedUser(_guidSessionDataRequest)!.Id;
+
+        List<UserMenuDTO> listOriginalUserMenuDTO = _repository.GetListByListIdentifier((from i in listInputReplaceUserMenu select new InputIdentifierUserMenu(loggedUserId, i.MenuId)).ToList(), true);
+        List<MenuDTO> listRelatedMenuDTO = _menuRepository.GetListByListId((from i in listInputReplaceUserMenu select i.MenuId).ToList(), true);
+
+        var listReplace = (from i in listInputReplaceUserMenu
+                           let originalUserMenuDTO = (from j in listOriginalUserMenuDTO where j.ExternalPropertiesDTO.MenuId == i.MenuId select j).FirstOrDefault()
+                           select new
+                           {
+                               Index = listInputReplaceUserMenu.IndexOf(i),
+                               InputReplaceUserMenu = i,
+                               OriginalUserMenuDTO = originalUserMenuDTO,
+                               RelatedMenuDTO = (from j in listRelatedMenuDTO where j.InternalPropertiesDTO.Id == i.MenuId select j).FirstOrDefault()
+                           }).ToList();
+
+        List<UserMenuValidateDTO> listUserMenuValidateDTO = (from i in listReplace select new UserMenuValidateDTO().ValidateReplace(i.InputReplaceUserMenu, i.OriginalUserMenuDTO, i.RelatedMenuDTO)).ToList();
+        CanExecuteProcess(listUserMenuValidateDTO, EnumProcessType.Create);
+        if (!HasValidItem(listUserMenuValidateDTO))
+            return [];
+
+        var listUpdateUserMenu = (from i in GetListValidDTO(listUserMenuValidateDTO) where i.OriginalUserMenuDTO != null select new UserMenuDTO().Update(_guidSessionDataRequest, new ExternalPropertiesUserMenuDTO(i.OriginalUserMenuDTO!.ExternalPropertiesDTO.MenuId, i.InputReplaceUserMenu!.Position, i.InputReplaceUserMenu!.Favorite, i.InputReplaceUserMenu!.Visible), i.OriginalUserMenuDTO.InternalPropertiesDTO)).ToList();
+        var listCreateUserMenu = (from i in GetListValidDTO(listUserMenuValidateDTO) where i.OriginalUserMenuDTO == null select new UserMenuDTO().Create(_guidSessionDataRequest, new ExternalPropertiesUserMenuDTO(i.InputReplaceUserMenu!.MenuId, i.InputReplaceUserMenu!.Position, i.InputReplaceUserMenu!.Favorite, i.InputReplaceUserMenu!.Visible))).ToList();
+
+        List<long> listId = [
+            .._repository.Update(listUpdateUserMenu),
+            .._repository.Create(listCreateUserMenu)
+        ];
+
+        return listId;
     }
     #endregion
     #endregion

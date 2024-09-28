@@ -25,4 +25,11 @@ public class UserMenuPropertyValidateDTO : BaseValidateDTO
         OriginalUserMenuDTO = originalUserMenuDTO;
         return this;
     }
+
+    public UserMenuPropertyValidateDTO ValidateReplace(UserMenuDTO? originalUserMenuDTO, MenuDTO? relatedMenuDTO)
+    {
+        OriginalUserMenuDTO = originalUserMenuDTO;
+        RelatedMenuDTO = relatedMenuDTO;
+        return this;
+    }
 }

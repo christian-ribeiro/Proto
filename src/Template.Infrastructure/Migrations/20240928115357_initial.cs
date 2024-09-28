@@ -72,6 +72,44 @@ namespace Template.Infrastructure.Migrations
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
+            migrationBuilder.CreateTable(
+                name: "menu_usuario",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    id_menu = table.Column<long>(type: "bigint", nullable: false),
+                    posicao = table.Column<int>(type: "int", nullable: false),
+                    favorito = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    visivel = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    data_criacao = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    data_alteracao = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    id_usuario_criacao = table.Column<long>(type: "bigint", nullable: false),
+                    id_usuario_alteracao = table.Column<long>(type: "bigint", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("id", x => x.Id);
+                    table.ForeignKey(
+                        name: "fk_menu_usuario_id_menu",
+                        column: x => x.id_menu,
+                        principalTable: "menu",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_menu_usuario_id_usuario_alteracao",
+                        column: x => x.id_usuario_alteracao,
+                        principalTable: "usuario",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "fk_menu_usuario_id_usuario_criacao",
+                        column: x => x.id_usuario_criacao,
+                        principalTable: "usuario",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
             migrationBuilder.InsertData(
                 table: "menu",
                 columns: new[] { "Id", "descricao", "icone", "id_menu_pai", "posicao", "rota" },
@@ -93,6 +131,21 @@ namespace Template.Infrastructure.Migrations
                 column: "id_menu_pai");
 
             migrationBuilder.CreateIndex(
+                name: "IX_menu_usuario_id_menu",
+                table: "menu_usuario",
+                column: "id_menu");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_menu_usuario_id_usuario_alteracao",
+                table: "menu_usuario",
+                column: "id_usuario_alteracao");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_menu_usuario_id_usuario_criacao",
+                table: "menu_usuario",
+                column: "id_usuario_criacao");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_usuario_id_usuario_alteracao",
                 table: "usuario",
                 column: "id_usuario_alteracao");
@@ -106,6 +159,9 @@ namespace Template.Infrastructure.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "menu_usuario");
+
             migrationBuilder.DropTable(
                 name: "menu");
 

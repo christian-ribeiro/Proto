@@ -7,6 +7,7 @@ public class UserMenuValidateDTO : UserMenuPropertyValidateDTO
     public InputCreateUserMenu? InputCreateUserMenu { get; private set; }
     public InputIdentityUpdateUserMenu? InputIdentityUpdateUserMenu { get; private set; }
     public InputIdentityDeleteUserMenu? InputIdentityDeleteUserMenu { get; private set; }
+    public InputReplaceUserMenu? InputReplaceUserMenu { get; private set; }
 
     public UserMenuValidateDTO ValidateCreate(InputCreateUserMenu inputCreateUserMenu, UserMenuDTO? originalUserMenuDTO, MenuDTO relatedMenuDTO)
     {
@@ -26,6 +27,13 @@ public class UserMenuValidateDTO : UserMenuPropertyValidateDTO
     {
         InputIdentityDeleteUserMenu = inputIdentityDeleteUserMenu;
         ValidateDelete(originalUserMenuDTO);
+        return this;
+    }
+
+    public UserMenuValidateDTO ValidateReplace(InputReplaceUserMenu inputReplaceUserMenu, UserMenuDTO? originalUserMenuDTO, MenuDTO relatedMenuDTO)
+    {
+        InputReplaceUserMenu = inputReplaceUserMenu;
+        ValidateReplace(originalUserMenuDTO, relatedMenuDTO);
         return this;
     }
 }

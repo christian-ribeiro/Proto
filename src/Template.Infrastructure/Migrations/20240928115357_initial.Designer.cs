@@ -11,7 +11,7 @@ using Template.Infrastructure.Persistence.Context;
 namespace Template.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240928033213_initial")]
+    [Migration("20240928115357_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -22,7 +22,7 @@ namespace Template.Infrastructure.Migrations
                 .HasAnnotation("ProductVersion", "8.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("Template.Infrastructure.Persistence.Entry.Menu", b =>
+            modelBuilder.Entity("Template.Infrastructure.Persistence.Entry.Module.Registration.Menu", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -81,7 +81,7 @@ namespace Template.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Template.Infrastructure.Persistence.Entry.User", b =>
+            modelBuilder.Entity("Template.Infrastructure.Persistence.Entry.Module.Registration.User", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -162,9 +162,60 @@ namespace Template.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Template.Infrastructure.Persistence.Entry.Menu", b =>
+            modelBuilder.Entity("Template.Infrastructure.Persistence.Entry.Module.Registration.UserMenu", b =>
                 {
-                    b.HasOne("Template.Infrastructure.Persistence.Entry.Menu", "ParentMenu")
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("ChangeDate")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("data_alteracao");
+
+                    b.Property<long?>("ChangeUserId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("id_usuario_alteracao");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("data_criacao");
+
+                    b.Property<long?>("CreationUserId")
+                        .IsRequired()
+                        .HasColumnType("bigint")
+                        .HasColumnName("id_usuario_criacao");
+
+                    b.Property<bool>("Favorite")
+                        .HasColumnType("tinyint(1)")
+                        .HasColumnName("favorito");
+
+                    b.Property<long>("MenuId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("id_menu");
+
+                    b.Property<int>("Position")
+                        .HasColumnType("int")
+                        .HasColumnName("posicao");
+
+                    b.Property<bool>("Visible")
+                        .HasColumnType("tinyint(1)")
+                        .HasColumnName("visivel");
+
+                    b.HasKey("Id")
+                        .HasName("id");
+
+                    b.HasIndex("ChangeUserId");
+
+                    b.HasIndex("CreationUserId");
+
+                    b.HasIndex("MenuId");
+
+                    b.ToTable("menu_usuario", (string)null);
+                });
+
+            modelBuilder.Entity("Template.Infrastructure.Persistence.Entry.Module.Registration.Menu", b =>
+                {
+                    b.HasOne("Template.Infrastructure.Persistence.Entry.Module.Registration.Menu", "ParentMenu")
                         .WithMany("ListMenu")
                         .HasForeignKey("ParentMenuId")
                         .HasConstraintName("fk_menu_id_menu_pai");
@@ -172,14 +223,14 @@ namespace Template.Infrastructure.Migrations
                     b.Navigation("ParentMenu");
                 });
 
-            modelBuilder.Entity("Template.Infrastructure.Persistence.Entry.User", b =>
+            modelBuilder.Entity("Template.Infrastructure.Persistence.Entry.Module.Registration.User", b =>
                 {
-                    b.HasOne("Template.Infrastructure.Persistence.Entry.User", "ChangeUser")
+                    b.HasOne("Template.Infrastructure.Persistence.Entry.Module.Registration.User", "ChangeUser")
                         .WithMany("ListChangeUserUser")
                         .HasForeignKey("ChangeUserId")
                         .HasConstraintName("fk_usuario_id_usuario_alteracao");
 
-                    b.HasOne("Template.Infrastructure.Persistence.Entry.User", "CreationUser")
+                    b.HasOne("Template.Infrastructure.Persistence.Entry.Module.Registration.User", "CreationUser")
                         .WithMany("ListCreationUserUser")
                         .HasForeignKey("CreationUserId")
                         .HasConstraintName("fk_usuario_id_usuario_criacao");
@@ -189,16 +240,50 @@ namespace Template.Infrastructure.Migrations
                     b.Navigation("CreationUser");
                 });
 
-            modelBuilder.Entity("Template.Infrastructure.Persistence.Entry.Menu", b =>
+            modelBuilder.Entity("Template.Infrastructure.Persistence.Entry.Module.Registration.UserMenu", b =>
                 {
-                    b.Navigation("ListMenu");
+                    b.HasOne("Template.Infrastructure.Persistence.Entry.Module.Registration.User", "ChangeUser")
+                        .WithMany("ListChangeUserUserMenu")
+                        .HasForeignKey("ChangeUserId")
+                        .HasConstraintName("fk_menu_usuario_id_usuario_alteracao");
+
+                    b.HasOne("Template.Infrastructure.Persistence.Entry.Module.Registration.User", "CreationUser")
+                        .WithMany("ListCreationUserUserMenu")
+                        .HasForeignKey("CreationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_menu_usuario_id_usuario_criacao");
+
+                    b.HasOne("Template.Infrastructure.Persistence.Entry.Module.Registration.Menu", "Menu")
+                        .WithMany("ListUserMenu")
+                        .HasForeignKey("MenuId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_menu_usuario_id_menu");
+
+                    b.Navigation("ChangeUser");
+
+                    b.Navigation("CreationUser");
+
+                    b.Navigation("Menu");
                 });
 
-            modelBuilder.Entity("Template.Infrastructure.Persistence.Entry.User", b =>
+            modelBuilder.Entity("Template.Infrastructure.Persistence.Entry.Module.Registration.Menu", b =>
+                {
+                    b.Navigation("ListMenu");
+
+                    b.Navigation("ListUserMenu");
+                });
+
+            modelBuilder.Entity("Template.Infrastructure.Persistence.Entry.Module.Registration.User", b =>
                 {
                     b.Navigation("ListChangeUserUser");
 
+                    b.Navigation("ListChangeUserUserMenu");
+
                     b.Navigation("ListCreationUserUser");
+
+                    b.Navigation("ListCreationUserUserMenu");
                 });
 #pragma warning restore 612, 618
         }
