@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using Template.Arguments.Arguments.Module.Registration;
 using Template.Arguments.Enum;
+using Template.Arguments.General.Session;
 using Template.Domain.DTO.Module.General;
 using Template.Domain.DTO.Module.Registration;
 using Template.Domain.Extension;
@@ -216,9 +217,9 @@ public class UserService(IUserRepository repository, IEmailService emailService,
         return new OutputAuthenticateUser(token, refreshToken, FromDTOToOutput(originalUserDTO));
     }
 
-    public async Task<bool> SendEmailRedefinePassword(InputSendEmailRedefinePasswordUser inputSendEmailRedefinePasswordUser)
+    public async Task<bool> SendEmailForgotPassword(InputSendEmailForgotPasswordUser inputSendEmailForgotPasswordUser)
     {
-        UserDTO originalUserDTO = _repository.GetByIdentifier(new InputIdentifierUser(inputSendEmailRedefinePasswordUser.Email), true);
+        UserDTO originalUserDTO = _repository.GetByIdentifier(new InputIdentifierUser(inputSendEmailForgotPasswordUser.Email), true);
 
         if (originalUserDTO != null)
         {
@@ -236,20 +237,41 @@ public class UserService(IUserRepository repository, IEmailService emailService,
             htmlTemplate = htmlTemplate.Replace("{{CODE}}", recoveryCode);
 
             EmailConfigurationDTO emailConfigurationDTO = emailConfigurationRepository.GetByType(EnumEmailConfigurationType.RecoveryPassword)!;
-            await emailService.SendEmailAsync(inputSendEmailRedefinePasswordUser.Email, "Esqueci a Senha", htmlTemplate, true, emailConfigurationDTO);
+            await emailService.SendEmailAsync(inputSendEmailForgotPasswordUser.Email, "Esqueci a Senha", htmlTemplate, true, emailConfigurationDTO);
         }
 
         return await Task.FromResult(true);
     }
 
-    public bool RedefinePassword(InputRedefinePasswordUser inputRedefinePasswordUser)
+    public bool RedefinePasswordForgotPassword(InputRedefinePasswordForgotPasswordUser inputRedefinePasswordForgotPasswordUser)
     {
-        UserDTO? originalUserDTO = _repository.GetByPasswordRecoveryCode(inputRedefinePasswordUser.PasswordRecoveryCode);
+        UserDTO? originalUserDTO = _repository.GetByPasswordRecoveryCode(inputRedefinePasswordForgotPasswordUser.PasswordRecoveryCode);
 
         if (originalUserDTO != null)
         {
-            originalUserDTO.ExternalPropertiesDTO.SetProperty(nameof(originalUserDTO.ExternalPropertiesDTO.Password), EncryptService.Encrypt(inputRedefinePasswordUser.NewPassword));
+            originalUserDTO.ExternalPropertiesDTO.SetProperty(nameof(originalUserDTO.ExternalPropertiesDTO.Password), EncryptService.Encrypt(inputRedefinePasswordForgotPasswordUser.NewPassword));
             originalUserDTO.InternalPropertiesDTO.SetProperty<string>(nameof(originalUserDTO.InternalPropertiesDTO.PasswordRecoveryCode), null);
+            _repository.Update(originalUserDTO);
+        }
+
+        return true;
+    }
+
+    public bool RedefinePassword(InputRedefinePasswordUser inputRedefinePasswordUser)
+    {
+        long loggedUserId = SessionData.GetLoggedUser(_guidSessionDataRequest)!.Id;
+
+        UserDTO? originalUserDTO = _repository.Get(loggedUserId, true);
+
+        if (originalUserDTO != null)
+        {
+            if (!inputRedefinePasswordUser.CurrentPassword.CompareHash(originalUserDTO.ExternalPropertiesDTO.Password))
+                throw new Exception("Senha inválida");
+
+            if (!inputRedefinePasswordUser.CurrentPassword.CompareHash(originalUserDTO.ExternalPropertiesDTO.Password) || string.IsNullOrEmpty(inputRedefinePasswordUser.NewPassword) || inputRedefinePasswordUser.NewPassword != inputRedefinePasswordUser.ConfirmNewPassword)
+                throw new Exception("Senhas não conferem");
+
+            originalUserDTO.ExternalPropertiesDTO.SetProperty(nameof(originalUserDTO.ExternalPropertiesDTO.Password), EncryptService.Encrypt(inputRedefinePasswordUser.NewPassword));
             _repository.Update(originalUserDTO);
         }
 

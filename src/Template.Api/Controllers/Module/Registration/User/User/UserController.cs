@@ -44,12 +44,12 @@ public class UserController(IUnitOfWork unitOfWork, IUserService service) : Base
     }
 
     [AllowAnonymous]
-    [HttpPost("SendEmailRedefinePassword")]
-    public async Task<ActionResult<BaseResponseApi<OutputAuthenticateUser>>> SendEmailRedefinePassword([FromBody] InputSendEmailRedefinePasswordUser inputSendEmailRedefinePasswordUser)
+    [HttpPost("SendEmailForgotPassword")]
+    public async Task<ActionResult<BaseResponseApi<OutputAuthenticateUser>>> SendEmailForgotPassword([FromBody] InputSendEmailForgotPasswordUser inputSendEmailForgotPasswordUser)
     {
         try
         {
-            var result = await _userService.SendEmailRedefinePassword(inputSendEmailRedefinePasswordUser);
+            var result = await _userService.SendEmailForgotPassword(inputSendEmailForgotPasswordUser);
             return await ResponseAsync(result);
         }
         catch (Exception ex)
@@ -59,7 +59,21 @@ public class UserController(IUnitOfWork unitOfWork, IUserService service) : Base
     }
 
     [AllowAnonymous]
-    [HttpPost("RedefinePassword")]
+    [HttpPut("RedefinePasswordForgotPassword")]
+    public async Task<ActionResult<BaseResponseApi<OutputAuthenticateUser>>> RedefinePasswordForgotPassword([FromBody] InputRedefinePasswordForgotPasswordUser inputRedefinePasswordForgotPasswordUser)
+    {
+        try
+        {
+            var result = _userService.RedefinePasswordForgotPassword(inputRedefinePasswordForgotPasswordUser);
+            return await ResponseAsync(result);
+        }
+        catch (Exception ex)
+        {
+            return await ResponseExceptionAsync(ex);
+        }
+    }
+
+    [HttpPut("RedefinePassword")]
     public async Task<ActionResult<BaseResponseApi<OutputAuthenticateUser>>> RedefinePassword([FromBody] InputRedefinePasswordUser inputRedefinePasswordUser)
     {
         try
