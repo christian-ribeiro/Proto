@@ -18,5 +18,16 @@ public class MapperInputDTO : Profile
         CreateMap<InputCreateUser, ExternalPropertiesUserDTO>();
         CreateMap<InputUpdateUser, ExternalPropertiesUserDTO>();
         #endregion
+
+        #region UserMenu
+        CreateMap<InputCreateUserMenu, UserMenuDTO>()
+            .ForMember(dest => dest.ExternalPropertiesDTO, opt => opt.MapFrom(src => src));
+
+        CreateMap<InputUpdateUserMenu, UserMenuDTO>()
+            .ForMember(dest => dest.ExternalPropertiesDTO, opt => opt.MapFrom(src => src));
+
+        CreateMap<InputCreateUserMenu, ExternalPropertiesUserMenuDTO>();
+        CreateMap<InputUpdateUserMenu, ExternalPropertiesUserMenuDTO>();
+        #endregion
     }
 }

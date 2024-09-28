@@ -3,13 +3,26 @@ using Template.Arguments.Enum;
 
 namespace Template.Arguments.Arguments;
 
-public class OutputUser(string code, string name, string password, string email, EnumLanguage language, string? refreshToken, Guid? loginKey) : BaseOutput<OutputUser>
+public class OutputUser: BaseOutput<OutputUser>
 {
-    public string Code { get; set; } = code;
-    public string Name { get; set; } = name;
-    public string Password { get; set; } = password;
-    public string Email { get; set; } = email;
-    public EnumLanguage Language { get; set; } = language;
-    public string? RefreshToken { get; private set; } = refreshToken;
-    public Guid? LoginKey { get; private set; } = loginKey;
+    public string Code { get; set; }
+    public string Name { get; set; }
+    public string Password { get; set; }
+    public string Email { get; set; }
+    public EnumLanguage Language { get; set; }
+    public string? RefreshToken { get;  set; }
+    public Guid? LoginKey { get;  set; }
+
+    public OutputUser() { }
+
+    public OutputUser(string code, string name, string password, string email, EnumLanguage language, string? refreshToken, Guid? loginKey)
+    {
+        Code = code;
+        Name = name;
+        Password = password;
+        Email = email;
+        Language = language;
+        RefreshToken = refreshToken;
+        LoginKey = loginKey;
+    }
 }

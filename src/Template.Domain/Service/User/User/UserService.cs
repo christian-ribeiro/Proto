@@ -87,15 +87,15 @@ public class UserService(IUserRepository repository) : BaseService_0<IUserReposi
     #endregion
 
     #region Create
-    public override List<long> Create(List<InputCreateUser> listInputCreate)
+    public override List<long> Create(List<InputCreateUser> listInputCreateUser)
     {
-        List<UserDTO> listOriginalUser = _repository.GetListByListIdentifier((from i in listInputCreate select new InputIdentifierUser(i.Email)).ToList(), true);
+        List<UserDTO> listOriginalUserDTO = _repository.GetListByListIdentifier((from i in listInputCreateUser select new InputIdentifierUser(i.Email)).ToList(), true);
 
-        var listCreate = (from i in listInputCreate
-                          let originalUserDTO = (from j in listOriginalUser where j.ExternalPropertiesDTO.Email == i.Email select j).FirstOrDefault()
+        var listCreate = (from i in listInputCreateUser
+                          let originalUserDTO = (from j in listOriginalUserDTO where j.ExternalPropertiesDTO.Email == i.Email select j).FirstOrDefault()
                           select new
                           {
-                              Index = listInputCreate.IndexOf(i),
+                              Index = listInputCreateUser.IndexOf(i),
                               InputCreateUser = i,
                               OriginalUserDTO = originalUserDTO
                           }).ToList();
@@ -106,21 +106,21 @@ public class UserService(IUserRepository repository) : BaseService_0<IUserReposi
         if (!HasValidItem(listUserValidateDTO))
             return [];
 
-        List<UserDTO> listCreasteUser = (from i in GetListValidDTO(listUserValidateDTO) select new UserDTO().Create(_guidSessionDataRequest, i.InputCreateUser!)).ToList();
-        return _repository.Create(listCreasteUser);
+        List<UserDTO> listCreateUser = (from i in GetListValidDTO(listUserValidateDTO) select new UserDTO().Create(_guidSessionDataRequest, i.InputCreateUser!)).ToList();
+        return _repository.Create(listCreateUser);
     }
     #endregion
 
     #region Update
-    public override List<long> Update(List<InputIdentityUpdateUser> listInputIdentityUpdate)
+    public override List<long> Update(List<InputIdentityUpdateUser> listInputIdentityUpdateUser)
     {
-        List<UserDTO> listOriginalUser = _repository.GetListByListId((from i in listInputIdentityUpdate select i.Id).ToList(), true);
+        List<UserDTO> listOriginalUserDTO = _repository.GetListByListId((from i in listInputIdentityUpdateUser select i.Id).ToList(), true);
 
-        var listUpdate = (from i in listInputIdentityUpdate
-                          let originalUserDTO = (from j in listOriginalUser where j.InternalPropertiesDTO.Id == i.Id select j).FirstOrDefault()
+        var listUpdate = (from i in listInputIdentityUpdateUser
+                          let originalUserDTO = (from j in listOriginalUserDTO where j.InternalPropertiesDTO.Id == i.Id select j).FirstOrDefault()
                           select new
                           {
-                              Index = listInputIdentityUpdate.IndexOf(i),
+                              Index = listInputIdentityUpdateUser.IndexOf(i),
                               InputIdentityUpdateUser = i,
                               OriginalUserDTO = originalUserDTO
                           }).ToList();
@@ -136,15 +136,15 @@ public class UserService(IUserRepository repository) : BaseService_0<IUserReposi
     #endregion
 
     #region Delete
-    public override bool Delete(List<InputIdentityDeleteUser> listInputIdentityDelete)
+    public override bool Delete(List<InputIdentityDeleteUser> listInputIdentityDeleteUser)
     {
-        List<UserDTO> listOriginalUser = _repository.GetListByListId((from i in listInputIdentityDelete select i.Id).ToList(), true);
+        List<UserDTO> listOriginalUserDTO = _repository.GetListByListId((from i in listInputIdentityDeleteUser select i.Id).ToList(), true);
 
-        var listDelete = (from i in listInputIdentityDelete
-                          let originalUserDTO = (from j in listOriginalUser where j.InternalPropertiesDTO.Id == i.Id select j).FirstOrDefault()
+        var listDelete = (from i in listInputIdentityDeleteUser
+                          let originalUserDTO = (from j in listOriginalUserDTO where j.InternalPropertiesDTO.Id == i.Id select j).FirstOrDefault()
                           select new
                           {
-                              Index = listInputIdentityDelete.IndexOf(i),
+                              Index = listInputIdentityDeleteUser.IndexOf(i),
                               InputIdentityDeleteUser = i,
                               OriginalUserDTO = originalUserDTO
                           }).ToList();

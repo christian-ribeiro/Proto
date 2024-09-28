@@ -36,5 +36,21 @@ public class MapperDTOOutput : Profile
         CreateMap<InternalPropertiesMenuDTO, OutputMenu>();
         CreateMap<AuxiliaryPropertiesMenuDTO, OutputMenu>();
         #endregion
+
+        #region UserMenu
+        CreateMap<OutputUserMenu, UserMenuDTO>()
+            .ForMember(dest => dest.InternalPropertiesDTO, opt => opt.MapFrom(src => src))
+            .ForMember(dest => dest.ExternalPropertiesDTO, opt => opt.MapFrom(src => src))
+            .ForMember(dest => dest.AuxiliaryPropertiesDTO, opt => opt.MapFrom(src => src))
+            .ReverseMap();
+
+        CreateMap<OutputUserMenu, InternalPropertiesUserMenuDTO>();
+        CreateMap<OutputUserMenu, ExternalPropertiesUserMenuDTO>();
+        CreateMap<OutputUserMenu, AuxiliaryPropertiesUserMenuDTO>();
+
+        CreateMap<InternalPropertiesUserMenuDTO, OutputUserMenu>();
+        CreateMap<ExternalPropertiesUserMenuDTO, OutputUserMenu>();
+        CreateMap<AuxiliaryPropertiesUserMenuDTO, OutputUserMenu>();
+        #endregion
     }
 }

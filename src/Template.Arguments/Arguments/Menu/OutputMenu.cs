@@ -3,7 +3,7 @@ using Template.Arguments.Arguments.Base;
 
 namespace Template.Arguments.Arguments;
 
-public class OutputMenu(string route, string description, string icon, int position, long? parentMenuId, OutputMenu? parentMenu) : BaseOutput<OutputMenu>
+public class OutputMenu : BaseOutput<OutputMenu>
 {
     #region NotMapped
     [JsonIgnore]
@@ -20,15 +20,27 @@ public class OutputMenu(string route, string description, string icon, int posit
     public override OutputUser? ChangeUser => base.ChangeUser;
     #endregion
 
-    public string Route { get; set; } = route;
-    public string Description { get; set; } = description;
-    public string Icon { get; set; } = icon;
-    public int Position { get; set; } = position;
-    public long? ParentMenuId { get; set; } = parentMenuId;
+    public string Route { get; set; }
+    public string Description { get; set; }
+    public string Icon { get; set; }
+    public int Position { get; set; }
+    public long? ParentMenuId { get; set; }
 
     #region VirtualProperties
     #region Internal
-    public OutputMenu? ParentMenu { get; private set; } = parentMenu;
+    public OutputMenu? ParentMenu { get; set; }
     #endregion
     #endregion
+
+    public OutputMenu() { }
+
+    public OutputMenu(string route, string description, string icon, int position, long? parentMenuId, OutputMenu? parentMenu)
+    {
+        Route = route;
+        Description = description;
+        Icon = icon;
+        Position = position;
+        ParentMenuId = parentMenuId;
+        ParentMenu = parentMenu;
+    }
 }
