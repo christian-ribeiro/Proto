@@ -17,13 +17,14 @@ public class Menu : BaseEntry<Menu>
     #endregion
     #region External
     public virtual List<Menu>? ListMenu { get; private set; }
+    public virtual List<UserMenu>? ListUserMenu { get; private set; }
     #endregion
     #endregion
 
     public Menu() { }
 
     [JsonConstructor]
-    public Menu(string route, string description, string icon, int position, long? parentMenuId, Menu? parentMenu, List<Menu>? listMenu)
+    public Menu(string route, string description, string icon, int position, long? parentMenuId, Menu? parentMenu, List<Menu>? listMenu, List<UserMenu>? listUserMenu)
     {
         Route = route;
         Description = description;
@@ -32,5 +33,6 @@ public class Menu : BaseEntry<Menu>
         ParentMenuId = parentMenuId;
         ParentMenu = parentMenu;
         ListMenu = listMenu;
+        ListUserMenu = listUserMenu;
     }
 }

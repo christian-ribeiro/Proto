@@ -33,8 +33,8 @@ public class MenuMap : IEntityTypeConfiguration<Menu>
 
         builder.HasData(new List<Menu>
         {
-            new Menu("/Sistema", "Sistema", "icon-sistema", 1, null, null, null).SetInternalData(1),
-            new Menu("/Usuario", "Usuário", "icon-user", 2, 1, null, null).SetInternalData(2),
+            new Menu("/Sistema", "Sistema", "icon-sistema", 1, default, default, default, default).SetInternalData(1),
+            new Menu("/Usuario", "Usuário", "icon-user", 2, 1, default, default, default).SetInternalData(2),
         });
     }
 }

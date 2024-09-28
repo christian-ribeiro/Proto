@@ -16,15 +16,21 @@ public class User : BaseEntry<User>
 
     #region Virtual Properties
     #region External
+    #region User
     public virtual List<User>? ListCreationUserUser { get; private set; }
     public virtual List<User>? ListChangeUserUser { get; private set; }
+    #endregion
+    #region UserMenu
+    public virtual List<UserMenu>? ListCreationUserUserMenu { get; private set; }
+    public virtual List<UserMenu>? ListChangeUserUserMenu { get; private set; }
+    #endregion
     #endregion
     #endregion
 
     public User() { }
 
     [JsonConstructor]
-    public User(string code, string name, string password, string email, EnumLanguage language, string? refreshToken, Guid? loginKey, List<User>? listCreationUserUser, List<User>? listChangeUserUser)
+    public User(string code, string name, string password, string email, EnumLanguage language, string? refreshToken, Guid? loginKey, List<User>? listCreationUserUser, List<User>? listChangeUserUser, List<UserMenu>? listCreationUserUserMenu, List<UserMenu>? listChangeUserUserMenu)
     {
         Code = code;
         Name = name;
@@ -35,5 +41,7 @@ public class User : BaseEntry<User>
         LoginKey = loginKey;
         ListCreationUserUser = listCreationUserUser;
         ListChangeUserUser = listChangeUserUser;
+        ListCreationUserUserMenu = listCreationUserUserMenu;
+        ListChangeUserUserMenu = listChangeUserUserMenu;
     }
 }
