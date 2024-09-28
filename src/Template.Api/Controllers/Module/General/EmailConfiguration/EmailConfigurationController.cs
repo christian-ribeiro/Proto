@@ -1,7 +1,7 @@
 ﻿using Template.Api.Controllers.Module.Base;
 using Template.Arguments.Arguments.Module.General;
 using Template.Domain.Interface;
-using Template.Domain.Interface.Service.Module;
+using Template.Domain.Interface.Service.Module.General;
 using Template.Domain.Interface.Service.Module.Registration;
 
 namespace Template.Api.Controllers.Module.General;

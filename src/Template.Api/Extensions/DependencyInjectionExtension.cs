@@ -3,7 +3,7 @@ using Template.Arguments.AutoMapper;
 using Template.Domain.Interface;
 using Template.Domain.Interface.Repository.Module.General;
 using Template.Domain.Interface.Repository.Module.Registration;
-using Template.Domain.Interface.Service.Module;
+using Template.Domain.Interface.Service.Module.General;
 using Template.Domain.Interface.Service.Module.Registration;
 using Template.Domain.Service.Module.General;
 using Template.Domain.Service.Module.Registration;
@@ -32,6 +32,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IMenuService, MenuService>();
         services.AddScoped<IUserMenuService, UserMenuService>();
         services.AddScoped<IEmailConfigurationService, EmailConfigurationService>();
+        services.AddScoped<IBrandService, BrandService>();
         #endregion
 
         #region Repositories
@@ -39,6 +40,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IMenuRepository, MenuRepository>();
         services.AddScoped<IUserMenuRepository, UserMenuRepository>();
         services.AddScoped<IEmailConfigurationRepository, EmailConfigurationRepository>();
+        services.AddScoped<IBrandRepository, BrandRepository>();
         #endregion
 
         return services;

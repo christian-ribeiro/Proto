@@ -70,5 +70,21 @@ public class MapperDTOOutput : Profile
         CreateMap<ExternalPropertiesEmailConfigurationDTO, OutputEmailConfiguration>();
         CreateMap<AuxiliaryPropertiesEmailConfigurationDTO, OutputEmailConfiguration>();
         #endregion
+
+        #region Brand
+        CreateMap<OutputBrand, BrandDTO>()
+            .ForMember(dest => dest.InternalPropertiesDTO, opt => opt.MapFrom(src => src))
+            .ForMember(dest => dest.ExternalPropertiesDTO, opt => opt.MapFrom(src => src))
+            .ForMember(dest => dest.AuxiliaryPropertiesDTO, opt => opt.MapFrom(src => src))
+            .ReverseMap();
+
+        CreateMap<OutputBrand, InternalPropertiesBrandDTO>();
+        CreateMap<OutputBrand, ExternalPropertiesBrandDTO>();
+        CreateMap<OutputBrand, AuxiliaryPropertiesBrandDTO>();
+
+        CreateMap<InternalPropertiesBrandDTO, OutputBrand>();
+        CreateMap<ExternalPropertiesBrandDTO, OutputBrand>();
+        CreateMap<AuxiliaryPropertiesBrandDTO, OutputBrand>();
+        #endregion
     }
 }

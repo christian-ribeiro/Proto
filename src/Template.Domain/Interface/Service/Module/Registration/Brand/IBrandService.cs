@@ -3,4 +3,4 @@ using Template.Domain.Interface.Service.Module.Base;
 
 namespace Template.Domain.Interface.Service.Module.Registration;
 
-public interface IMenuService : IBaseService_1<OutputMenu, InputIdentifierMenu> { }
+public interface IBrandService : IBaseService_0<OutputBrand, InputIdentifierBrand, InputCreateBrand, InputUpdateBrand, InputIdentityUpdateBrand, InputIdentityDeleteBrand> { }

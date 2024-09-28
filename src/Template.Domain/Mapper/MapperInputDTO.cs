@@ -42,5 +42,16 @@ public class MapperInputDTO : Profile
         CreateMap<InputCreateEmailConfiguration, ExternalPropertiesEmailConfigurationDTO>();
         CreateMap<InputUpdateEmailConfiguration, ExternalPropertiesEmailConfigurationDTO>();
         #endregion
+
+        #region Brand
+        CreateMap<InputCreateBrand, BrandDTO>()
+            .ForMember(dest => dest.ExternalPropertiesDTO, opt => opt.MapFrom(src => src));
+
+        CreateMap<InputUpdateBrand, BrandDTO>()
+            .ForMember(dest => dest.ExternalPropertiesDTO, opt => opt.MapFrom(src => src));
+
+        CreateMap<InputCreateBrand, ExternalPropertiesBrandDTO>();
+        CreateMap<InputUpdateBrand, ExternalPropertiesBrandDTO>();
+        #endregion
     }
 }

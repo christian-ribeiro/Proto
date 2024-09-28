@@ -2,7 +2,7 @@
 using Template.Arguments.Enum;
 using Template.Domain.DTO.Module.General;
 using Template.Domain.Interface.Repository.Module.General;
-using Template.Domain.Interface.Service.Module;
+using Template.Domain.Interface.Service.Module.General;
 using Template.Domain.Service.Module.Base;
 
 namespace Template.Domain.Service.Module.General;
