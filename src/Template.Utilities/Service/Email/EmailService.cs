@@ -13,28 +13,20 @@ public class EmailService : IEmailService
         if (configuration == null)
             throw new Exception("Configuração SMTP inválida");
 
-        string smtpServer = configuration.SmtpServer;
-        int smtpPort = configuration.SmtpPort;
-        string displayName = configuration.DisplayName;
-        string fromEmail = configuration.FromEmail;
-        string username = configuration.Username;
-        string password = configuration.Password;
-        bool enableSsl = configuration.EnableSsl;
-
         using var mailMessage = new MailMessage();
-        mailMessage.From = new MailAddress(fromEmail, displayName);
+        mailMessage.From = new MailAddress(configuration.FromEmail, configuration.DisplayName);
         mailMessage.To.Add(new MailAddress(toEmail));
         mailMessage.Subject = subject;
         mailMessage.Body = body;
         mailMessage.IsBodyHtml = isBodyHtml;
 
-        if (!string.IsNullOrEmpty(configuration?.EmailCopy))
-            mailMessage.CC.Add(new MailAddress(configuration!.EmailCopy));
+        if (!string.IsNullOrEmpty(configuration.EmailCopy))
+            mailMessage.CC.Add(new MailAddress(configuration.EmailCopy));
 
-        using var smtpClient = new SmtpClient(smtpServer, smtpPort)
+        using var smtpClient = new SmtpClient(configuration.Server, configuration.Port)
         {
-            Credentials = new NetworkCredential(username, password),
-            EnableSsl = enableSsl
+            Credentials = new NetworkCredential(configuration.Username, configuration.Password),
+            EnableSsl = configuration.Ssl
         };
 
         try
