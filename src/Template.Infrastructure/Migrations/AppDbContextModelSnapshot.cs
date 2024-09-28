@@ -19,6 +19,86 @@ namespace Template.Infrastructure.Migrations
                 .HasAnnotation("ProductVersion", "8.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
+            modelBuilder.Entity("Template.Infrastructure.Persistence.Entry.Module.General.EmailConfiguration", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("ChangeDate")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("data_alteracao");
+
+                    b.Property<long?>("ChangeUserId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("id_usuario_alteracao");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("data_criacao");
+
+                    b.Property<long?>("CreationUserId")
+                        .IsRequired()
+                        .HasColumnType("bigint")
+                        .HasColumnName("id_usuario_criacao");
+
+                    b.Property<string>("DisplayName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("nome_exibicao");
+
+                    b.Property<int>("EmailConfigurationType")
+                        .HasColumnType("int")
+                        .HasColumnName("tipo_configuracao_email");
+
+                    b.Property<string>("EmailCopy")
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("copia_email");
+
+                    b.Property<string>("FromEmail")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("remetente");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("senha");
+
+                    b.Property<int>("Port")
+                        .HasColumnType("int")
+                        .HasColumnName("porta");
+
+                    b.Property<string>("Server")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("servidor");
+
+                    b.Property<bool>("Ssl")
+                        .HasColumnType("tinyint(1)")
+                        .HasColumnName("ssl");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("usuario");
+
+                    b.HasKey("Id")
+                        .HasName("id");
+
+                    b.HasIndex("ChangeUserId");
+
+                    b.HasIndex("CreationUserId");
+
+                    b.ToTable("configuracao_email", (string)null);
+                });
+
             modelBuilder.Entity("Template.Infrastructure.Persistence.Entry.Module.Registration.Menu", b =>
                 {
                     b.Property<long>("Id")
@@ -132,6 +212,11 @@ namespace Template.Infrastructure.Migrations
                         .HasColumnType("varchar(100)")
                         .HasColumnName("senha");
 
+                    b.Property<string>("PasswordRecoveryCode")
+                        .HasMaxLength(6)
+                        .HasColumnType("varchar(6)")
+                        .HasColumnName("codigo_recuperacao_senha");
+
                     b.Property<string>("RefreshToken")
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)")
@@ -210,6 +295,25 @@ namespace Template.Infrastructure.Migrations
                     b.ToTable("menu_usuario", (string)null);
                 });
 
+            modelBuilder.Entity("Template.Infrastructure.Persistence.Entry.Module.General.EmailConfiguration", b =>
+                {
+                    b.HasOne("Template.Infrastructure.Persistence.Entry.Module.Registration.User", "ChangeUser")
+                        .WithMany("ListChangeUserEmailConfiguration")
+                        .HasForeignKey("ChangeUserId")
+                        .HasConstraintName("fk_configuracao_email_id_usuario_alteracao");
+
+                    b.HasOne("Template.Infrastructure.Persistence.Entry.Module.Registration.User", "CreationUser")
+                        .WithMany("ListCreationUserEmailConfiguration")
+                        .HasForeignKey("CreationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_configuracao_email_id_usuario_criacao");
+
+                    b.Navigation("ChangeUser");
+
+                    b.Navigation("CreationUser");
+                });
+
             modelBuilder.Entity("Template.Infrastructure.Persistence.Entry.Module.Registration.Menu", b =>
                 {
                     b.HasOne("Template.Infrastructure.Persistence.Entry.Module.Registration.Menu", "ParentMenu")
@@ -274,9 +378,13 @@ namespace Template.Infrastructure.Migrations
 
             modelBuilder.Entity("Template.Infrastructure.Persistence.Entry.Module.Registration.User", b =>
                 {
+                    b.Navigation("ListChangeUserEmailConfiguration");
+
                     b.Navigation("ListChangeUserUser");
 
                     b.Navigation("ListChangeUserUserMenu");
+
+                    b.Navigation("ListCreationUserEmailConfiguration");
 
                     b.Navigation("ListCreationUserUser");
 

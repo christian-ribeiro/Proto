@@ -1,6 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 using Template.Arguments.Enum;
 using Template.Infrastructure.Persistence.Entry.Module.Base;
+using Template.Infrastructure.Persistence.Entry.Module.General;
 
 namespace Template.Infrastructure.Persistence.Entry.Module.Registration;
 
@@ -13,6 +14,7 @@ public class User : BaseEntry<User>
     public EnumLanguage Language { get; private set; }
     public string? RefreshToken { get; private set; }
     public Guid? LoginKey { get; private set; }
+    public string? PasswordRecoveryCode { get; private set; }
 
     #region Virtual Properties
     #region External
@@ -24,13 +26,17 @@ public class User : BaseEntry<User>
     public virtual List<UserMenu>? ListCreationUserUserMenu { get; private set; }
     public virtual List<UserMenu>? ListChangeUserUserMenu { get; private set; }
     #endregion
+    #region EmailConfiguration
+    public virtual List<EmailConfiguration>? ListCreationUserEmailConfiguration { get; private set; }
+    public virtual List<EmailConfiguration>? ListChangeUserEmailConfiguration { get; private set; }
+    #endregion
     #endregion
     #endregion
 
     public User() { }
 
     [JsonConstructor]
-    public User(string code, string name, string password, string email, EnumLanguage language, string? refreshToken, Guid? loginKey, List<User>? listCreationUserUser, List<User>? listChangeUserUser, List<UserMenu>? listCreationUserUserMenu, List<UserMenu>? listChangeUserUserMenu)
+    public User(string code, string name, string password, string email, EnumLanguage language, string? refreshToken, Guid? loginKey, string? passwordRecoveryCode, List<User>? listCreationUserUser, List<User>? listChangeUserUser, List<UserMenu>? listCreationUserUserMenu, List<UserMenu>? listChangeUserUserMenu, List<EmailConfiguration>? listCreationUserEmailConfiguration, List<EmailConfiguration>? listChangeUserEmailConfiguration)
     {
         Code = code;
         Name = name;
@@ -39,9 +45,12 @@ public class User : BaseEntry<User>
         Language = language;
         RefreshToken = refreshToken;
         LoginKey = loginKey;
+        PasswordRecoveryCode = passwordRecoveryCode;
         ListCreationUserUser = listCreationUserUser;
         ListChangeUserUser = listChangeUserUser;
         ListCreationUserUserMenu = listCreationUserUserMenu;
         ListChangeUserUserMenu = listChangeUserUserMenu;
+        ListCreationUserEmailConfiguration = listCreationUserEmailConfiguration;
+        ListChangeUserEmailConfiguration = listChangeUserEmailConfiguration;
     }
 }

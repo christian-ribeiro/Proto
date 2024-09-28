@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using Template.Arguments.Arguments.Module.General;
 using Template.Arguments.Arguments.Module.Registration;
+using Template.Domain.DTO.Module.General;
 using Template.Domain.DTO.Module.Registration;
 
 namespace Template.Domain.Mapper;
@@ -51,6 +53,22 @@ public class MapperDTOOutput : Profile
         CreateMap<InternalPropertiesUserMenuDTO, OutputUserMenu>();
         CreateMap<ExternalPropertiesUserMenuDTO, OutputUserMenu>();
         CreateMap<AuxiliaryPropertiesUserMenuDTO, OutputUserMenu>();
+        #endregion
+
+        #region EmailConfiguration
+        CreateMap<OutputEmailConfiguration, EmailConfigurationDTO>()
+            .ForMember(dest => dest.InternalPropertiesDTO, opt => opt.MapFrom(src => src))
+            .ForMember(dest => dest.ExternalPropertiesDTO, opt => opt.MapFrom(src => src))
+            .ForMember(dest => dest.AuxiliaryPropertiesDTO, opt => opt.MapFrom(src => src))
+            .ReverseMap();
+
+        CreateMap<OutputEmailConfiguration, InternalPropertiesEmailConfigurationDTO>();
+        CreateMap<OutputEmailConfiguration, ExternalPropertiesEmailConfigurationDTO>();
+        CreateMap<OutputEmailConfiguration, AuxiliaryPropertiesEmailConfigurationDTO>();
+
+        CreateMap<InternalPropertiesEmailConfigurationDTO, OutputEmailConfiguration>();
+        CreateMap<ExternalPropertiesEmailConfigurationDTO, OutputEmailConfiguration>();
+        CreateMap<AuxiliaryPropertiesEmailConfigurationDTO, OutputEmailConfiguration>();
         #endregion
     }
 }

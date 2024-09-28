@@ -19,6 +19,13 @@
     <ProjectReference Include="..\Template.Arguments\Template.Arguments.csproj" />
     <ProjectReference Include="..\Template.Domain\Template.Domain.csproj" />
     <ProjectReference Include="..\Template.Infrastructure\Template.Infrastructure.csproj" />
+    <ProjectReference Include="..\Template.Utilities\Template.Utilities.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\html-template\recovery-password.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

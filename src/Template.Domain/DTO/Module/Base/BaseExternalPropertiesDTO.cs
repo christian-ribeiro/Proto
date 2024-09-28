@@ -1,5 +1,9 @@
-﻿namespace Template.Domain.DTO.Module.Base;
+﻿using Template.Arguments.Arguments.Module.Base;
 
-public class BaseExternalPropertiesDTO<TExternalPropertiesDTO> where TExternalPropertiesDTO : BaseExternalPropertiesDTO<TExternalPropertiesDTO>, new() { }
+namespace Template.Domain.DTO.Module.Base;
+
+public class BaseExternalPropertiesDTO<TExternalPropertiesDTO> : BaseSetProperty<TExternalPropertiesDTO>
+    where TExternalPropertiesDTO : BaseExternalPropertiesDTO<TExternalPropertiesDTO>, new()
+{ }
 
 public class BaseExternalPropertiesDTO_0 : BaseExternalPropertiesDTO<BaseExternalPropertiesDTO_0> { }

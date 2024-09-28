@@ -7,4 +7,6 @@ public interface IUserService : IBaseService_0<OutputUser, InputIdentifierUser, 
 {
     OutputAuthenticateUser Authenticate(InputAuthenticateUser inputAuthenticateUser);
     OutputAuthenticateUser RefreshToken(InputRefreshTokenUser inputRefreshTokenUser);
+    Task<bool> SendEmailRedefinePassword(InputSendEmailRedefinePasswordUser inputRedefinePasswordUser);
+    bool RedefinePassword(InputRedefinePasswordUser inputRedefinePasswordUser);
 }

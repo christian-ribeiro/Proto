@@ -1,16 +1,21 @@
-﻿using System.Security.Claims;
+﻿using System.Net;
+using System.Security.Claims;
+using System.Security.Cryptography;
 using Template.Arguments.Arguments.Module.Registration;
 using Template.Arguments.Enum;
+using Template.Domain.DTO.Module.General;
 using Template.Domain.DTO.Module.Registration;
 using Template.Domain.Extension;
+using Template.Domain.Interface.Repository.Module.General;
 using Template.Domain.Interface.Repository.Module.Registration;
 using Template.Domain.Interface.Service.Module.Registration;
 using Template.Domain.Service.Module.Base;
 using Template.Security.Hashing;
+using Template.Utilities.Interface.Service;
 
 namespace Template.Domain.Service.Module.Registration;
 
-public class UserService(IUserRepository repository) : BaseService_0<IUserRepository, OutputUser, InputIdentifierUser, InputCreateUser, InputUpdateUser, InputIdentityUpdateUser, InputIdentityDeleteUser, UserDTO, UserValidateDTO, InternalPropertiesUserDTO, ExternalPropertiesUserDTO, AuxiliaryPropertiesUserDTO>(repository), IUserService
+public class UserService(IUserRepository repository, IEmailService emailService, IEmailConfigurationRepository emailConfigurationRepository) : BaseService_0<IUserRepository, OutputUser, InputIdentifierUser, InputCreateUser, InputUpdateUser, InputIdentityUpdateUser, InputIdentityDeleteUser, UserDTO, UserValidateDTO, InternalPropertiesUserDTO, ExternalPropertiesUserDTO, AuxiliaryPropertiesUserDTO>(repository), IUserService
 {
     #region Base
     #region Validate
@@ -209,6 +214,46 @@ public class UserService(IUserRepository repository) : BaseService_0<IUserReposi
         _repository.Update(originalUserDTO);
 
         return new OutputAuthenticateUser(token, refreshToken, FromDTOToOutput(originalUserDTO));
+    }
+
+    public async Task<bool> SendEmailRedefinePassword(InputSendEmailRedefinePasswordUser inputSendEmailRedefinePasswordUser)
+    {
+        UserDTO originalUserDTO = _repository.GetByIdentifier(new InputIdentifierUser(inputSendEmailRedefinePasswordUser.Email), true);
+
+        if (originalUserDTO != null)
+        {
+            byte[] randomBytes = new byte[4];
+            RandomNumberGenerator.Fill(randomBytes);
+            string recoveryCode = (Math.Abs(BitConverter.ToInt32(randomBytes, 0)) % 1000000).ToString("D6");
+
+            originalUserDTO.InternalPropertiesDTO.SetProperty(nameof(originalUserDTO.InternalPropertiesDTO.PasswordRecoveryCode), recoveryCode);
+            _repository.Update(originalUserDTO);
+
+            string htmlTemplate = File.ReadAllText("wwwroot/html-template/recovery-password.html");
+            string userEncoded = WebUtility.HtmlEncode(originalUserDTO.ExternalPropertiesDTO.Name);
+
+            htmlTemplate = htmlTemplate.Replace("{{USER}}", userEncoded);
+            htmlTemplate = htmlTemplate.Replace("{{CODE}}", recoveryCode);
+
+            EmailConfigurationDTO emailConfigurationDTO = emailConfigurationRepository.GetByType(EnumEmailConfigurationType.RecoveryPassword)!;
+            await emailService.SendEmailAsync(inputSendEmailRedefinePasswordUser.Email, "Esqueci a Senha", htmlTemplate, true, emailConfigurationDTO);
+        }
+
+        return await Task.FromResult(true);
+    }
+
+    public bool RedefinePassword(InputRedefinePasswordUser inputRedefinePasswordUser)
+    {
+        UserDTO? originalUserDTO = _repository.GetByPasswordRecoveryCode(inputRedefinePasswordUser.PasswordRecoveryCode);
+
+        if (originalUserDTO != null)
+        {
+            originalUserDTO.ExternalPropertiesDTO.SetProperty(nameof(originalUserDTO.ExternalPropertiesDTO.Password), EncryptService.Encrypt(inputRedefinePasswordUser.NewPassword));
+            originalUserDTO.InternalPropertiesDTO.SetProperty<string>(nameof(originalUserDTO.InternalPropertiesDTO.PasswordRecoveryCode), null);
+            _repository.Update(originalUserDTO);
+        }
+
+        return true;
     }
     #endregion
 }

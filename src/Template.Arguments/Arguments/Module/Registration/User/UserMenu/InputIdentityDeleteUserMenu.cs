@@ -1,5 +1,7 @@
-﻿using Template.Arguments.Arguments.Module.Base;
+﻿using System.Text.Json.Serialization;
+using Template.Arguments.Arguments.Module.Base;
 
 namespace Template.Arguments.Arguments.Module.Registration;
 
-public class InputIdentityDeleteUserMenu : BaseInputIdentityDelete<InputIdentityDeleteUserMenu> { }
+[method: JsonConstructor]
+public class InputIdentityDeleteUserMenu(long id) : BaseInputIdentityDelete<InputIdentityDeleteUserMenu>(id) { }

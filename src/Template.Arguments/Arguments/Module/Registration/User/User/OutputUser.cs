@@ -12,10 +12,11 @@ public class OutputUser : BaseOutput<OutputUser>
     public EnumLanguage Language { get; set; }
     public string? RefreshToken { get; set; }
     public Guid? LoginKey { get; set; }
+    public string? PasswordRecoveryCode { get; set; }
 
     public OutputUser() { }
 
-    public OutputUser(string code, string name, string password, string email, EnumLanguage language, string? refreshToken, Guid? loginKey)
+    public OutputUser(string code, string name, string password, string email, EnumLanguage language, string? refreshToken, Guid? loginKey, string? passwordRecoveryCode)
     {
         Code = code;
         Name = name;
@@ -24,5 +25,6 @@ public class OutputUser : BaseOutput<OutputUser>
         Language = language;
         RefreshToken = refreshToken;
         LoginKey = loginKey;
+        PasswordRecoveryCode = passwordRecoveryCode;
     }
 }

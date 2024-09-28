@@ -42,4 +42,34 @@ public class UserController(IUnitOfWork unitOfWork, IUserService service) : Base
             return await ResponseExceptionAsync(ex);
         }
     }
+
+    [AllowAnonymous]
+    [HttpPost("SendEmailRedefinePassword")]
+    public async Task<ActionResult<BaseResponseApi<OutputAuthenticateUser>>> SendEmailRedefinePassword([FromBody] InputSendEmailRedefinePasswordUser inputSendEmailRedefinePasswordUser)
+    {
+        try
+        {
+            var result = await _userService.SendEmailRedefinePassword(inputSendEmailRedefinePasswordUser);
+            return await ResponseAsync(result);
+        }
+        catch (Exception ex)
+        {
+            return await ResponseExceptionAsync(ex);
+        }
+    }
+
+    [AllowAnonymous]
+    [HttpPost("RedefinePassword")]
+    public async Task<ActionResult<BaseResponseApi<OutputAuthenticateUser>>> RedefinePassword([FromBody] InputRedefinePasswordUser inputRedefinePasswordUser)
+    {
+        try
+        {
+            var result = _userService.RedefinePassword(inputRedefinePasswordUser);
+            return await ResponseAsync(result);
+        }
+        catch (Exception ex)
+        {
+            return await ResponseExceptionAsync(ex);
+        }
+    }
 }

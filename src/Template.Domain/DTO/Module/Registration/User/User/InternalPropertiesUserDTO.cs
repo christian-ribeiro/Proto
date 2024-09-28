@@ -7,13 +7,15 @@ public class InternalPropertiesUserDTO : BaseInternalPropertiesDTO<InternalPrope
 {
     public string? RefreshToken { get; private set; }
     public Guid? LoginKey { get; private set; }
+    public string? PasswordRecoveryCode { get; private set; }
 
     public InternalPropertiesUserDTO() { }
 
     [JsonConstructor]
-    public InternalPropertiesUserDTO(string? refreshToken, Guid? loginKey)
+    public InternalPropertiesUserDTO(string? refreshToken, Guid? loginKey, string? passwordRecoveryCode)
     {
         RefreshToken = refreshToken;
         LoginKey = loginKey;
+        PasswordRecoveryCode = passwordRecoveryCode;
     }
 }
