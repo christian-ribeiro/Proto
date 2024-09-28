@@ -1,7 +1,6 @@
 ﻿using System.Net;
 using System.Net.Mail;
 using Template.Arguments.General;
-using Template.Arguments.General.Session;
 using Template.Utilities.Interface.Service;
 
 namespace Template.Utilities.Service;

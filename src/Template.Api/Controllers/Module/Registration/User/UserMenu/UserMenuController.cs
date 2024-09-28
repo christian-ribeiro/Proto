@@ -11,7 +11,7 @@ public class UserMenuController(IUnitOfWork unitOfWork, IUserMenuService service
 {
     #region Custom
     [HttpPost("Replace/Multiple")]
-    public virtual async Task<ActionResult<BaseResponseApi<List<long>>>> Replace(List<InputReplaceUserMenu> listInputReplaceUserMenu)
+    public virtual async Task<ActionResult<BaseResponseApi<List<long>>>> Replace([FromBody] List<InputReplaceUserMenu> listInputReplaceUserMenu)
     {
         try
         {

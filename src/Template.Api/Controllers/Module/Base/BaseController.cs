@@ -50,7 +50,7 @@ public class BaseController_0<TService, TOutput, TInputIdentifier, TInputCreate,
 
     #region Read
     [HttpGet("{id}")]
-    public virtual async Task<ActionResult<BaseResponseApi<TOutput>>> Get(long id)
+    public virtual async Task<ActionResult<BaseResponseApi<TOutput>>> Get([FromRoute] long id)
     {
         try
         {
@@ -63,7 +63,7 @@ public class BaseController_0<TService, TOutput, TInputIdentifier, TInputCreate,
     }
 
     [HttpPost("GetByIdentifier")]
-    public virtual async Task<ActionResult<BaseResponseApi<TOutput>>> GetByIdentifier(TInputIdentifier inputIdentifier)
+    public virtual async Task<ActionResult<BaseResponseApi<TOutput>>> GetByIdentifier([FromBody] TInputIdentifier inputIdentifier)
     {
         try
         {
@@ -89,7 +89,7 @@ public class BaseController_0<TService, TOutput, TInputIdentifier, TInputCreate,
     }
 
     [HttpPost("GetListByListIdentifier")]
-    public virtual async Task<ActionResult<BaseResponseApi<TOutput>>> GetListByListIdentifier(List<TInputIdentifier> listInputIdentifier)
+    public virtual async Task<ActionResult<BaseResponseApi<TOutput>>> GetListByListIdentifier([FromBody] List<TInputIdentifier> listInputIdentifier)
     {
         try
         {
@@ -102,7 +102,7 @@ public class BaseController_0<TService, TOutput, TInputIdentifier, TInputCreate,
     }
 
     [HttpPost("GetListByListId")]
-    public virtual async Task<ActionResult<BaseResponseApi<TOutput>>> GetListByListId(List<long> listId)
+    public virtual async Task<ActionResult<BaseResponseApi<TOutput>>> GetListByListId([FromBody] List<long> listId)
     {
         try
         {
@@ -117,7 +117,7 @@ public class BaseController_0<TService, TOutput, TInputIdentifier, TInputCreate,
 
     #region Create
     [HttpPost("Create")]
-    public virtual async Task<ActionResult<BaseResponseApi<long>>> Create(TInputCreate inputCreate)
+    public virtual async Task<ActionResult<BaseResponseApi<long>>> Create([FromBody] TInputCreate inputCreate)
     {
         try
         {
@@ -130,7 +130,7 @@ public class BaseController_0<TService, TOutput, TInputIdentifier, TInputCreate,
     }
 
     [HttpPost("Create/Multiple")]
-    public virtual async Task<ActionResult<BaseResponseApi<List<long>>>> Create(List<TInputCreate> listInputCreate)
+    public virtual async Task<ActionResult<BaseResponseApi<List<long>>>> Create([FromBody] List<TInputCreate> listInputCreate)
     {
         try
         {
@@ -158,7 +158,7 @@ public class BaseController_0<TService, TOutput, TInputIdentifier, TInputCreate,
     }
 
     [HttpPut("Update/Multiple")]
-    public virtual async Task<ActionResult<BaseResponseApi<List<long>>>> Update(List<TInputIdentityUpdate> listInputIdentityUpdate)
+    public virtual async Task<ActionResult<BaseResponseApi<List<long>>>> Update([FromBody] List<TInputIdentityUpdate> listInputIdentityUpdate)
     {
         try
         {
@@ -173,7 +173,7 @@ public class BaseController_0<TService, TOutput, TInputIdentifier, TInputCreate,
 
     #region Delete
     [HttpDelete("Delete")]
-    public virtual async Task<ActionResult<BaseResponseApi<bool>>> Delete(TInputIdentityDelete inputIdentityDelete)
+    public virtual async Task<ActionResult<BaseResponseApi<bool>>> Delete([FromBody] TInputIdentityDelete inputIdentityDelete)
     {
         try
         {
@@ -186,7 +186,7 @@ public class BaseController_0<TService, TOutput, TInputIdentifier, TInputCreate,
     }
 
     [HttpDelete("Delete/Multiple")]
-    public virtual async Task<ActionResult<BaseResponseApi<bool>>> Delete(List<TInputIdentityDelete> listInputIdentityDelete)
+    public virtual async Task<ActionResult<BaseResponseApi<bool>>> Delete([FromBody] List<TInputIdentityDelete> listInputIdentityDelete)
     {
         try
         {
@@ -243,37 +243,37 @@ public class BaseController_1<TService, TOutput, TInputIdentifier>(IUnitOfWork u
 {
     #region NotImplemented
     [ApiExplorerSettings(IgnoreApi = true)]
-    public override Task<ActionResult<BaseResponseApi<long>>> Create(BaseInputCreate_0 inputCreate)
+    public override Task<ActionResult<BaseResponseApi<long>>> Create([FromBody] BaseInputCreate_0 inputCreate)
     {
         throw new NotImplementedException();
     }
 
     [ApiExplorerSettings(IgnoreApi = true)]
-    public override Task<ActionResult<BaseResponseApi<List<long>>>> Create(List<BaseInputCreate_0> listInputCreate)
+    public override Task<ActionResult<BaseResponseApi<List<long>>>> Create([FromBody] List<BaseInputCreate_0> listInputCreate)
     {
         throw new NotImplementedException();
     }
 
     [ApiExplorerSettings(IgnoreApi = true)]
-    public override Task<ActionResult<BaseResponseApi<long>>> Update(BaseInputIdentityUpdate_0 inputIdentityUpdate)
+    public override Task<ActionResult<BaseResponseApi<long>>> Update([FromBody] BaseInputIdentityUpdate_0 inputIdentityUpdate)
     {
         throw new NotImplementedException();
     }
 
     [ApiExplorerSettings(IgnoreApi = true)]
-    public override Task<ActionResult<BaseResponseApi<List<long>>>> Update(List<BaseInputIdentityUpdate_0> listInputIdentityUpdate)
+    public override Task<ActionResult<BaseResponseApi<List<long>>>> Update([FromBody] List<BaseInputIdentityUpdate_0> listInputIdentityUpdate)
     {
         throw new NotImplementedException();
     }
 
     [ApiExplorerSettings(IgnoreApi = true)]
-    public override Task<ActionResult<BaseResponseApi<bool>>> Delete(BaseInputIdentityDelete_0 inputIdentityDelete)
+    public override Task<ActionResult<BaseResponseApi<bool>>> Delete([FromBody] BaseInputIdentityDelete_0 inputIdentityDelete)
     {
         throw new NotImplementedException();
     }
 
     [ApiExplorerSettings(IgnoreApi = true)]
-    public override Task<ActionResult<BaseResponseApi<bool>>> Delete(List<BaseInputIdentityDelete_0> listInputIdentityDelete)
+    public override Task<ActionResult<BaseResponseApi<bool>>> Delete([FromBody] List<BaseInputIdentityDelete_0> listInputIdentityDelete)
     {
         throw new NotImplementedException();
     }
