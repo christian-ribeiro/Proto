@@ -44,6 +44,12 @@ public class UserService(IUserRepository repository) : BaseService_0<IUserReposi
                      where InvalidLength(1, 100, i.InputCreateUser?.Email)
                      let setInvalid = i.SetInvalid()
                      select true).ToList();
+
+                _ = (from i in GetListValidDTO(listUserValidateDTO)
+                     where InvalidEmail(i.InputCreateUser?.Email)
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
                 break;
             #endregion
             #region Update
@@ -106,7 +112,7 @@ public class UserService(IUserRepository repository) : BaseService_0<IUserReposi
         if (!HasValidItem(listUserValidateDTO))
             return [];
 
-        List<UserDTO> listCreateUser = (from i in GetListValidDTO(listUserValidateDTO) select new UserDTO().Create(_guidSessionDataRequest, i.InputCreateUser!)).ToList();
+        List<UserDTO> listCreateUser = (from i in GetListValidDTO(listUserValidateDTO) select new UserDTO().Create(_guidSessionDataRequest, new ExternalPropertiesUserDTO(i.InputCreateUser!.Code, i.InputCreateUser!.Name, EncryptService.Encrypt(i.InputCreateUser!.Password), i.InputCreateUser!.Email, EnumLanguage.Portuguese))).ToList();
         return _repository.Create(listCreateUser);
     }
     #endregion

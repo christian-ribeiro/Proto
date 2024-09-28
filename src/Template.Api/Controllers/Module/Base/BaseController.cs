@@ -36,7 +36,7 @@ public class BaseController_0<TService, TOutput, TInputIdentifier, TInputCreate,
             if (loggedUser != null)
             {
                 SetData();
-                SessionData.SetLoggedUser(_guidSessionDataRequest, new LoggedUser(loggedUser.Id, loggedUser.Name, loggedUser.Email));
+                SessionData.SetLoggedUser(_guidSessionDataRequest, new LoggedUser(loggedUser.Id, loggedUser.Name, loggedUser.Email, loggedUser.Language));
             }
         }
 

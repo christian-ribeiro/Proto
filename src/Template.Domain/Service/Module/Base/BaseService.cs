@@ -1,4 +1,5 @@
-﻿using Template.Arguments.Arguments.Module.Base;
+﻿using System.Text.RegularExpressions;
+using Template.Arguments.Arguments.Module.Base;
 using Template.Arguments.Enum;
 using Template.Arguments.General.Session;
 using Template.Domain.DTO.Module.Base;
@@ -43,6 +44,16 @@ public class BaseService_0<TRepository, TOutput, TInputIdentifier, TInputCreate,
     public bool InvalidLength(int minLength, int maxLength, string? value)
     {
         return value?.Length < minLength || value?.Length > maxLength;
+    }
+
+    public bool InvalidEmail(string? value)
+    {
+        Regex EmailRegex = new Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+
+        if (string.IsNullOrWhiteSpace(value))
+            return false;
+
+        return !EmailRegex.IsMatch(value);
     }
     #endregion
 
@@ -110,12 +121,12 @@ public class BaseService_0<TRepository, TOutput, TInputIdentifier, TInputCreate,
     #endregion
 
     #region Custom
-    internal TOutput FromDTOToOutput(TDTO dto)
+    internal static TOutput FromDTOToOutput(TDTO dto)
     {
         return SessionData.Mapper!.MapperDTOOutput.Map<TDTO, TOutput>(dto);
     }
 
-    internal List<TOutput> FromDTOToOutput(List<TDTO> listDTO)
+    internal static List<TOutput> FromDTOToOutput(List<TDTO> listDTO)
     {
         return SessionData.Mapper!.MapperDTOOutput.Map<List<TDTO>, List<TOutput>>(listDTO);
     }

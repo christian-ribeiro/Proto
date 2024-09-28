@@ -61,7 +61,7 @@ public abstract class BaseRepository_0<TContext, TEntry, TOutput, TInputIdentifi
         if (!getOnlyPrincipal)
             query = query.IncludeVirtualProperties();
 
-        return FromEntryToDTO(query.FirstOrDefault()!);
+        return BaseRepository_0<TContext, TEntry, TOutput, TInputIdentifier, TInputCreate, TInputUpdate, TInputIdentityUpdate, TInputIdentityDelete, TDTO, TInternalPropertiesDTO, TExternalPropertiesDTO, TAuxiliaryPropertiesDTO>.FromEntryToDTO(query.FirstOrDefault()!);
     }
 
     public List<TDTO> GetAll(bool getOnlyPrincipal = false)
@@ -91,8 +91,6 @@ public abstract class BaseRepository_0<TContext, TEntry, TOutput, TInputIdentifi
 
     public List<TDTO> GetListByListIdentifier(List<TInputIdentifier> listInputIdentifier, bool getOnlyPrincipal = false)
     {
-        IQueryable<TEntry> query = _dbSet.AsNoTracking();
-
         if (listInputIdentifier == null || listInputIdentifier.Count == 0)
             return [];
 
@@ -123,7 +121,7 @@ public abstract class BaseRepository_0<TContext, TEntry, TOutput, TInputIdentifi
             combinedExpression = combinedExpression == null ? individualExpression! : CombineExpressions(combinedExpression, individualExpression!, Expression.OrElse)!;
         }
 
-        query = query.Where(combinedExpression!);
+        IQueryable<TEntry> query = _dbSet.AsNoTracking().Where(combinedExpression!);
 
         if (!getOnlyPrincipal)
             query = query.IncludeVirtualProperties();
@@ -174,22 +172,22 @@ public abstract class BaseRepository_0<TContext, TEntry, TOutput, TInputIdentifi
         return (from i in listEntry select i.Id).ToList();
     }
 
-    internal TEntry FromDTOToEntry(TDTO dto)
+    internal static TEntry FromDTOToEntry(TDTO dto)
     {
         return SessionData.Mapper!.MapperEntryDTO.Map<TDTO, TEntry>(dto);
     }
 
-    internal TDTO FromEntryToDTO(TEntry entry)
+    internal static TDTO FromEntryToDTO(TEntry entry)
     {
         return SessionData.Mapper!.MapperEntryDTO.Map<TEntry, TDTO>(entry);
     }
 
-    internal List<TEntry> FromDTOToEntry(List<TDTO> listDTO)
+    internal static List<TEntry> FromDTOToEntry(List<TDTO> listDTO)
     {
         return SessionData.Mapper!.MapperEntryDTO.Map<List<TDTO>, List<TEntry>>(listDTO);
     }
 
-    internal List<TDTO> FromEntryToDTO(List<TEntry> listEntry)
+    internal static List<TDTO> FromEntryToDTO(List<TEntry> listEntry)
     {
         return SessionData.Mapper!.MapperEntryDTO.Map<List<TEntry>, List<TDTO>>(listEntry);
     }
