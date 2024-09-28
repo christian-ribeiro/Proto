@@ -17,13 +17,9 @@ public class MapperEntryDTO : Profile
             .ForMember(dest => dest.AuxiliaryPropertiesDTO, opt => opt.MapFrom(src => src))
             .ReverseMap();
 
-        CreateMap<User, InternalPropertiesUserDTO>();
-        CreateMap<User, ExternalPropertiesUserDTO>();
-        CreateMap<User, AuxiliaryPropertiesUserDTO>();
-
-        CreateMap<InternalPropertiesUserDTO, User>();
-        CreateMap<ExternalPropertiesUserDTO, User>();
-        CreateMap<AuxiliaryPropertiesUserDTO, User>();
+        CreateMap<User, InternalPropertiesUserDTO>().ReverseMap();
+        CreateMap<User, ExternalPropertiesUserDTO>().ReverseMap();
+        CreateMap<User, AuxiliaryPropertiesUserDTO>().ReverseMap();
         #endregion
 
         #region Menu
@@ -32,11 +28,8 @@ public class MapperEntryDTO : Profile
             .ForMember(dest => dest.AuxiliaryPropertiesDTO, opt => opt.MapFrom(src => src))
             .ReverseMap();
 
-        CreateMap<Menu, InternalPropertiesMenuDTO>();
-        CreateMap<Menu, AuxiliaryPropertiesMenuDTO>();
-
-        CreateMap<InternalPropertiesMenuDTO, Menu>();
-        CreateMap<AuxiliaryPropertiesMenuDTO, Menu>();
+        CreateMap<Menu, InternalPropertiesMenuDTO>().ReverseMap();
+        CreateMap<Menu, AuxiliaryPropertiesMenuDTO>().ReverseMap();
         #endregion
 
         #region UserMenu
@@ -46,13 +39,9 @@ public class MapperEntryDTO : Profile
             .ForMember(dest => dest.AuxiliaryPropertiesDTO, opt => opt.MapFrom(src => src))
             .ReverseMap();
 
-        CreateMap<UserMenu, InternalPropertiesUserMenuDTO>();
-        CreateMap<UserMenu, ExternalPropertiesUserMenuDTO>();
-        CreateMap<UserMenu, AuxiliaryPropertiesUserMenuDTO>();
-
-        CreateMap<InternalPropertiesUserMenuDTO, UserMenu>();
-        CreateMap<ExternalPropertiesUserMenuDTO, UserMenu>();
-        CreateMap<AuxiliaryPropertiesUserMenuDTO, UserMenu>();
+        CreateMap<UserMenu, InternalPropertiesUserMenuDTO>().ReverseMap();
+        CreateMap<UserMenu, ExternalPropertiesUserMenuDTO>().ReverseMap();
+        CreateMap<UserMenu, AuxiliaryPropertiesUserMenuDTO>().ReverseMap();
         #endregion
 
         #region EmailConfiguration
@@ -62,13 +51,9 @@ public class MapperEntryDTO : Profile
             .ForMember(dest => dest.AuxiliaryPropertiesDTO, opt => opt.MapFrom(src => src))
             .ReverseMap();
 
-        CreateMap<EmailConfiguration, InternalPropertiesEmailConfigurationDTO>();
-        CreateMap<EmailConfiguration, ExternalPropertiesEmailConfigurationDTO>();
-        CreateMap<EmailConfiguration, AuxiliaryPropertiesEmailConfigurationDTO>();
-
-        CreateMap<InternalPropertiesEmailConfigurationDTO, EmailConfiguration>();
-        CreateMap<ExternalPropertiesEmailConfigurationDTO, EmailConfiguration>();
-        CreateMap<AuxiliaryPropertiesEmailConfigurationDTO, EmailConfiguration>();
+        CreateMap<EmailConfiguration, InternalPropertiesEmailConfigurationDTO>().ReverseMap();
+        CreateMap<EmailConfiguration, ExternalPropertiesEmailConfigurationDTO>().ReverseMap();
+        CreateMap<EmailConfiguration, AuxiliaryPropertiesEmailConfigurationDTO>().ReverseMap();
         #endregion
 
         #region Brand
@@ -78,13 +63,9 @@ public class MapperEntryDTO : Profile
             .ForMember(dest => dest.AuxiliaryPropertiesDTO, opt => opt.MapFrom(src => src))
             .ReverseMap();
 
-        CreateMap<Brand, InternalPropertiesBrandDTO>();
-        CreateMap<Brand, ExternalPropertiesBrandDTO>();
-        CreateMap<Brand, AuxiliaryPropertiesBrandDTO>();
-
-        CreateMap<InternalPropertiesBrandDTO, Brand>();
-        CreateMap<ExternalPropertiesBrandDTO, Brand>();
-        CreateMap<AuxiliaryPropertiesBrandDTO, Brand>();
+        CreateMap<Brand, InternalPropertiesBrandDTO>().ReverseMap();
+        CreateMap<Brand, ExternalPropertiesBrandDTO>().ReverseMap();
+        CreateMap<Brand, AuxiliaryPropertiesBrandDTO>().ReverseMap();
         #endregion
 
         #region Product
@@ -94,14 +75,10 @@ public class MapperEntryDTO : Profile
             .ForMember(dest => dest.AuxiliaryPropertiesDTO, opt => opt.MapFrom(src => src))
             .ReverseMap();
 
-        CreateMap<Product, InternalPropertiesProductDTO>();
-        CreateMap<Product, ExternalPropertiesProductDTO>();
-        CreateMap<Product, AuxiliaryPropertiesProductDTO>();
-
-        CreateMap<InternalPropertiesProductDTO, Product>();
-        CreateMap<ExternalPropertiesProductDTO, Product>();
-        CreateMap<AuxiliaryPropertiesProductDTO, Product>();
+        CreateMap<Product, InternalPropertiesProductDTO>().ReverseMap();
+        CreateMap<Product, ExternalPropertiesProductDTO>().ReverseMap();
+        CreateMap<Product, AuxiliaryPropertiesProductDTO>().ReverseMap();
         #endregion
-    
+
     }
 }
