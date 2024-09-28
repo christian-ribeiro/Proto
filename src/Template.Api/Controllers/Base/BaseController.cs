@@ -235,3 +235,9 @@ public class BaseController_0<TService, TOutput, TInputIdentifier, TInputCreate,
 
     #endregion
 }
+
+public class BaseController_1<TService, TOutput, TInputIdentifier>(IUnitOfWork unitOfWork, TService service, IUserService userService) : BaseController_0<TService, TOutput, TInputIdentifier, BaseInputCreate_0, BaseInputUpdate_0, BaseInputIdentityUpdate_0, BaseInputIdentityDelete_0>(unitOfWork, service, userService)
+        where TService : IBaseService_1<TOutput, TInputIdentifier>
+        where TOutput : BaseOutput<TOutput>
+        where TInputIdentifier : BaseInputIdentifier<TInputIdentifier>, new()
+{ }

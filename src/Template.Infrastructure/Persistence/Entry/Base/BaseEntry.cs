@@ -45,6 +45,12 @@ public class BaseEntry<TEntry> where TEntry : BaseEntry<TEntry>
         return (TEntry)this;
     }
 
+    public TEntry SetInternalData(long id)
+    {
+        Id = id;
+        return (TEntry)this;
+    }
+
     public TEntry SetInternalDataCreate(DateTime creationDate, long? creationUserId)
     {
         CreationDate = creationDate;

@@ -107,3 +107,11 @@ public class BaseDTO_0<TOutput, TInputIdentifier, TInputCreate, TInputUpdate, TI
         };
     }
 }
+
+public class BaseDTO_1<TOutput, TInputIdentifier, TDTO, TInternalPropertiesDTO, TAuxiliaryProperty> : BaseDTO_0<TOutput, TInputIdentifier, BaseInputCreate_0, BaseInputUpdate_0, BaseInputIdentityUpdate_0, BaseInputIdentityDelete_0, TDTO, TInternalPropertiesDTO, BaseExternalPropertiesDTO_0, TAuxiliaryProperty>
+    where TOutput : BaseOutput<TOutput>
+    where TInputIdentifier : BaseInputIdentifier<TInputIdentifier>, new()
+    where TDTO : BaseDTO_1<TOutput, TInputIdentifier, TDTO, TInternalPropertiesDTO, TAuxiliaryProperty>, new()
+    where TInternalPropertiesDTO : BaseInternalPropertiesDTO<TInternalPropertiesDTO>, new()
+    where TAuxiliaryProperty : BaseAuxiliaryPropertiesDTO<TAuxiliaryProperty>, new()
+{ }

@@ -24,3 +24,5 @@ public abstract class BaseAuxiliaryPropertiesDTO<TAuxiliaryPropertyDTO> where TA
         return (TAuxiliaryPropertyDTO)this;
     }
 }
+
+public class BaseAuxiliaryPropertiesDTO_0 : BaseAuxiliaryPropertiesDTO<BaseAuxiliaryPropertiesDTO_0> { }

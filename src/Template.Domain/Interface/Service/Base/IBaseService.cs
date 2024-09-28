@@ -23,3 +23,8 @@ public interface IBaseService_0<TOutput, TInputIdentifier, TInputCreate, TInputU
     bool Delete(TInputIdentityDelete inputIdentityDelete);
     bool Delete(List<TInputIdentityDelete> listInputIdentityDelete);
 }
+
+public interface IBaseService_1<TOutput, TInputIdentifier> : IBaseService_0<TOutput, TInputIdentifier, BaseInputCreate_0, BaseInputUpdate_0, BaseInputIdentityUpdate_0, BaseInputIdentityDelete_0>
+        where TOutput : BaseOutput<TOutput>
+        where TInputIdentifier : BaseInputIdentifier<TInputIdentifier>, new()
+{ }

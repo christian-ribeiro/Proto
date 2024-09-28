@@ -194,3 +194,13 @@ public abstract class BaseRepository_0<TContext, TEntry, TOutput, TInputIdentifi
         return SessionData.Mapper!.MapperEntryDTO.Map<List<TEntry>, List<TDTO>>(listEntry);
     }
 }
+
+public abstract class BaseRepository_1<TContext, TEntry, TOutput, TInputIdentifier, TDTO, TInternalPropertiesDTO, TAuxiliaryPropertyDTO>(TContext context) : BaseRepository_0<TContext, TEntry, TOutput, TInputIdentifier, BaseInputCreate_0, BaseInputUpdate_0, BaseInputIdentityUpdate_0, BaseInputIdentityDelete_0, TDTO, TInternalPropertiesDTO, BaseExternalPropertiesDTO_0, TAuxiliaryPropertyDTO>(context), IBaseRepository_1<TOutput, TInputIdentifier, TDTO, TInternalPropertiesDTO, TAuxiliaryPropertyDTO>
+    where TContext : DbContext
+    where TEntry : BaseEntry<TEntry>
+    where TOutput : BaseOutput<TOutput>
+    where TInputIdentifier : BaseInputIdentifier<TInputIdentifier>, new()
+    where TDTO : BaseDTO_1<TOutput, TInputIdentifier, TDTO, TInternalPropertiesDTO, TAuxiliaryPropertyDTO>, new()
+    where TInternalPropertiesDTO : BaseInternalPropertiesDTO<TInternalPropertiesDTO>, new()
+    where TAuxiliaryPropertyDTO : BaseAuxiliaryPropertiesDTO<TAuxiliaryPropertyDTO>, new()
+{ }

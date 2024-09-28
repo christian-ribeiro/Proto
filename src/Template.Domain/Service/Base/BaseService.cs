@@ -1,7 +1,6 @@
 ﻿using Template.Arguments.Arguments.Base;
 using Template.Arguments.Enum;
 using Template.Arguments.General.Session;
-using Template.Domain.DTO;
 using Template.Domain.DTO.Base;
 using Template.Domain.Interface.Repository.Base;
 using Template.Domain.Interface.Service.Base;
@@ -130,3 +129,12 @@ public class BaseService_0<TRepository, TOutput, TInputIdentifier, TInputCreate,
     }
     #endregion
 }
+
+public class BaseService_1<TRepository, TOutput, TInputIdentifier, TDTO, TInternalPropertiesDTO, TAuxiliaryPropertyDTO>(TRepository repository) : BaseService_0<TRepository, TOutput, TInputIdentifier, BaseInputCreate_0, BaseInputUpdate_0, BaseInputIdentityUpdate_0, BaseInputIdentityDelete_0, TDTO, BaseValidateDTO, TInternalPropertiesDTO, BaseExternalPropertiesDTO_0, TAuxiliaryPropertyDTO>(repository), IBaseService_1<TOutput, TInputIdentifier>
+        where TRepository : IBaseRepository_1<TOutput, TInputIdentifier, TDTO, TInternalPropertiesDTO, TAuxiliaryPropertyDTO>
+        where TOutput : BaseOutput<TOutput>
+        where TInputIdentifier : BaseInputIdentifier<TInputIdentifier>, new()
+        where TDTO : BaseDTO_1<TOutput, TInputIdentifier, TDTO, TInternalPropertiesDTO, TAuxiliaryPropertyDTO>, new()
+        where TInternalPropertiesDTO : BaseInternalPropertiesDTO<TInternalPropertiesDTO>, new()
+        where TAuxiliaryPropertyDTO : BaseAuxiliaryPropertiesDTO<TAuxiliaryPropertyDTO>, new()
+{ }

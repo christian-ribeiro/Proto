@@ -6,7 +6,7 @@ namespace Template.Arguments.General.Session;
 
 public static class SessionData
 {
-    public static ConcurrentDictionary<Guid, SessionDataRequest> ListSessionDataRequest = new();
+    public static ConcurrentDictionary<Guid, SessionDataRequest> ListSessionDataRequest { get; private set; } = new();
     public static Mapper? Mapper { get; private set; }
     public static IConfiguration? Configuration { get; private set; }
 

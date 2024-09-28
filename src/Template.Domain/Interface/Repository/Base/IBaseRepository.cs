@@ -28,3 +28,11 @@ public interface IBaseRepository_0<TOutput, TInputIdentifier, TInputCreate, TInp
     bool Delete(TDTO dto);
     bool Delete(List<TDTO> listDTO);
 }
+
+public interface IBaseRepository_1<TOutput, TInputIdentifier, TDTO, TInternalPropertiesDTO, TAuxiliaryPropertyDTO> : IBaseRepository_0<TOutput, TInputIdentifier, BaseInputCreate_0, BaseInputUpdate_0, BaseInputIdentityUpdate_0, BaseInputIdentityDelete_0, TDTO, TInternalPropertiesDTO, BaseExternalPropertiesDTO_0, TAuxiliaryPropertyDTO>
+    where TOutput : BaseOutput<TOutput>
+    where TInputIdentifier : BaseInputIdentifier<TInputIdentifier>, new()
+    where TDTO : BaseDTO_1<TOutput, TInputIdentifier, TDTO, TInternalPropertiesDTO, TAuxiliaryPropertyDTO>, new()
+    where TInternalPropertiesDTO : BaseInternalPropertiesDTO<TInternalPropertiesDTO>, new()
+    where TAuxiliaryPropertyDTO : BaseAuxiliaryPropertiesDTO<TAuxiliaryPropertyDTO>, new()
+{ }
