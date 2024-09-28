@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using Template.Arguments.Arguments;
-using Template.Domain.DTO;
+using Template.Arguments.Arguments.Module.Registration;
+using Template.Domain.DTO.Module.Registration;
 
 namespace Template.Domain.Mapper;
 

@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using Template.Arguments.AutoMapper;
 using Template.Domain.Interface;
-using Template.Domain.Interface.Repository;
-using Template.Domain.Interface.Service;
-using Template.Domain.Service;
+using Template.Domain.Interface.Repository.Module.Registration;
+using Template.Domain.Interface.Service.Module.Registration;
+using Template.Domain.Service.Module.Registration;
 using Template.Infrastructure.Persistence;
-using Template.Infrastructure.Persistence.Repository;
+using Template.Infrastructure.Persistence.Repository.Module.Registration;
 
 namespace Template.Api.Extensions;
 

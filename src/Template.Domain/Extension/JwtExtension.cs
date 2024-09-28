@@ -3,7 +3,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using Template.Arguments.Arguments;
+using Template.Arguments.Arguments.Module.Registration;
 using Template.Arguments.General.Session;
 
 namespace Template.Domain.Extension;

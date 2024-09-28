@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using Template.Domain.DTO;
-using Template.Infrastructure.Persistence.Entry;
+using Template.Domain.DTO.Module.Registration;
+using Template.Infrastructure.Persistence.Entry.Module.Registration;
 
 namespace Template.Infrastructure.Mapper;
 
