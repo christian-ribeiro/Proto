@@ -16,10 +16,113 @@ public class ProductService(IProductRepository repository, IBrandRepository bran
         switch (processType)
         {
             case EnumProcessType.Create:
+                _ = (from i in GetListValidDTO(listProductValidateDTO)
+                     where i.OriginalProductDTO != null
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
+                _ = (from i in GetListValidDTO(listProductValidateDTO)
+                     where i.InputCreateProduct == null
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
+                _ = (from i in GetListValidDTO(listProductValidateDTO)
+                     where InvalidLength(1, 6, i.InputCreateProduct?.Code)
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
+                _ = (from i in GetListValidDTO(listProductValidateDTO)
+                     where InvalidLength(1, 100, i.InputCreateProduct?.Description)
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
+                _ = (from i in GetListValidDTO(listProductValidateDTO)
+                     where InvalidLength(1, 100, i.InputCreateProduct?.BarCode)
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
+                _ = (from i in GetListValidDTO(listProductValidateDTO)
+                     where DecimalLowerThan(0, i.InputCreateProduct?.CostValue)
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
+                _ = (from i in GetListValidDTO(listProductValidateDTO)
+                     where DecimalLowerThan(0, i.InputCreateProduct?.SaleValue)
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+                _ = (from i in GetListValidDTO(listProductValidateDTO)
+                     where DecimalLowerThan(0, i.InputCreateProduct?.Weight)
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
+                _ = (from i in GetListValidDTO(listProductValidateDTO)
+                     where DecimalLowerThan(0, i.InputCreateProduct?.NetWeight)
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
+                _ = (from i in GetListValidDTO(listProductValidateDTO)
+                     where InvalidLength(1, 400, i.InputCreateProduct?.Observation)
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
                 break;
             case EnumProcessType.Update:
+                _ = (from i in GetListValidDTO(listProductValidateDTO)
+                     where i.OriginalProductDTO == null
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
+                _ = (from i in GetListValidDTO(listProductValidateDTO)
+                     where i.InputIdentityUpdateProduct?.InputUpdate == null
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
+                _ = (from i in GetListValidDTO(listProductValidateDTO)
+                     where InvalidLength(1, 100, i.InputIdentityUpdateProduct?.InputUpdate?.Description)
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
+                _ = (from i in GetListValidDTO(listProductValidateDTO)
+                     where InvalidLength(1, 100, i.InputIdentityUpdateProduct?.InputUpdate?.BarCode)
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
+                _ = (from i in GetListValidDTO(listProductValidateDTO)
+                     where DecimalLowerThan(0, i.InputIdentityUpdateProduct?.InputUpdate?.CostValue)
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
+                _ = (from i in GetListValidDTO(listProductValidateDTO)
+                     where DecimalLowerThan(0, i.InputIdentityUpdateProduct?.InputUpdate?.SaleValue)
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+                _ = (from i in GetListValidDTO(listProductValidateDTO)
+                     where DecimalLowerThan(0, i.InputIdentityUpdateProduct?.InputUpdate?.Weight)
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
+                _ = (from i in GetListValidDTO(listProductValidateDTO)
+                     where DecimalLowerThan(0, i.InputIdentityUpdateProduct?.InputUpdate?.NetWeight)
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
+                _ = (from i in GetListValidDTO(listProductValidateDTO)
+                     where InvalidLength(1, 400, i.InputIdentityUpdateProduct?.InputUpdate?.Observation)
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
                 break;
             case EnumProcessType.Delete:
+                _ = (from i in GetListValidDTO(listProductValidateDTO)
+                     where i.OriginalProductDTO == null
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
+                _ = (from i in GetListValidDTO(listProductValidateDTO)
+                     where i.InputIdentityDeleteProduct == null
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
                 break;
         }
         return true;

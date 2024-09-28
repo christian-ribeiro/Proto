@@ -46,6 +46,12 @@ public class BaseService_0<TRepository, TOutput, TInputIdentifier, TInputCreate,
         return value?.Length < minLength || value?.Length > maxLength;
     }
 
+    public bool DecimalLowerThan(decimal minValue, decimal? value)
+    {
+        return value < minValue;
+    }
+
+
     public bool InvalidEmail(string? value)
     {
         Regex EmailRegex = new Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$", RegexOptions.Compiled | RegexOptions.IgnoreCase);

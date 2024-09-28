@@ -24,10 +24,14 @@ public class UserService(IUserRepository repository, IEmailService emailService,
     {
         switch (processType)
         {
-            #region Create
             case EnumProcessType.Create:
                 _ = (from i in GetListValidDTO(listUserValidateDTO)
                      where i.OriginalUserDTO != null
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
+                _ = (from i in GetListValidDTO(listUserValidateDTO)
+                     where i.InputCreateUser == null
                      let setInvalid = i.SetInvalid()
                      select true).ToList();
 
@@ -57,11 +61,14 @@ public class UserService(IUserRepository repository, IEmailService emailService,
                      select true).ToList();
 
                 break;
-            #endregion
-            #region Update
             case EnumProcessType.Update:
                 _ = (from i in GetListValidDTO(listUserValidateDTO)
                      where i.OriginalUserDTO == null
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
+                _ = (from i in GetListValidDTO(listUserValidateDTO)
+                     where i.InputIdentityUpdateUser?.InputUpdate == null
                      let setInvalid = i.SetInvalid()
                      select true).ToList();
 
@@ -75,23 +82,24 @@ public class UserService(IUserRepository repository, IEmailService emailService,
                      let setInvalid = i.SetInvalid()
                      select true).ToList();
                 break;
-            #endregion
-            #region Delete
             case EnumProcessType.Delete:
                 _ = (from i in GetListValidDTO(listUserValidateDTO)
                      where i.OriginalUserDTO == null
                      let setInvalid = i.SetInvalid()
                      select true).ToList();
                 break;
-            #endregion
-            #region View
             case EnumProcessType.View:
                 _ = (from i in GetListValidDTO(listUserValidateDTO)
                      where i.OriginalUserDTO == null
                      let setInvalid = i.SetInvalid()
                      select true).ToList();
+
+                _ = (from i in GetListValidDTO(listUserValidateDTO)
+                     where i.InputIdentityDeleteUser == null
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
                 break;
-                #endregion
         }
 
         return true;

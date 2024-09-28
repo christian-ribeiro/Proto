@@ -16,10 +16,121 @@ public class EmailConfigurationService(IEmailConfigurationRepository repository)
         switch (processType)
         {
             case EnumProcessType.Create:
+                _ = (from i in GetListValidDTO(listEmailConfigurationValidateDTO)
+                     where i.OriginalEmailConfigurationDTO != null
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
+                _ = (from i in GetListValidDTO(listEmailConfigurationValidateDTO)
+                     where i.InputCreateEmailConfiguration == null
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
+                _ = (from i in GetListValidDTO(listEmailConfigurationValidateDTO)
+                     where InvalidLength(1, 100, i.InputCreateEmailConfiguration?.Server)
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
+                _ = (from i in GetListValidDTO(listEmailConfigurationValidateDTO)
+                     where InvalidLength(1, 100, i.InputCreateEmailConfiguration?.DisplayName)
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
+                _ = (from i in GetListValidDTO(listEmailConfigurationValidateDTO)
+                     where InvalidLength(1, 100, i.InputCreateEmailConfiguration?.FromEmail)
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
+                _ = (from i in GetListValidDTO(listEmailConfigurationValidateDTO)
+                     where InvalidLength(1, 100, i.InputCreateEmailConfiguration?.Username)
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
+                _ = (from i in GetListValidDTO(listEmailConfigurationValidateDTO)
+                     where InvalidLength(1, 100, i.InputCreateEmailConfiguration?.Password)
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
+                _ = (from i in GetListValidDTO(listEmailConfigurationValidateDTO)
+                     where InvalidLength(0, 100, i.InputCreateEmailConfiguration?.EmailCopy)
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
+                _ = (from i in GetListValidDTO(listEmailConfigurationValidateDTO)
+                     where InvalidEmail(i.InputCreateEmailConfiguration?.FromEmail)
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
+                _ = (from i in GetListValidDTO(listEmailConfigurationValidateDTO)
+                     where !string.IsNullOrEmpty(i.InputCreateEmailConfiguration?.EmailCopy) && InvalidEmail(i.InputCreateEmailConfiguration?.EmailCopy)
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
                 break;
             case EnumProcessType.Update:
+                _ = (from i in GetListValidDTO(listEmailConfigurationValidateDTO)
+                     where i.OriginalEmailConfigurationDTO == null
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
+                _ = (from i in GetListValidDTO(listEmailConfigurationValidateDTO)
+                     where i.InputIdentityUpdateEmailConfiguration?.InputUpdate == null
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
+                _ = (from i in GetListValidDTO(listEmailConfigurationValidateDTO)
+                     where InvalidLength(1, 100, i.InputIdentityUpdateEmailConfiguration?.InputUpdate?.Server)
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
+                _ = (from i in GetListValidDTO(listEmailConfigurationValidateDTO)
+                     where InvalidLength(1, 100, i.InputIdentityUpdateEmailConfiguration?.InputUpdate?.DisplayName)
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
+                _ = (from i in GetListValidDTO(listEmailConfigurationValidateDTO)
+                     where InvalidLength(1, 100, i.InputIdentityUpdateEmailConfiguration?.InputUpdate?.FromEmail)
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
+                _ = (from i in GetListValidDTO(listEmailConfigurationValidateDTO)
+                     where InvalidLength(1, 100, i.InputIdentityUpdateEmailConfiguration?.InputUpdate?.Username)
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
+                _ = (from i in GetListValidDTO(listEmailConfigurationValidateDTO)
+                     where InvalidLength(1, 100, i.InputIdentityUpdateEmailConfiguration?.InputUpdate?.Password)
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
+                _ = (from i in GetListValidDTO(listEmailConfigurationValidateDTO)
+                     where InvalidLength(0, 100, i.InputIdentityUpdateEmailConfiguration?.InputUpdate?.EmailCopy)
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
+                _ = (from i in GetListValidDTO(listEmailConfigurationValidateDTO)
+                     where InvalidEmail(i.InputIdentityUpdateEmailConfiguration?.InputUpdate?.FromEmail)
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
+                _ = (from i in GetListValidDTO(listEmailConfigurationValidateDTO)
+                     where !string.IsNullOrEmpty(i.InputIdentityUpdateEmailConfiguration?.InputUpdate?.EmailCopy) && InvalidEmail(i.InputIdentityUpdateEmailConfiguration?.InputUpdate?.EmailCopy)
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
                 break;
             case EnumProcessType.Delete:
+
+                _ = (from i in GetListValidDTO(listEmailConfigurationValidateDTO)
+                     where i.OriginalEmailConfigurationDTO == null
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
+                _ = (from i in GetListValidDTO(listEmailConfigurationValidateDTO)
+                     where i.InputIdentityDeleteEmailConfiguration == null
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
                 break;
         }
         return true;

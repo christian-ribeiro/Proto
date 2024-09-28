@@ -16,10 +16,54 @@ public class BrandService(IBrandRepository repository) : BaseService_0<IBrandRep
         switch (processType)
         {
             case EnumProcessType.Create:
+                _ = (from i in GetListValidDTO(listBrandValidateDTO)
+                     where i.OriginalBrandDTO != null
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
+                _ = (from i in GetListValidDTO(listBrandValidateDTO)
+                     where i.InputCreateBrand == null
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
+                _ = (from i in GetListValidDTO(listBrandValidateDTO)
+                     where InvalidLength(1, 6, i.InputCreateBrand?.Code)
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
+                _ = (from i in GetListValidDTO(listBrandValidateDTO)
+                     where InvalidLength(1, 100, i.InputCreateBrand?.Description)
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
                 break;
             case EnumProcessType.Update:
+                _ = (from i in GetListValidDTO(listBrandValidateDTO)
+                     where i.OriginalBrandDTO == null
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
+                _ = (from i in GetListValidDTO(listBrandValidateDTO)
+                     where i.InputIdentityUpdateBrand?.InputUpdate == null
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
+                _ = (from i in GetListValidDTO(listBrandValidateDTO)
+                     where InvalidLength(1, 100, i.InputIdentityUpdateBrand?.InputUpdate?.Description)
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
                 break;
             case EnumProcessType.Delete:
+                _ = (from i in GetListValidDTO(listBrandValidateDTO)
+                     where i.OriginalBrandDTO == null
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
+                _ = (from i in GetListValidDTO(listBrandValidateDTO)
+                     where i.InputIdentityDeleteBrand == null
+                     let setInvalid = i.SetInvalid()
+                     select true).ToList();
+
                 break;
         }
         return true;
