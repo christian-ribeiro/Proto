@@ -1,10 +1,10 @@
 ﻿using System.Text.Json.Serialization;
 using Template.Arguments.Enum;
-using Template.Infrastructure.Persistence.Entry.Module.Base;
+using Template.Infrastructure.Persistence.Entity.Module.Base;
 
-namespace Template.Infrastructure.Persistence.Entry.Module.General;
+namespace Template.Infrastructure.Persistence.Entity.Module.General;
 
-public class EmailConfiguration : BaseEntry<EmailConfiguration>
+public class EmailConfiguration : BaseEntity<EmailConfiguration>
 {
     public string Server { get; private set; }
     public int Port { get; private set; }

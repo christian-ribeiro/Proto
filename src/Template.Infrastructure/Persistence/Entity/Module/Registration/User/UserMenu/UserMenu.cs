@@ -1,9 +1,9 @@
 ﻿using System.Text.Json.Serialization;
-using Template.Infrastructure.Persistence.Entry.Module.Base;
+using Template.Infrastructure.Persistence.Entity.Module.Base;
 
-namespace Template.Infrastructure.Persistence.Entry.Module.Registration;
+namespace Template.Infrastructure.Persistence.Entity.Module.Registration;
 
-public class UserMenu : BaseEntry<UserMenu>
+public class UserMenu : BaseEntity<UserMenu>
 {
     public long MenuId { get; private set; }
     public int Position { get; private set; }

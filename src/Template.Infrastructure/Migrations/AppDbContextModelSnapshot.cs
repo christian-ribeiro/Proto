@@ -19,7 +19,7 @@ namespace Template.Infrastructure.Migrations
                 .HasAnnotation("ProductVersion", "8.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("Template.Infrastructure.Persistence.Entry.Module.General.EmailConfiguration", b =>
+            modelBuilder.Entity("Template.Infrastructure.Persistence.Entity.Module.General.EmailConfiguration", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -99,7 +99,7 @@ namespace Template.Infrastructure.Migrations
                     b.ToTable("configuracao_email", (string)null);
                 });
 
-            modelBuilder.Entity("Template.Infrastructure.Persistence.Entry.Module.Registration.Brand", b =>
+            modelBuilder.Entity("Template.Infrastructure.Persistence.Entity.Module.Registration.Brand", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -144,7 +144,7 @@ namespace Template.Infrastructure.Migrations
                     b.ToTable("marca", (string)null);
                 });
 
-            modelBuilder.Entity("Template.Infrastructure.Persistence.Entry.Module.Registration.Menu", b =>
+            modelBuilder.Entity("Template.Infrastructure.Persistence.Entity.Module.Registration.Menu", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -203,7 +203,7 @@ namespace Template.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Template.Infrastructure.Persistence.Entry.Module.Registration.Product", b =>
+            modelBuilder.Entity("Template.Infrastructure.Persistence.Entity.Module.Registration.Product", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -290,7 +290,7 @@ namespace Template.Infrastructure.Migrations
                     b.ToTable("produto", (string)null);
                 });
 
-            modelBuilder.Entity("Template.Infrastructure.Persistence.Entry.Module.Registration.ProductCategory", b =>
+            modelBuilder.Entity("Template.Infrastructure.Persistence.Entity.Module.Registration.ProductCategory", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -335,7 +335,7 @@ namespace Template.Infrastructure.Migrations
                     b.ToTable("categoria_produto", (string)null);
                 });
 
-            modelBuilder.Entity("Template.Infrastructure.Persistence.Entry.Module.Registration.User", b =>
+            modelBuilder.Entity("Template.Infrastructure.Persistence.Entity.Module.Registration.User", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -421,7 +421,7 @@ namespace Template.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Template.Infrastructure.Persistence.Entry.Module.Registration.UserMenu", b =>
+            modelBuilder.Entity("Template.Infrastructure.Persistence.Entity.Module.Registration.UserMenu", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -472,14 +472,14 @@ namespace Template.Infrastructure.Migrations
                     b.ToTable("menu_usuario", (string)null);
                 });
 
-            modelBuilder.Entity("Template.Infrastructure.Persistence.Entry.Module.General.EmailConfiguration", b =>
+            modelBuilder.Entity("Template.Infrastructure.Persistence.Entity.Module.General.EmailConfiguration", b =>
                 {
-                    b.HasOne("Template.Infrastructure.Persistence.Entry.Module.Registration.User", "ChangeUser")
+                    b.HasOne("Template.Infrastructure.Persistence.Entity.Module.Registration.User", "ChangeUser")
                         .WithMany("ListChangeUserEmailConfiguration")
                         .HasForeignKey("ChangeUserId")
                         .HasConstraintName("fk_configuracao_email_id_usuario_alteracao");
 
-                    b.HasOne("Template.Infrastructure.Persistence.Entry.Module.Registration.User", "CreationUser")
+                    b.HasOne("Template.Infrastructure.Persistence.Entity.Module.Registration.User", "CreationUser")
                         .WithMany("ListCreationUserEmailConfiguration")
                         .HasForeignKey("CreationUserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -491,14 +491,14 @@ namespace Template.Infrastructure.Migrations
                     b.Navigation("CreationUser");
                 });
 
-            modelBuilder.Entity("Template.Infrastructure.Persistence.Entry.Module.Registration.Brand", b =>
+            modelBuilder.Entity("Template.Infrastructure.Persistence.Entity.Module.Registration.Brand", b =>
                 {
-                    b.HasOne("Template.Infrastructure.Persistence.Entry.Module.Registration.User", "ChangeUser")
+                    b.HasOne("Template.Infrastructure.Persistence.Entity.Module.Registration.User", "ChangeUser")
                         .WithMany("ListChangeUserBrand")
                         .HasForeignKey("ChangeUserId")
                         .HasConstraintName("fk_marca_id_usuario_alteracao");
 
-                    b.HasOne("Template.Infrastructure.Persistence.Entry.Module.Registration.User", "CreationUser")
+                    b.HasOne("Template.Infrastructure.Persistence.Entity.Module.Registration.User", "CreationUser")
                         .WithMany("ListCreationUserBrand")
                         .HasForeignKey("CreationUserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -510,9 +510,9 @@ namespace Template.Infrastructure.Migrations
                     b.Navigation("CreationUser");
                 });
 
-            modelBuilder.Entity("Template.Infrastructure.Persistence.Entry.Module.Registration.Menu", b =>
+            modelBuilder.Entity("Template.Infrastructure.Persistence.Entity.Module.Registration.Menu", b =>
                 {
-                    b.HasOne("Template.Infrastructure.Persistence.Entry.Module.Registration.Menu", "ParentMenu")
+                    b.HasOne("Template.Infrastructure.Persistence.Entity.Module.Registration.Menu", "ParentMenu")
                         .WithMany("ListMenu")
                         .HasForeignKey("ParentMenuId")
                         .HasConstraintName("fk_menu_id_menu_pai");
@@ -520,28 +520,28 @@ namespace Template.Infrastructure.Migrations
                     b.Navigation("ParentMenu");
                 });
 
-            modelBuilder.Entity("Template.Infrastructure.Persistence.Entry.Module.Registration.Product", b =>
+            modelBuilder.Entity("Template.Infrastructure.Persistence.Entity.Module.Registration.Product", b =>
                 {
-                    b.HasOne("Template.Infrastructure.Persistence.Entry.Module.Registration.Brand", "Brand")
+                    b.HasOne("Template.Infrastructure.Persistence.Entity.Module.Registration.Brand", "Brand")
                         .WithMany("ListProduct")
                         .HasForeignKey("BrandId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_produto_id_marca");
 
-                    b.HasOne("Template.Infrastructure.Persistence.Entry.Module.Registration.User", "ChangeUser")
+                    b.HasOne("Template.Infrastructure.Persistence.Entity.Module.Registration.User", "ChangeUser")
                         .WithMany("ListChangeUserProduct")
                         .HasForeignKey("ChangeUserId")
                         .HasConstraintName("fk_produto_id_usuario_alteracao");
 
-                    b.HasOne("Template.Infrastructure.Persistence.Entry.Module.Registration.User", "CreationUser")
+                    b.HasOne("Template.Infrastructure.Persistence.Entity.Module.Registration.User", "CreationUser")
                         .WithMany("ListCreationUserProduct")
                         .HasForeignKey("CreationUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_produto_id_usuario_criacao");
 
-                    b.HasOne("Template.Infrastructure.Persistence.Entry.Module.Registration.ProductCategory", "ProductCategory")
+                    b.HasOne("Template.Infrastructure.Persistence.Entity.Module.Registration.ProductCategory", "ProductCategory")
                         .WithMany("ListProduct")
                         .HasForeignKey("ProductCategoryId")
                         .HasConstraintName("fk_produto_id_categoria_produto");
@@ -555,14 +555,14 @@ namespace Template.Infrastructure.Migrations
                     b.Navigation("ProductCategory");
                 });
 
-            modelBuilder.Entity("Template.Infrastructure.Persistence.Entry.Module.Registration.ProductCategory", b =>
+            modelBuilder.Entity("Template.Infrastructure.Persistence.Entity.Module.Registration.ProductCategory", b =>
                 {
-                    b.HasOne("Template.Infrastructure.Persistence.Entry.Module.Registration.User", "ChangeUser")
+                    b.HasOne("Template.Infrastructure.Persistence.Entity.Module.Registration.User", "ChangeUser")
                         .WithMany("ListChangeUserProductCategory")
                         .HasForeignKey("ChangeUserId")
                         .HasConstraintName("fk_categoria_produto_id_usuario_alteracao");
 
-                    b.HasOne("Template.Infrastructure.Persistence.Entry.Module.Registration.User", "CreationUser")
+                    b.HasOne("Template.Infrastructure.Persistence.Entity.Module.Registration.User", "CreationUser")
                         .WithMany("ListCreationUserProductCategory")
                         .HasForeignKey("CreationUserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -574,14 +574,14 @@ namespace Template.Infrastructure.Migrations
                     b.Navigation("CreationUser");
                 });
 
-            modelBuilder.Entity("Template.Infrastructure.Persistence.Entry.Module.Registration.User", b =>
+            modelBuilder.Entity("Template.Infrastructure.Persistence.Entity.Module.Registration.User", b =>
                 {
-                    b.HasOne("Template.Infrastructure.Persistence.Entry.Module.Registration.User", "ChangeUser")
+                    b.HasOne("Template.Infrastructure.Persistence.Entity.Module.Registration.User", "ChangeUser")
                         .WithMany("ListChangeUserUser")
                         .HasForeignKey("ChangeUserId")
                         .HasConstraintName("fk_usuario_id_usuario_alteracao");
 
-                    b.HasOne("Template.Infrastructure.Persistence.Entry.Module.Registration.User", "CreationUser")
+                    b.HasOne("Template.Infrastructure.Persistence.Entity.Module.Registration.User", "CreationUser")
                         .WithMany("ListCreationUserUser")
                         .HasForeignKey("CreationUserId")
                         .HasConstraintName("fk_usuario_id_usuario_criacao");
@@ -591,21 +591,21 @@ namespace Template.Infrastructure.Migrations
                     b.Navigation("CreationUser");
                 });
 
-            modelBuilder.Entity("Template.Infrastructure.Persistence.Entry.Module.Registration.UserMenu", b =>
+            modelBuilder.Entity("Template.Infrastructure.Persistence.Entity.Module.Registration.UserMenu", b =>
                 {
-                    b.HasOne("Template.Infrastructure.Persistence.Entry.Module.Registration.User", "ChangeUser")
+                    b.HasOne("Template.Infrastructure.Persistence.Entity.Module.Registration.User", "ChangeUser")
                         .WithMany("ListChangeUserUserMenu")
                         .HasForeignKey("ChangeUserId")
                         .HasConstraintName("fk_menu_usuario_id_usuario_alteracao");
 
-                    b.HasOne("Template.Infrastructure.Persistence.Entry.Module.Registration.User", "CreationUser")
+                    b.HasOne("Template.Infrastructure.Persistence.Entity.Module.Registration.User", "CreationUser")
                         .WithMany("ListCreationUserUserMenu")
                         .HasForeignKey("CreationUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_menu_usuario_id_usuario_criacao");
 
-                    b.HasOne("Template.Infrastructure.Persistence.Entry.Module.Registration.Menu", "Menu")
+                    b.HasOne("Template.Infrastructure.Persistence.Entity.Module.Registration.Menu", "Menu")
                         .WithMany("ListUserMenu")
                         .HasForeignKey("MenuId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -619,24 +619,24 @@ namespace Template.Infrastructure.Migrations
                     b.Navigation("Menu");
                 });
 
-            modelBuilder.Entity("Template.Infrastructure.Persistence.Entry.Module.Registration.Brand", b =>
+            modelBuilder.Entity("Template.Infrastructure.Persistence.Entity.Module.Registration.Brand", b =>
                 {
                     b.Navigation("ListProduct");
                 });
 
-            modelBuilder.Entity("Template.Infrastructure.Persistence.Entry.Module.Registration.Menu", b =>
+            modelBuilder.Entity("Template.Infrastructure.Persistence.Entity.Module.Registration.Menu", b =>
                 {
                     b.Navigation("ListMenu");
 
                     b.Navigation("ListUserMenu");
                 });
 
-            modelBuilder.Entity("Template.Infrastructure.Persistence.Entry.Module.Registration.ProductCategory", b =>
+            modelBuilder.Entity("Template.Infrastructure.Persistence.Entity.Module.Registration.ProductCategory", b =>
                 {
                     b.Navigation("ListProduct");
                 });
 
-            modelBuilder.Entity("Template.Infrastructure.Persistence.Entry.Module.Registration.User", b =>
+            modelBuilder.Entity("Template.Infrastructure.Persistence.Entity.Module.Registration.User", b =>
                 {
                     b.Navigation("ListChangeUserBrand");
 

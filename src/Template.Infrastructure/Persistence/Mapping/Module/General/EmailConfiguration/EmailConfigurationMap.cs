@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Template.Infrastructure.Persistence.Entry.Module.General;
+using Template.Infrastructure.Persistence.Entity.Module.General;
 
 namespace Template.Infrastructure.Persistence.Mapping.Module.General;
 

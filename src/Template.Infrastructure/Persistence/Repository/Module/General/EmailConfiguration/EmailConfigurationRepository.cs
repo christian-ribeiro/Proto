@@ -4,7 +4,7 @@ using Template.Arguments.Enum;
 using Template.Domain.DTO.Module.General;
 using Template.Domain.Interface.Repository.Module.General;
 using Template.Infrastructure.Persistence.Context;
-using Template.Infrastructure.Persistence.Entry.Module.General;
+using Template.Infrastructure.Persistence.Entity.Module.General;
 using Template.Infrastructure.Persistence.Repository.Module.Base;
 
 namespace Template.Infrastructure.Persistence.Repository.Module.General;
@@ -13,6 +13,6 @@ public class EmailConfigurationRepository(AppDbContext context) : BaseRepository
 {
     public EmailConfigurationDTO? GetByType(EnumEmailConfigurationType emailConfigurationType)
     {
-        return FromEntryToDTO(_context.EmailConfiguration.AsNoTracking().Where(x => x.EmailConfigurationType == emailConfigurationType).FirstOrDefault()!);
+        return FromEntityToDTO(_context.EmailConfiguration.AsNoTracking().Where(x => x.EmailConfigurationType == emailConfigurationType).FirstOrDefault()!);
     }
 }

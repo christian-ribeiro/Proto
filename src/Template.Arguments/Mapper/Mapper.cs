@@ -2,9 +2,9 @@
 
 namespace Template.Api.Mapper;
 
-public class Mapper(IMapper mapperDTOOutput, IMapper MapperEntryDTO, IMapper mapperInputDTO)
+public class Mapper(IMapper mapperDTOOutput, IMapper MapperEntityDTO, IMapper mapperInputDTO)
 {
     public IMapper MapperDTOOutput { get; private set; } = mapperDTOOutput;
-    public IMapper MapperEntryDTO { get; private set; } = MapperEntryDTO;
+    public IMapper MapperEntityDTO { get; private set; } = MapperEntityDTO;
     public IMapper MapperInputDTO { get; private set; } = mapperInputDTO;
 }

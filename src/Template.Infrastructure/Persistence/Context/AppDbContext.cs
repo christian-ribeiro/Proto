@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Template.Infrastructure.Persistence.Entry.Module.General;
-using Template.Infrastructure.Persistence.Entry.Module.Registration;
+using Template.Infrastructure.Persistence.Entity.Module.General;
+using Template.Infrastructure.Persistence.Entity.Module.Registration;
 using Template.Infrastructure.Persistence.Mapping.Module.Registration;
 
 namespace Template.Infrastructure.Persistence.Context;

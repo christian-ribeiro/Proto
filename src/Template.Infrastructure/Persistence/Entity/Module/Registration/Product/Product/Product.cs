@@ -1,10 +1,10 @@
 ﻿using System.Text.Json.Serialization;
 using Template.Arguments.Enum;
-using Template.Infrastructure.Persistence.Entry.Module.Base;
+using Template.Infrastructure.Persistence.Entity.Module.Base;
 
-namespace Template.Infrastructure.Persistence.Entry.Module.Registration;
+namespace Template.Infrastructure.Persistence.Entity.Module.Registration;
 
-public class Product : BaseEntry<Product>
+public class Product : BaseEntity<Product>
 {
     public string Code { get; private set; }
     public string Description { get; private set; }

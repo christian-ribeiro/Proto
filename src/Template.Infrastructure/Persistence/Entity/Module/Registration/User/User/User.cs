@@ -1,11 +1,11 @@
 ﻿using System.Text.Json.Serialization;
 using Template.Arguments.Enum;
-using Template.Infrastructure.Persistence.Entry.Module.Base;
-using Template.Infrastructure.Persistence.Entry.Module.General;
+using Template.Infrastructure.Persistence.Entity.Module.Base;
+using Template.Infrastructure.Persistence.Entity.Module.General;
 
-namespace Template.Infrastructure.Persistence.Entry.Module.Registration;
+namespace Template.Infrastructure.Persistence.Entity.Module.Registration;
 
-public class User : BaseEntry<User>
+public class User : BaseEntity<User>
 {
     public string Code { get; private set; }
     public string Name { get; private set; }

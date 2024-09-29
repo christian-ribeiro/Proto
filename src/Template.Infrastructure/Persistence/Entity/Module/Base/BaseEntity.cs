@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-using Template.Infrastructure.Persistence.Entry.Module.Registration;
+using Template.Infrastructure.Persistence.Entity.Module.Registration;
 
-namespace Template.Infrastructure.Persistence.Entry.Module.Base;
+namespace Template.Infrastructure.Persistence.Entity.Module.Base;
 
-public class BaseEntry<TEntry> where TEntry : BaseEntry<TEntry>
+public class BaseEntity<TEntity> where TEntity : BaseEntity<TEntity>
 {
     public long Id { get; private set; }
     [NotMapped]
@@ -24,45 +24,45 @@ public class BaseEntry<TEntry> where TEntry : BaseEntry<TEntry>
     #endregion
     #endregion
 
-    public TEntry SetCreateData()
+    public TEntity SetCreateData()
     {
         CreationDate = DateTime.Now;
-        return (TEntry)this;
+        return (TEntity)this;
     }
 
-    public TEntry SetChangeData()
+    public TEntity SetChangeData()
     {
         ChangeDate = DateTime.Now;
-        return (TEntry)this;
+        return (TEntity)this;
     }
 
-    public TEntry SetInternalData(long id, DateTime creationDate, DateTime? changeDate, long? creationUserId, long? changeUserId)
+    public TEntity SetInternalData(long id, DateTime creationDate, DateTime? changeDate, long? creationUserId, long? changeUserId)
     {
         Id = id;
         CreationDate = creationDate;
         ChangeDate = changeDate;
         CreationUserId = creationUserId;
         ChangeUserId = changeUserId;
-        return (TEntry)this;
+        return (TEntity)this;
     }
 
-    public TEntry SetInternalData(long id)
+    public TEntity SetInternalData(long id)
     {
         Id = id;
-        return (TEntry)this;
+        return (TEntity)this;
     }
 
-    public TEntry SetInternalDataCreate(DateTime creationDate, long? creationUserId)
+    public TEntity SetInternalDataCreate(DateTime creationDate, long? creationUserId)
     {
         CreationDate = creationDate;
         CreationUserId = creationUserId;
-        return (TEntry)this;
+        return (TEntity)this;
     }
 
-    public TEntry SetInternalDataChange(DateTime? changeDate, long? changeUserId)
+    public TEntity SetInternalDataChange(DateTime? changeDate, long? changeUserId)
     {
         ChangeDate = changeDate;
         ChangeUserId = changeUserId;
-        return (TEntry)this;
+        return (TEntity)this;
     }
 }

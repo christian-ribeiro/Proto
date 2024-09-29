@@ -5,13 +5,13 @@ using Template.Arguments.General.Session;
 using Template.Domain.DTO.Module.Base;
 using Template.Domain.Interface.Repository.Module.Base;
 using Template.Infrastructure.Extension;
-using Template.Infrastructure.Persistence.Entry.Module.Base;
+using Template.Infrastructure.Persistence.Entity.Module.Base;
 
 namespace Template.Infrastructure.Persistence.Repository.Module.Base;
 
-public abstract class BaseRepository_0<TContext, TEntry, TOutput, TInputIdentifier, TInputCreate, TInputUpdate, TInputIdentityUpdate, TInputIdentityDelete, TDTO, TInternalPropertiesDTO, TExternalPropertiesDTO, TAuxiliaryPropertiesDTO>(TContext context) : IBaseRepository_0<TOutput, TInputIdentifier, TInputCreate, TInputUpdate, TInputIdentityUpdate, TInputIdentityDelete, TDTO, TInternalPropertiesDTO, TExternalPropertiesDTO, TAuxiliaryPropertiesDTO>
+public abstract class BaseRepository_0<TContext, TEntity, TOutput, TInputIdentifier, TInputCreate, TInputUpdate, TInputIdentityUpdate, TInputIdentityDelete, TDTO, TInternalPropertiesDTO, TExternalPropertiesDTO, TAuxiliaryPropertiesDTO>(TContext context) : IBaseRepository_0<TOutput, TInputIdentifier, TInputCreate, TInputUpdate, TInputIdentityUpdate, TInputIdentityDelete, TDTO, TInternalPropertiesDTO, TExternalPropertiesDTO, TAuxiliaryPropertiesDTO>
     where TContext : DbContext
-    where TEntry : BaseEntry<TEntry>
+    where TEntity : BaseEntity<TEntity>
     where TOutput : BaseOutput<TOutput>
     where TInputIdentifier : BaseInputIdentifier<TInputIdentifier>, new()
     where TInputCreate : BaseInputCreate<TInputCreate>
@@ -24,7 +24,7 @@ public abstract class BaseRepository_0<TContext, TEntry, TOutput, TInputIdentifi
     where TAuxiliaryPropertiesDTO : BaseAuxiliaryPropertiesDTO<TAuxiliaryPropertiesDTO>, new()
 {
     protected readonly TContext _context = context;
-    protected DbSet<TEntry> _dbSet = context.Set<TEntry>();
+    protected DbSet<TEntity> _dbSet = context.Set<TEntity>();
 
     public long Create(TDTO dto)
     {
@@ -33,11 +33,11 @@ public abstract class BaseRepository_0<TContext, TEntry, TOutput, TInputIdentifi
 
     public List<long> Create(List<TDTO> listDTO)
     {
-        List<TEntry> listEntry = FromDTOToEntry(listDTO);
-        _dbSet.AddRange(listEntry);
+        List<TEntity> listEntity = FromDTOToEntity(listDTO);
+        _dbSet.AddRange(listEntity);
         _context.SaveChanges();
 
-        return (from i in listEntry select i.Id).ToList();
+        return (from i in listEntity select i.Id).ToList();
     }
 
     public bool Delete(TDTO dto)
@@ -47,8 +47,8 @@ public abstract class BaseRepository_0<TContext, TEntry, TOutput, TInputIdentifi
 
     public bool Delete(List<TDTO> listDTO)
     {
-        List<TEntry> listEntry = FromDTOToEntry(listDTO);
-        _dbSet.RemoveRange(listEntry);
+        List<TEntity> listEntity = FromDTOToEntity(listDTO);
+        _dbSet.RemoveRange(listEntity);
         _context.SaveChanges();
 
         return true;
@@ -61,7 +61,7 @@ public abstract class BaseRepository_0<TContext, TEntry, TOutput, TInputIdentifi
         if (!getOnlyPrincipal)
             query = query.IncludeVirtualProperties();
 
-        return BaseRepository_0<TContext, TEntry, TOutput, TInputIdentifier, TInputCreate, TInputUpdate, TInputIdentityUpdate, TInputIdentityDelete, TDTO, TInternalPropertiesDTO, TExternalPropertiesDTO, TAuxiliaryPropertiesDTO>.FromEntryToDTO(query.FirstOrDefault()!);
+        return BaseRepository_0<TContext, TEntity, TOutput, TInputIdentifier, TInputCreate, TInputUpdate, TInputIdentityUpdate, TInputIdentityDelete, TDTO, TInternalPropertiesDTO, TExternalPropertiesDTO, TAuxiliaryPropertiesDTO>.FromEntityToDTO(query.FirstOrDefault()!);
     }
 
     public List<TDTO> GetAll(bool getOnlyPrincipal = false)
@@ -71,7 +71,7 @@ public abstract class BaseRepository_0<TContext, TEntry, TOutput, TInputIdentifi
         if (!getOnlyPrincipal)
             query = query.IncludeVirtualProperties();
 
-        return FromEntryToDTO([.. query]);
+        return FromEntityToDTO([.. query]);
     }
 
     public List<TDTO> GetListByListId(List<long> listId, bool getOnlyPrincipal = false)
@@ -81,7 +81,7 @@ public abstract class BaseRepository_0<TContext, TEntry, TOutput, TInputIdentifi
         if (!getOnlyPrincipal)
             query = query.IncludeVirtualProperties();
 
-        return FromEntryToDTO([.. query]);
+        return FromEntityToDTO([.. query]);
     }
 
     public TDTO GetByIdentifier(TInputIdentifier inputIdentifier, bool getOnlyPrincipal = false)
@@ -94,11 +94,11 @@ public abstract class BaseRepository_0<TContext, TEntry, TOutput, TInputIdentifi
         if (listInputIdentifier == null || listInputIdentifier.Count == 0)
             return [];
 
-        Expression<Func<TEntry, bool>>? combinedExpression = null;
+        Expression<Func<TEntity, bool>>? combinedExpression = null;
 
         foreach (var inputIdentifier in listInputIdentifier)
         {
-            Expression<Func<TEntry, bool>>? individualExpression = null;
+            Expression<Func<TEntity, bool>>? individualExpression = null;
 
             foreach (var property in typeof(TInputIdentifier).GetProperties())
             {
@@ -107,12 +107,12 @@ public abstract class BaseRepository_0<TContext, TEntry, TOutput, TInputIdentifi
 
                 if (propertyValue != null)
                 {
-                    var parameter = Expression.Parameter(typeof(TEntry), "x");
+                    var parameter = Expression.Parameter(typeof(TEntity), "x");
                     var member = Expression.Property(parameter, propertyName);
                     var constant = Expression.Constant(propertyValue, member.Type);
 
                     var body = Expression.Equal(member, constant);
-                    var lambda = Expression.Lambda<Func<TEntry, bool>>(body, parameter);
+                    var lambda = Expression.Lambda<Func<TEntity, bool>>(body, parameter);
 
                     individualExpression = individualExpression == null ? lambda : CombineExpressions(individualExpression, lambda);
                 }
@@ -121,12 +121,12 @@ public abstract class BaseRepository_0<TContext, TEntry, TOutput, TInputIdentifi
             combinedExpression = combinedExpression == null ? individualExpression! : CombineExpressions(combinedExpression, individualExpression!, Expression.OrElse)!;
         }
 
-        IQueryable<TEntry> query = _dbSet.AsNoTracking().Where(combinedExpression!);
+        IQueryable<TEntity> query = _dbSet.AsNoTracking().Where(combinedExpression!);
 
         if (!getOnlyPrincipal)
             query = query.IncludeVirtualProperties();
 
-        return FromEntryToDTO([.. query]);
+        return FromEntityToDTO([.. query]);
     }
 
     private static Expression<Func<T, bool>> CombineExpressions<T>(
@@ -165,37 +165,37 @@ public abstract class BaseRepository_0<TContext, TEntry, TOutput, TInputIdentifi
 
     public List<long> Update(List<TDTO> listDTO)
     {
-        List<TEntry> listEntry = FromDTOToEntry(listDTO);
-        _dbSet.UpdateRange(listEntry);
+        List<TEntity> listEntity = FromDTOToEntity(listDTO);
+        _dbSet.UpdateRange(listEntity);
         _context.SaveChanges();
 
-        return (from i in listEntry select i.Id).ToList();
+        return (from i in listEntity select i.Id).ToList();
     }
 
-    internal static TEntry FromDTOToEntry(TDTO dto)
+    internal static TEntity FromDTOToEntity(TDTO dto)
     {
-        return SessionData.Mapper!.MapperEntryDTO.Map<TDTO, TEntry>(dto);
+        return SessionData.Mapper!.MapperEntityDTO.Map<TDTO, TEntity>(dto);
     }
 
-    internal static TDTO FromEntryToDTO(TEntry entry)
+    internal static TDTO FromEntityToDTO(TEntity Entity)
     {
-        return SessionData.Mapper!.MapperEntryDTO.Map<TEntry, TDTO>(entry);
+        return SessionData.Mapper!.MapperEntityDTO.Map<TEntity, TDTO>(Entity);
     }
 
-    internal static List<TEntry> FromDTOToEntry(List<TDTO> listDTO)
+    internal static List<TEntity> FromDTOToEntity(List<TDTO> listDTO)
     {
-        return SessionData.Mapper!.MapperEntryDTO.Map<List<TDTO>, List<TEntry>>(listDTO);
+        return SessionData.Mapper!.MapperEntityDTO.Map<List<TDTO>, List<TEntity>>(listDTO);
     }
 
-    internal static List<TDTO> FromEntryToDTO(List<TEntry> listEntry)
+    internal static List<TDTO> FromEntityToDTO(List<TEntity> listEntity)
     {
-        return SessionData.Mapper!.MapperEntryDTO.Map<List<TEntry>, List<TDTO>>(listEntry);
+        return SessionData.Mapper!.MapperEntityDTO.Map<List<TEntity>, List<TDTO>>(listEntity);
     }
 }
 
-public abstract class BaseRepository_1<TContext, TEntry, TOutput, TInputIdentifier, TDTO, TInternalPropertiesDTO, TAuxiliaryPropertyDTO>(TContext context) : BaseRepository_0<TContext, TEntry, TOutput, TInputIdentifier, BaseInputCreate_0, BaseInputUpdate_0, BaseInputIdentityUpdate_0, BaseInputIdentityDelete_0, TDTO, TInternalPropertiesDTO, BaseExternalPropertiesDTO_0, TAuxiliaryPropertyDTO>(context), IBaseRepository_1<TOutput, TInputIdentifier, TDTO, TInternalPropertiesDTO, TAuxiliaryPropertyDTO>
+public abstract class BaseRepository_1<TContext, TEntity, TOutput, TInputIdentifier, TDTO, TInternalPropertiesDTO, TAuxiliaryPropertyDTO>(TContext context) : BaseRepository_0<TContext, TEntity, TOutput, TInputIdentifier, BaseInputCreate_0, BaseInputUpdate_0, BaseInputIdentityUpdate_0, BaseInputIdentityDelete_0, TDTO, TInternalPropertiesDTO, BaseExternalPropertiesDTO_0, TAuxiliaryPropertyDTO>(context), IBaseRepository_1<TOutput, TInputIdentifier, TDTO, TInternalPropertiesDTO, TAuxiliaryPropertyDTO>
     where TContext : DbContext
-    where TEntry : BaseEntry<TEntry>
+    where TEntity : BaseEntity<TEntity>
     where TOutput : BaseOutput<TOutput>
     where TInputIdentifier : BaseInputIdentifier<TInputIdentifier>, new()
     where TDTO : BaseDTO_1<TOutput, TInputIdentifier, TDTO, TInternalPropertiesDTO, TAuxiliaryPropertyDTO>, new()

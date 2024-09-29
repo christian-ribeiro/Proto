@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Template.Arguments.Enum;
-using Template.Infrastructure.Persistence.Entry.Module.Registration;
+using Template.Infrastructure.Persistence.Entity.Module.Registration;
 
 namespace Template.Infrastructure.Persistence.Mapping.Module.Registration;
 

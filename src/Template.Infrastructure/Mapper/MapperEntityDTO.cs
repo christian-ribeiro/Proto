@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
 using Template.Domain.DTO.Module.General;
 using Template.Domain.DTO.Module.Registration;
-using Template.Infrastructure.Persistence.Entry.Module.General;
-using Template.Infrastructure.Persistence.Entry.Module.Registration;
+using Template.Infrastructure.Persistence.Entity.Module.General;
+using Template.Infrastructure.Persistence.Entity.Module.Registration;
 
 namespace Template.Infrastructure.Mapper;
 
-public class MapperEntryDTO : Profile
+public class MapperEntityDTO : Profile
 {
-    public MapperEntryDTO()
+    public MapperEntityDTO()
     {
         #region User
         CreateMap<User, UserDTO>()

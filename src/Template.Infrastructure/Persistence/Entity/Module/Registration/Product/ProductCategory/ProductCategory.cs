@@ -1,9 +1,9 @@
 ﻿using System.Text.Json.Serialization;
-using Template.Infrastructure.Persistence.Entry.Module.Base;
+using Template.Infrastructure.Persistence.Entity.Module.Base;
 
-namespace Template.Infrastructure.Persistence.Entry.Module.Registration;
+namespace Template.Infrastructure.Persistence.Entity.Module.Registration;
 
-public class ProductCategory : BaseEntry<ProductCategory>
+public class ProductCategory : BaseEntity<ProductCategory>
 {
     public string Code { get; private set; }
     public string Description { get; private set; }

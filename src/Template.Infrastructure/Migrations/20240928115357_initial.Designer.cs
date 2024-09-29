@@ -22,7 +22,7 @@ namespace Template.Infrastructure.Migrations
                 .HasAnnotation("ProductVersion", "8.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("Template.Infrastructure.Persistence.Entry.Module.Registration.Menu", b =>
+            modelBuilder.Entity("Template.Infrastructure.Persistence.Entity.Module.Registration.Menu", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -81,7 +81,7 @@ namespace Template.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Template.Infrastructure.Persistence.Entry.Module.Registration.User", b =>
+            modelBuilder.Entity("Template.Infrastructure.Persistence.Entity.Module.Registration.User", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -162,7 +162,7 @@ namespace Template.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Template.Infrastructure.Persistence.Entry.Module.Registration.UserMenu", b =>
+            modelBuilder.Entity("Template.Infrastructure.Persistence.Entity.Module.Registration.UserMenu", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -213,9 +213,9 @@ namespace Template.Infrastructure.Migrations
                     b.ToTable("menu_usuario", (string)null);
                 });
 
-            modelBuilder.Entity("Template.Infrastructure.Persistence.Entry.Module.Registration.Menu", b =>
+            modelBuilder.Entity("Template.Infrastructure.Persistence.Entity.Module.Registration.Menu", b =>
                 {
-                    b.HasOne("Template.Infrastructure.Persistence.Entry.Module.Registration.Menu", "ParentMenu")
+                    b.HasOne("Template.Infrastructure.Persistence.Entity.Module.Registration.Menu", "ParentMenu")
                         .WithMany("ListMenu")
                         .HasForeignKey("ParentMenuId")
                         .HasConstraintName("fk_menu_id_menu_pai");
@@ -223,14 +223,14 @@ namespace Template.Infrastructure.Migrations
                     b.Navigation("ParentMenu");
                 });
 
-            modelBuilder.Entity("Template.Infrastructure.Persistence.Entry.Module.Registration.User", b =>
+            modelBuilder.Entity("Template.Infrastructure.Persistence.Entity.Module.Registration.User", b =>
                 {
-                    b.HasOne("Template.Infrastructure.Persistence.Entry.Module.Registration.User", "ChangeUser")
+                    b.HasOne("Template.Infrastructure.Persistence.Entity.Module.Registration.User", "ChangeUser")
                         .WithMany("ListChangeUserUser")
                         .HasForeignKey("ChangeUserId")
                         .HasConstraintName("fk_usuario_id_usuario_alteracao");
 
-                    b.HasOne("Template.Infrastructure.Persistence.Entry.Module.Registration.User", "CreationUser")
+                    b.HasOne("Template.Infrastructure.Persistence.Entity.Module.Registration.User", "CreationUser")
                         .WithMany("ListCreationUserUser")
                         .HasForeignKey("CreationUserId")
                         .HasConstraintName("fk_usuario_id_usuario_criacao");
@@ -240,21 +240,21 @@ namespace Template.Infrastructure.Migrations
                     b.Navigation("CreationUser");
                 });
 
-            modelBuilder.Entity("Template.Infrastructure.Persistence.Entry.Module.Registration.UserMenu", b =>
+            modelBuilder.Entity("Template.Infrastructure.Persistence.Entity.Module.Registration.UserMenu", b =>
                 {
-                    b.HasOne("Template.Infrastructure.Persistence.Entry.Module.Registration.User", "ChangeUser")
+                    b.HasOne("Template.Infrastructure.Persistence.Entity.Module.Registration.User", "ChangeUser")
                         .WithMany("ListChangeUserUserMenu")
                         .HasForeignKey("ChangeUserId")
                         .HasConstraintName("fk_menu_usuario_id_usuario_alteracao");
 
-                    b.HasOne("Template.Infrastructure.Persistence.Entry.Module.Registration.User", "CreationUser")
+                    b.HasOne("Template.Infrastructure.Persistence.Entity.Module.Registration.User", "CreationUser")
                         .WithMany("ListCreationUserUserMenu")
                         .HasForeignKey("CreationUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_menu_usuario_id_usuario_criacao");
 
-                    b.HasOne("Template.Infrastructure.Persistence.Entry.Module.Registration.Menu", "Menu")
+                    b.HasOne("Template.Infrastructure.Persistence.Entity.Module.Registration.Menu", "Menu")
                         .WithMany("ListUserMenu")
                         .HasForeignKey("MenuId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -268,14 +268,14 @@ namespace Template.Infrastructure.Migrations
                     b.Navigation("Menu");
                 });
 
-            modelBuilder.Entity("Template.Infrastructure.Persistence.Entry.Module.Registration.Menu", b =>
+            modelBuilder.Entity("Template.Infrastructure.Persistence.Entity.Module.Registration.Menu", b =>
                 {
                     b.Navigation("ListMenu");
 
                     b.Navigation("ListUserMenu");
                 });
 
-            modelBuilder.Entity("Template.Infrastructure.Persistence.Entry.Module.Registration.User", b =>
+            modelBuilder.Entity("Template.Infrastructure.Persistence.Entity.Module.Registration.User", b =>
                 {
                     b.Navigation("ListChangeUserUser");
 
