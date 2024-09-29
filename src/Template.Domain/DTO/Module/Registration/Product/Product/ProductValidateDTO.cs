@@ -9,17 +9,17 @@ public class ProductValidateDTO : ProductPropertyValidateDTO
     public InputIdentityDeleteProduct? InputIdentityDeleteProduct { get; private set; }
     public InputIdentityViewProduct? InputIdentityViewProduct { get; private set; }
 
-    public ProductValidateDTO ValidateCreate(InputCreateProduct inputCreateProduct, ProductDTO? originalProductDTO, BrandDTO? relatedBrandDTO)
+    public ProductValidateDTO ValidateCreate(InputCreateProduct inputCreateProduct, ProductDTO? originalProductDTO, BrandDTO? relatedBrandDTO, ProductCategoryDTO? relatedProductCategoryDTO)
     {
         InputCreateProduct = inputCreateProduct;
-        ValidateCreate(originalProductDTO, relatedBrandDTO);
+        ValidateCreate(originalProductDTO, relatedBrandDTO, relatedProductCategoryDTO);
         return this;
     }
 
-    public ProductValidateDTO ValidateUpdate(InputIdentityUpdateProduct inputIdentityUpdateProduct, ProductDTO? originalProductDTO, BrandDTO? relatedBrandDTO)
+    public ProductValidateDTO ValidateUpdate(InputIdentityUpdateProduct inputIdentityUpdateProduct, ProductDTO? originalProductDTO, BrandDTO? relatedBrandDTO, ProductCategoryDTO? relatedProductCategoryDTO)
     {
         InputIdentityUpdateProduct = inputIdentityUpdateProduct;
-        ValidateUpdate(originalProductDTO, relatedBrandDTO);
+        ValidateUpdate(originalProductDTO, relatedBrandDTO, relatedProductCategoryDTO);
         return this;
     }
 

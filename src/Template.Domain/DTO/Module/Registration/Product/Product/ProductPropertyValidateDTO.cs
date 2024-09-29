@@ -6,17 +6,21 @@ public class ProductPropertyValidateDTO : BaseValidateDTO
 {
     public ProductDTO? OriginalProductDTO { get; private set; }
     public BrandDTO? RelatedBrandDTO { get; private set; }
-    public ProductPropertyValidateDTO ValidateCreate(ProductDTO? originalProductDTO, BrandDTO? relatedBrandDTO)
+    public ProductCategoryDTO? RelatedProductCategoryDTO { get; private set; }
+
+    public ProductPropertyValidateDTO ValidateCreate(ProductDTO? originalProductDTO, BrandDTO? relatedBrandDTO, ProductCategoryDTO? relatedProductCategoryDTO)
     {
         OriginalProductDTO = originalProductDTO;
         RelatedBrandDTO = relatedBrandDTO;
+        RelatedProductCategoryDTO = relatedProductCategoryDTO;
         return this;
     }
 
-    public ProductPropertyValidateDTO ValidateUpdate(ProductDTO? originalProductDTO, BrandDTO? relatedBrandDTO)
+    public ProductPropertyValidateDTO ValidateUpdate(ProductDTO? originalProductDTO, BrandDTO? relatedBrandDTO, ProductCategoryDTO? relatedProductCategoryDTO)
     {
         OriginalProductDTO = originalProductDTO;
         RelatedBrandDTO = relatedBrandDTO;
+        RelatedProductCategoryDTO = relatedProductCategoryDTO;
         return this;
     }
 

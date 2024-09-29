@@ -34,6 +34,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IEmailConfigurationService, EmailConfigurationService>();
         services.AddScoped<IBrandService, BrandService>();
         services.AddScoped<IProductService, ProductService>();
+        services.AddScoped<IProductCategoryService, ProductCategoryService>();
         #endregion
 
         #region Repositories
@@ -43,6 +44,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IEmailConfigurationRepository, EmailConfigurationRepository>();
         services.AddScoped<IBrandRepository, BrandRepository>();
         services.AddScoped<IProductRepository, ProductRepository>();
+        services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
         #endregion
 
         return services;

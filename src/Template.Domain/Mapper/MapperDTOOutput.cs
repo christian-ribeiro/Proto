@@ -79,5 +79,17 @@ public class MapperDTOOutput : Profile
         CreateMap<OutputProduct, ExternalPropertiesProductDTO>().ReverseMap();
         CreateMap<OutputProduct, AuxiliaryPropertiesProductDTO>().ReverseMap();
         #endregion
+
+        #region ProductCategory
+        CreateMap<OutputProductCategory, ProductCategoryDTO>()
+            .ForMember(dest => dest.InternalPropertiesDTO, opt => opt.MapFrom(src => src))
+            .ForMember(dest => dest.ExternalPropertiesDTO, opt => opt.MapFrom(src => src))
+            .ForMember(dest => dest.AuxiliaryPropertiesDTO, opt => opt.MapFrom(src => src))
+            .ReverseMap();
+
+        CreateMap<OutputProductCategory, InternalPropertiesProductCategoryDTO>().ReverseMap();
+        CreateMap<OutputProductCategory, ExternalPropertiesProductCategoryDTO>().ReverseMap();
+        CreateMap<OutputProductCategory, AuxiliaryPropertiesProductCategoryDTO>().ReverseMap();
+        #endregion
     }
 }

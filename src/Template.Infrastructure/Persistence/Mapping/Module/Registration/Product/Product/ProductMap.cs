@@ -12,6 +12,7 @@ public class ProductMap : IEntityTypeConfiguration<Product>
         builder.HasOne(x => x.ChangeUser).WithMany(x => x.ListChangeUserProduct).HasForeignKey(x => x.ChangeUserId).HasConstraintName("fk_produto_id_usuario_alteracao");
 
         builder.HasOne(x => x.Brand).WithMany(x => x.ListProduct).HasForeignKey(x => x.BrandId).HasConstraintName("fk_produto_id_marca");
+        builder.HasOne(x => x.ProductCategory).WithMany(x => x.ListProduct).HasForeignKey(x => x.ProductCategoryId).HasConstraintName("fk_produto_id_categoria_produto");
 
         builder.ToTable("produto");
 
@@ -58,5 +59,7 @@ public class ProductMap : IEntityTypeConfiguration<Product>
 
         builder.Property(x => x.BrandId).HasColumnName("id_marca");
         builder.Property(x => x.BrandId).IsRequired();
+
+        builder.Property(x => x.ProductCategoryId).HasColumnName("id_categoria_produto");
     }
 }

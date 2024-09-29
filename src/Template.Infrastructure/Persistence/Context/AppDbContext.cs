@@ -12,6 +12,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<UserMenu> UserMenu { get; set; }
     public DbSet<EmailConfiguration> EmailConfiguration { get; set; }
     public DbSet<Brand> Brand { get; set; }
+    public DbSet<Product> Product { get; set; }
+    public DbSet<ProductCategory> ProductCategory { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

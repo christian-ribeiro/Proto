@@ -7,7 +7,7 @@ using Template.Domain.Service.Module.Base;
 
 namespace Template.Domain.Service.Module.Registration;
 
-public class ProductService(IProductRepository repository, IBrandRepository brandRepository) : BaseService_0<IProductRepository, OutputProduct, InputIdentifierProduct, InputCreateProduct, InputUpdateProduct, InputIdentityUpdateProduct, InputIdentityDeleteProduct, ProductDTO, ProductValidateDTO, InternalPropertiesProductDTO, ExternalPropertiesProductDTO, AuxiliaryPropertiesProductDTO>(repository), IProductService
+public class ProductService(IProductRepository repository, IBrandRepository brandRepository, IProductCategoryRepository productCategoryRepository) : BaseService_0<IProductRepository, OutputProduct, InputIdentifierProduct, InputCreateProduct, InputUpdateProduct, InputIdentityUpdateProduct, InputIdentityDeleteProduct, ProductDTO, ProductValidateDTO, InternalPropertiesProductDTO, ExternalPropertiesProductDTO, AuxiliaryPropertiesProductDTO>(repository), IProductService
 {
     #region Base
     #region Validate
@@ -134,6 +134,7 @@ public class ProductService(IProductRepository repository, IBrandRepository bran
     {
         List<ProductDTO> listOriginalProductDTO = _repository.GetListByListIdentifier((from i in listInputCreateProduct select new InputIdentifierProduct(i.Code)).ToList(), getOnlyPrincipal: true);
         List<BrandDTO> listRelatedBrandDTO = brandRepository.GetListByListId((from i in listInputCreateProduct select i.BrandId).ToList(), true);
+        List<ProductCategoryDTO> listRelatedProductCategoryDTO = productCategoryRepository.GetListByListId((from i in listInputCreateProduct where i.ProductCategoryId != null select i.ProductCategoryId!.Value).ToList(), true);
 
         var listCreate = (from i in listInputCreateProduct
                           let originalProductDTO = (from j in listOriginalProductDTO where j.ExternalPropertiesDTO.Code == i.Code select j).FirstOrDefault()
@@ -143,9 +144,10 @@ public class ProductService(IProductRepository repository, IBrandRepository bran
                               InputCreateProduct = i,
                               OriginalProductDTO = originalProductDTO,
                               RelatedBrandDTO = (from j in listRelatedBrandDTO where j.InternalPropertiesDTO.Id == i.BrandId select j).FirstOrDefault(),
+                              RelatedProductCategoryDTO = (from j in listRelatedProductCategoryDTO where j.InternalPropertiesDTO.Id == i.ProductCategoryId select j).FirstOrDefault(),
                           }).ToList();
 
-        List<ProductValidateDTO> listProductValidateDTO = (from i in listCreate select new ProductValidateDTO().ValidateCreate(i.InputCreateProduct, i.OriginalProductDTO, i.RelatedBrandDTO)).ToList();
+        List<ProductValidateDTO> listProductValidateDTO = (from i in listCreate select new ProductValidateDTO().ValidateCreate(i.InputCreateProduct, i.OriginalProductDTO, i.RelatedBrandDTO, i.RelatedProductCategoryDTO)).ToList();
         CanExecuteProcess(listProductValidateDTO, EnumProcessType.Create);
         if (!HasValidItem(listProductValidateDTO))
             return [];
@@ -161,6 +163,7 @@ public class ProductService(IProductRepository repository, IBrandRepository bran
     {
         List<ProductDTO> listOriginalProductDTO = _repository.GetListByListId((from i in listInputIdentityUpdateProduct select i.Id).ToList(), true);
         List<BrandDTO> listRelatedBrandDTO = brandRepository.GetListByListId((from i in listInputIdentityUpdateProduct select i.InputUpdate!.BrandId).ToList(), true);
+        List<ProductCategoryDTO> listRelatedProductCategoryDTO = productCategoryRepository.GetListByListId((from i in listInputIdentityUpdateProduct where i.InputUpdate!.ProductCategoryId != null select i.InputUpdate!.ProductCategoryId!.Value).ToList(), true);
 
         var listUpdate = (from i in listInputIdentityUpdateProduct
                           let originalProductDTO = (from j in listOriginalProductDTO where j.InternalPropertiesDTO.Id == i.Id select j).FirstOrDefault()
@@ -170,14 +173,15 @@ public class ProductService(IProductRepository repository, IBrandRepository bran
                               InputIdentityUpdateProduct = i,
                               OriginalProductDTO = originalProductDTO,
                               RelatedBrandDTO = (from j in listRelatedBrandDTO where j.InternalPropertiesDTO.Id == i.InputUpdate!.BrandId select j).FirstOrDefault(),
+                              RelatedProductCategoryDTO = (from j in listRelatedProductCategoryDTO where j.InternalPropertiesDTO.Id == i.InputUpdate!.ProductCategoryId select j).FirstOrDefault(),
                           }).ToList();
 
-        List<ProductValidateDTO> listProductValidateDTO = (from i in listUpdate select new ProductValidateDTO().ValidateUpdate(i.InputIdentityUpdateProduct, i.OriginalProductDTO, i.RelatedBrandDTO)).ToList();
+        List<ProductValidateDTO> listProductValidateDTO = (from i in listUpdate select new ProductValidateDTO().ValidateUpdate(i.InputIdentityUpdateProduct, i.OriginalProductDTO, i.RelatedBrandDTO, i.RelatedProductCategoryDTO)).ToList();
         CanExecuteProcess(listProductValidateDTO, EnumProcessType.Update);
         if (!HasValidItem(listProductValidateDTO))
             return [];
 
-        List<ProductDTO> listUpdateProduct = (from i in GetListValidDTO(listProductValidateDTO) select new ProductDTO().Update(_guidSessionDataRequest, new ExternalPropertiesProductDTO(i.OriginalProductDTO!.ExternalPropertiesDTO.Code, i.InputIdentityUpdateProduct!.InputUpdate!.Description, i.InputIdentityUpdateProduct!.InputUpdate!.BarCode, i.InputIdentityUpdateProduct!.InputUpdate!.CostValue, i.InputIdentityUpdateProduct!.InputUpdate!.SaleValue, i.InputIdentityUpdateProduct!.InputUpdate!.Status, i.InputIdentityUpdateProduct!.InputUpdate!.Weight, i.InputIdentityUpdateProduct!.InputUpdate!.NetWeight, i.InputIdentityUpdateProduct!.InputUpdate!.Observation, i.InputIdentityUpdateProduct!.InputUpdate!.BrandId), i.OriginalProductDTO!.InternalPropertiesDTO)).ToList();
+        List<ProductDTO> listUpdateProduct = (from i in GetListValidDTO(listProductValidateDTO) select new ProductDTO().Update(_guidSessionDataRequest, new ExternalPropertiesProductDTO(i.OriginalProductDTO!.ExternalPropertiesDTO.Code, i.InputIdentityUpdateProduct!.InputUpdate!.Description, i.InputIdentityUpdateProduct!.InputUpdate!.BarCode, i.InputIdentityUpdateProduct!.InputUpdate!.CostValue, i.InputIdentityUpdateProduct!.InputUpdate!.SaleValue, i.InputIdentityUpdateProduct!.InputUpdate!.Status, i.InputIdentityUpdateProduct!.InputUpdate!.Weight, i.InputIdentityUpdateProduct!.InputUpdate!.NetWeight, i.InputIdentityUpdateProduct!.InputUpdate!.Observation, i.InputIdentityUpdateProduct!.InputUpdate!.BrandId, i.InputIdentityUpdateProduct!.InputUpdate!.ProductCategoryId), i.OriginalProductDTO!.InternalPropertiesDTO)).ToList();
         return _repository.Update(listUpdateProduct);
     }
     #endregion

@@ -16,16 +16,18 @@ public class Product : BaseEntry<Product>
     public decimal NetWeight { get; private set; }
     public string? Observation { get; private set; }
     public long BrandId { get; private set; }
+    public long? ProductCategoryId { get; private set; }
 
     #region Virtual Properties
     #region Internal
     public virtual Brand? Brand { get; private set; }
+    public virtual ProductCategory? ProductCategory { get; private set; }
     #endregion
     #endregion
     public Product() { }
 
     [JsonConstructor]
-    public Product(string code, string description, string? barCode, decimal costValue, decimal saleValue, EnumStatus status, decimal weight, decimal netWeight, string? observation, Brand? brand)
+    public Product(string code, string description, string? barCode, decimal costValue, decimal saleValue, EnumStatus status, decimal weight, decimal netWeight, string? observation, Brand? brand, ProductCategory? productCategory)
     {
         Code = code;
         Description = description;
@@ -37,5 +39,6 @@ public class Product : BaseEntry<Product>
         NetWeight = netWeight;
         Observation = observation;
         Brand = brand;
+        ProductCategory = productCategory;
     }
 }

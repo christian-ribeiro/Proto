@@ -16,11 +16,12 @@ public class ExternalPropertiesProductDTO : BaseExternalPropertiesDTO<ExternalPr
     public decimal NetWeight { get; private set; }
     public string? Observation { get; private set; }
     public long BrandId { get; private set; }
+    public long? ProductCategoryId { get; private set; }
 
     public ExternalPropertiesProductDTO() { }
 
     [JsonConstructor]
-    public ExternalPropertiesProductDTO(string code, string description, string? barCode, decimal costValue, decimal saleValue, EnumStatus status, decimal weight, decimal netWeight, string? observation, long brandId)
+    public ExternalPropertiesProductDTO(string code, string description, string? barCode, decimal costValue, decimal saleValue, EnumStatus status, decimal weight, decimal netWeight, string? observation, long brandId, long? productCategoryId)
     {
         Code = code;
         Description = description;
@@ -32,5 +33,6 @@ public class ExternalPropertiesProductDTO : BaseExternalPropertiesDTO<ExternalPr
         NetWeight = netWeight;
         Observation = observation;
         BrandId = brandId;
+        ProductCategoryId = productCategoryId;
     }
 }
