@@ -1,10 +1,10 @@
-﻿using System.Text.RegularExpressions;
-using Proto.Arguments.Arguments.Module.Base;
+﻿using Proto.Arguments.Arguments.Module.Base;
 using Proto.Arguments.Enum;
 using Proto.Arguments.General.Session;
 using Proto.Domain.DTO.Module.Base;
 using Proto.Domain.Interface.Repository.Module.Base;
 using Proto.Domain.Interface.Service.Module.Base;
+using System.Text.RegularExpressions;
 
 namespace Proto.Domain.Service.Module.Base;
 
@@ -24,6 +24,7 @@ public class BaseService_0<TRepository, TOutput, TInputIdentifier, TInputCreate,
 {
     public Guid _guidSessionDataRequest;
     protected readonly TRepository _repository = repository;
+    public List<BaseResponseNotification> _listNotification { get; private set; } = [];
 
     #region Validate
     public virtual bool CanExecuteProcess(List<TValidateDTO> listValidateDTO, EnumProcessType processType)
@@ -49,6 +50,11 @@ public class BaseService_0<TRepository, TOutput, TInputIdentifier, TInputCreate,
     public bool DecimalLowerThan(decimal minValue, decimal? value)
     {
         return value < minValue;
+    }
+
+    public bool InvalidRelatedProperty<TRelatedDTO>(long? value, TRelatedDTO relatedProperty)
+    {
+        return value != null && relatedProperty == null;
     }
 
 
@@ -144,6 +150,26 @@ public class BaseService_0<TRepository, TOutput, TInputIdentifier, TInputCreate,
         _guidSessionDataRequest = guidSessionDataRequest;
         SessionHelper.SetGuidSessionDataRequest(this, guidSessionDataRequest);
     }
+
+    protected bool AddNotification(int index, string message)
+    {
+        _listNotification.Add(new BaseResponseNotification { Index = index, Message = message });
+        return true;
+    }
+
+    protected bool AddNotification(TInputIdentifier identifier, string message)
+    {
+        _listNotification.Add(new BaseResponseNotification { Identifier = identifier, Message = message });
+        return true;
+    }
+
+    protected bool AddNotification(long id, TInputIdentifier identifier, string message)
+    {
+        _listNotification.Add(new BaseResponseNotification { Id = id, Identifier = identifier, Message = message });
+        return true;
+    }
+
+    public List<BaseResponseNotification> GetListNotification() => _listNotification;
     #endregion
 }
 

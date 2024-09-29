@@ -19,50 +19,51 @@ public class ProductCategoryService(IProductCategoryRepository repository) : Bas
                 _ = (from i in GetListValidDTO(listProductCategoryValidateDTO)
                      where i.OriginalProductCategoryDTO != null
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(listProductCategoryValidateDTO.IndexOf(i), "Já existe um registro com esse identificador")).ToList();
 
                 _ = (from i in GetListValidDTO(listProductCategoryValidateDTO)
                      where i.InputCreateProductCategory == null
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(listProductCategoryValidateDTO.IndexOf(i), "Informe os dados corretamente")).ToList();
 
                 _ = (from i in GetListValidDTO(listProductCategoryValidateDTO)
                      where InvalidLength(1, 6, i.InputCreateProductCategory?.Code)
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(new InputIdentifierProductCategory(i.InputCreateProductCategory!.Code), "Código deve ter entre 1 e 6 caracteres")).ToList();
 
                 _ = (from i in GetListValidDTO(listProductCategoryValidateDTO)
                      where InvalidLength(1, 100, i.InputCreateProductCategory?.Description)
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(new InputIdentifierProductCategory(i.InputCreateProductCategory!.Code), "Descrição deve ter entre 1 e 100 caracteres")).ToList();
                 break;
+
             case EnumProcessType.Update:
                 _ = (from i in GetListValidDTO(listProductCategoryValidateDTO)
                      where i.OriginalProductCategoryDTO == null
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(listProductCategoryValidateDTO.IndexOf(i), "Registro não encontrado")).ToList();
 
                 _ = (from i in GetListValidDTO(listProductCategoryValidateDTO)
                      where i.InputIdentityUpdateProductCategory?.InputUpdate == null
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(listProductCategoryValidateDTO.IndexOf(i), "Informe os dados corretamente")).ToList();
 
                 _ = (from i in GetListValidDTO(listProductCategoryValidateDTO)
                      where InvalidLength(1, 100, i.InputIdentityUpdateProductCategory?.InputUpdate?.Description)
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(i.InputIdentityUpdateProductCategory!.Id, new InputIdentifierProductCategory(i.OriginalProductCategoryDTO!.ExternalPropertiesDTO.Code), "Descrição deve ter entre 1 e 100 caracteres")).ToList();
 
                 break;
             case EnumProcessType.Delete:
                 _ = (from i in GetListValidDTO(listProductCategoryValidateDTO)
                      where i.OriginalProductCategoryDTO == null
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(listProductCategoryValidateDTO.IndexOf(i), "Registro não encontrado")).ToList();
 
                 _ = (from i in GetListValidDTO(listProductCategoryValidateDTO)
                      where i.InputIdentityDeleteProductCategory == null
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(listProductCategoryValidateDTO.IndexOf(i), "Informe os dados corretamente")).ToList();
 
                 break;
         }

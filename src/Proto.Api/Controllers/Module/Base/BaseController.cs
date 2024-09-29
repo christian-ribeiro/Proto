@@ -231,6 +231,10 @@ public class BaseController_0<TService, TOutput, TInputIdentifier, TInputCreate,
     {
         try
         {
+            List<BaseResponseNotification> listNotification = _service.GetListNotification();
+            if (listNotification.Any())
+                return await Task.FromResult(BadRequest(new BaseResponseApi<ResponseType> { Result = result, ErrorMessage = "Algo deu errado em um ou mais registros", ListNotification = listNotification }));
+
             return await Task.FromResult(StatusCode(statusCode == 0 ? 200 : statusCode, new BaseResponseApi<ResponseType> { Result = result }));
         }
         catch (Exception ex)

@@ -19,50 +19,50 @@ public class BrandService(IBrandRepository repository) : BaseService_0<IBrandRep
                 _ = (from i in GetListValidDTO(listBrandValidateDTO)
                      where i.OriginalBrandDTO != null
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(listBrandValidateDTO.IndexOf(i), "Já existe um registro com esse identificador")).ToList();
 
                 _ = (from i in GetListValidDTO(listBrandValidateDTO)
                      where i.InputCreateBrand == null
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(listBrandValidateDTO.IndexOf(i), "Informe os dados corretamente")).ToList();
 
                 _ = (from i in GetListValidDTO(listBrandValidateDTO)
-                     where InvalidLength(1, 6, i.InputCreateBrand?.Code)
+                     where InvalidLength(1, 6, i.InputCreateBrand!.Code)
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(new InputIdentifierBrand(i.InputCreateBrand!.Code), "Código deve ter entre 1 e 6 caracteres")).ToList();
 
                 _ = (from i in GetListValidDTO(listBrandValidateDTO)
                      where InvalidLength(1, 100, i.InputCreateBrand?.Description)
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(new InputIdentifierBrand(i.InputCreateBrand!.Code), "descrição deve ter entre 1 e 100 caracteres")).ToList();
                 break;
             case EnumProcessType.Update:
                 _ = (from i in GetListValidDTO(listBrandValidateDTO)
                      where i.OriginalBrandDTO == null
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(listBrandValidateDTO.IndexOf(i), "Registro não encontrado")).ToList();
 
                 _ = (from i in GetListValidDTO(listBrandValidateDTO)
                      where i.InputIdentityUpdateBrand?.InputUpdate == null
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(listBrandValidateDTO.IndexOf(i), "Informe os dados corretamente")).ToList();
 
                 _ = (from i in GetListValidDTO(listBrandValidateDTO)
                      where InvalidLength(1, 100, i.InputIdentityUpdateBrand?.InputUpdate?.Description)
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(i.InputIdentityUpdateBrand!.Id, new InputIdentifierBrand(i.OriginalBrandDTO!.ExternalPropertiesDTO.Code), "Descrição deve ter entre 1 e 100 caracteres")).ToList();
 
                 break;
             case EnumProcessType.Delete:
                 _ = (from i in GetListValidDTO(listBrandValidateDTO)
                      where i.OriginalBrandDTO == null
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(listBrandValidateDTO.IndexOf(i), "Registro não encontrado")).ToList();
 
                 _ = (from i in GetListValidDTO(listBrandValidateDTO)
                      where i.InputIdentityDeleteBrand == null
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(listBrandValidateDTO.IndexOf(i), "Informe os dados corretamente")).ToList();
 
                 break;
         }

@@ -28,76 +28,76 @@ public class UserService(IUserRepository repository, IEmailService emailService,
                 _ = (from i in GetListValidDTO(listUserValidateDTO)
                      where i.OriginalUserDTO != null
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(listUserValidateDTO.IndexOf(i), "Já existe um registro com esse identificador")).ToList();
 
                 _ = (from i in GetListValidDTO(listUserValidateDTO)
                      where i.InputCreateUser == null
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(listUserValidateDTO.IndexOf(i), "Informe os dados corretamente")).ToList();
 
                 _ = (from i in GetListValidDTO(listUserValidateDTO)
                      where InvalidLength(1, 6, i.InputCreateUser?.Code)
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(new InputIdentifierUser(i.InputCreateUser!.Email), "Código deve ter entre 1 e 6 caracteres")).ToList();
 
                 _ = (from i in GetListValidDTO(listUserValidateDTO)
                      where InvalidLength(1, 100, i.InputCreateUser?.Name)
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(new InputIdentifierUser(i.InputCreateUser!.Email), "Nome deve ter entre 1 e 100 caracteres")).ToList();
 
                 _ = (from i in GetListValidDTO(listUserValidateDTO)
-                     where InvalidLength(1, 100, i.InputCreateUser?.Password)
+                     where InvalidLength(6, 100, i.InputCreateUser?.Password)
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(new InputIdentifierUser(i.InputCreateUser!.Email), "Senha deve ter entre 6 e 100 caracteres")).ToList();
 
                 _ = (from i in GetListValidDTO(listUserValidateDTO)
                      where InvalidLength(1, 100, i.InputCreateUser?.Email)
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(new InputIdentifierUser(i.InputCreateUser!.Email), "E-mail deve ter entre 1 e 6 caracteres")).ToList();
 
                 _ = (from i in GetListValidDTO(listUserValidateDTO)
                      where InvalidEmail(i.InputCreateUser?.Email)
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(new InputIdentifierUser(i.InputCreateUser!.Email), "Informe um e-mail válido")).ToList();
 
                 break;
             case EnumProcessType.Update:
                 _ = (from i in GetListValidDTO(listUserValidateDTO)
                      where i.OriginalUserDTO == null
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(listUserValidateDTO.IndexOf(i), "Registro não encontrado")).ToList();
 
                 _ = (from i in GetListValidDTO(listUserValidateDTO)
                      where i.InputIdentityUpdateUser?.InputUpdate == null
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(listUserValidateDTO.IndexOf(i), "Informe os dados corretamente")).ToList();
 
                 _ = (from i in GetListValidDTO(listUserValidateDTO)
                      where InvalidLength(1, 100, i.InputIdentityUpdateUser?.InputUpdate?.Name)
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(i.InputIdentityUpdateUser!.Id, new InputIdentifierUser(i.OriginalUserDTO!.ExternalPropertiesDTO.Email), "Nome deve ter entre 1 e 100 caracteres")).ToList();
 
                 _ = (from i in GetListValidDTO(listUserValidateDTO)
                      where InvalidLength(1, 100, i.InputIdentityUpdateUser?.InputUpdate?.Email)
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(i.InputIdentityUpdateUser!.Id, new InputIdentifierUser(i.OriginalUserDTO!.ExternalPropertiesDTO.Email), "E-mail deve ter entre 1 e 100 caracteres")).ToList();
+
+                _ = (from i in GetListValidDTO(listUserValidateDTO)
+                     where InvalidEmail(i.InputIdentityUpdateUser?.InputUpdate?.Email)
+                     let setInvalid = i.SetInvalid()
+                     select AddNotification(i.InputIdentityUpdateUser!.Id, new InputIdentifierUser(i.OriginalUserDTO!.ExternalPropertiesDTO.Email), "Informe um e-mail válido")).ToList();
+
                 break;
             case EnumProcessType.Delete:
                 _ = (from i in GetListValidDTO(listUserValidateDTO)
                      where i.OriginalUserDTO == null
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
-                break;
-            case EnumProcessType.View:
-                _ = (from i in GetListValidDTO(listUserValidateDTO)
-                     where i.OriginalUserDTO == null
-                     let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(listUserValidateDTO.IndexOf(i), "Registro não encontrado")).ToList();
 
                 _ = (from i in GetListValidDTO(listUserValidateDTO)
                      where i.InputIdentityDeleteUser == null
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(listUserValidateDTO.IndexOf(i), "Informe os dados corretamente")).ToList();
 
                 break;
         }

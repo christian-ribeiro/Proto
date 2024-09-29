@@ -22,6 +22,7 @@ public interface IBaseService_0<TOutput, TInputIdentifier, TInputCreate, TInputU
     List<long> Update(List<TInputIdentityUpdate> listInputIdentityUpdate);
     bool Delete(TInputIdentityDelete inputIdentityDelete);
     bool Delete(List<TInputIdentityDelete> listInputIdentityDelete);
+    List<BaseResponseNotification> GetListNotification();
 }
 
 public interface IBaseService_1<TOutput, TInputIdentifier> : IBaseService_0<TOutput, TInputIdentifier, BaseInputCreate_0, BaseInputUpdate_0, BaseInputIdentityUpdate_0, BaseInputIdentityDelete_0>

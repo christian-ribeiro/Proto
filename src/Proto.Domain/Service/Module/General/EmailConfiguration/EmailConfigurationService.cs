@@ -1,4 +1,5 @@
 ﻿using Proto.Arguments.Arguments.Module.General;
+using Proto.Arguments.Arguments.Module.Registration;
 using Proto.Arguments.Enum;
 using Proto.Domain.DTO.Module.General;
 using Proto.Domain.Interface.Repository.Module.General;
@@ -19,104 +20,104 @@ public class EmailConfigurationService(IEmailConfigurationRepository repository)
                 _ = (from i in GetListValidDTO(listEmailConfigurationValidateDTO)
                      where i.OriginalEmailConfigurationDTO != null
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(listEmailConfigurationValidateDTO.IndexOf(i), "Já existe um registro com esse identificador")).ToList();
 
                 _ = (from i in GetListValidDTO(listEmailConfigurationValidateDTO)
                      where i.InputCreateEmailConfiguration == null
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(listEmailConfigurationValidateDTO.IndexOf(i), "Informe os dados corretamente")).ToList();
 
                 _ = (from i in GetListValidDTO(listEmailConfigurationValidateDTO)
                      where InvalidLength(1, 100, i.InputCreateEmailConfiguration?.Server)
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(new InputIdentifierEmailConfiguration(i.InputCreateEmailConfiguration!.FromEmail, i.InputCreateEmailConfiguration!.EmailConfigurationType), "Servidor deve ter entre 1 e 100 caracteres")).ToList();
 
                 _ = (from i in GetListValidDTO(listEmailConfigurationValidateDTO)
                      where InvalidLength(1, 100, i.InputCreateEmailConfiguration?.DisplayName)
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(new InputIdentifierEmailConfiguration(i.InputCreateEmailConfiguration!.FromEmail, i.InputCreateEmailConfiguration!.EmailConfigurationType), "Nome de exibição deve ter entre 1 e 100 caracteres")).ToList();
 
                 _ = (from i in GetListValidDTO(listEmailConfigurationValidateDTO)
                      where InvalidLength(1, 100, i.InputCreateEmailConfiguration?.FromEmail)
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(new InputIdentifierEmailConfiguration(i.InputCreateEmailConfiguration!.FromEmail, i.InputCreateEmailConfiguration!.EmailConfigurationType), "Remetente deve ter entre 1 e 100 caracteres")).ToList();
 
                 _ = (from i in GetListValidDTO(listEmailConfigurationValidateDTO)
                      where InvalidLength(1, 100, i.InputCreateEmailConfiguration?.Username)
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(new InputIdentifierEmailConfiguration(i.InputCreateEmailConfiguration!.FromEmail, i.InputCreateEmailConfiguration!.EmailConfigurationType), "Usuário deve ter entre 1 e 100 caracteres")).ToList();
 
                 _ = (from i in GetListValidDTO(listEmailConfigurationValidateDTO)
                      where InvalidLength(1, 100, i.InputCreateEmailConfiguration?.Password)
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(new InputIdentifierEmailConfiguration(i.InputCreateEmailConfiguration!.FromEmail, i.InputCreateEmailConfiguration!.EmailConfigurationType), "Senha deve ter entre 1 e 100 caracteres")).ToList();
 
                 _ = (from i in GetListValidDTO(listEmailConfigurationValidateDTO)
                      where InvalidLength(0, 100, i.InputCreateEmailConfiguration?.EmailCopy)
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(new InputIdentifierEmailConfiguration(i.InputCreateEmailConfiguration!.FromEmail, i.InputCreateEmailConfiguration!.EmailConfigurationType), "E-mail de cópia deve ter entre 1 e 100 caracteres")).ToList();
 
                 _ = (from i in GetListValidDTO(listEmailConfigurationValidateDTO)
                      where InvalidEmail(i.InputCreateEmailConfiguration?.FromEmail)
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(new InputIdentifierEmailConfiguration(i.InputCreateEmailConfiguration!.FromEmail, i.InputCreateEmailConfiguration!.EmailConfigurationType), "Informe um e-mail válido")).ToList();
 
                 _ = (from i in GetListValidDTO(listEmailConfigurationValidateDTO)
                      where !string.IsNullOrEmpty(i.InputCreateEmailConfiguration?.EmailCopy) && InvalidEmail(i.InputCreateEmailConfiguration?.EmailCopy)
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(new InputIdentifierEmailConfiguration(i.InputCreateEmailConfiguration!.FromEmail, i.InputCreateEmailConfiguration!.EmailConfigurationType), "Informe um e-mail válido")).ToList();
 
                 break;
             case EnumProcessType.Update:
                 _ = (from i in GetListValidDTO(listEmailConfigurationValidateDTO)
                      where i.OriginalEmailConfigurationDTO == null
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(listEmailConfigurationValidateDTO.IndexOf(i), "Registro não encontrado")).ToList();
 
                 _ = (from i in GetListValidDTO(listEmailConfigurationValidateDTO)
                      where i.InputIdentityUpdateEmailConfiguration?.InputUpdate == null
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(listEmailConfigurationValidateDTO.IndexOf(i), "Informe os dados corretamente")).ToList();
 
                 _ = (from i in GetListValidDTO(listEmailConfigurationValidateDTO)
                      where InvalidLength(1, 100, i.InputIdentityUpdateEmailConfiguration?.InputUpdate?.Server)
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(i.InputIdentityUpdateEmailConfiguration!.Id, new InputIdentifierEmailConfiguration(i.OriginalEmailConfigurationDTO!.ExternalPropertiesDTO.FromEmail, i.OriginalEmailConfigurationDTO!.ExternalPropertiesDTO.EmailConfigurationType), "Servidor deve ter entre 1 e 100 caracteres")).ToList();
 
                 _ = (from i in GetListValidDTO(listEmailConfigurationValidateDTO)
                      where InvalidLength(1, 100, i.InputIdentityUpdateEmailConfiguration?.InputUpdate?.DisplayName)
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(i.InputIdentityUpdateEmailConfiguration!.Id, new InputIdentifierEmailConfiguration(i.OriginalEmailConfigurationDTO!.ExternalPropertiesDTO.FromEmail, i.OriginalEmailConfigurationDTO!.ExternalPropertiesDTO.EmailConfigurationType), "Nome de exibição deve ter entre 1 e 100 caracteres")).ToList();
 
                 _ = (from i in GetListValidDTO(listEmailConfigurationValidateDTO)
                      where InvalidLength(1, 100, i.InputIdentityUpdateEmailConfiguration?.InputUpdate?.FromEmail)
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(i.InputIdentityUpdateEmailConfiguration!.Id, new InputIdentifierEmailConfiguration(i.OriginalEmailConfigurationDTO!.ExternalPropertiesDTO.FromEmail, i.OriginalEmailConfigurationDTO!.ExternalPropertiesDTO.EmailConfigurationType), "Remetente deve ter entre 1 e 100 caracteres")).ToList();
 
                 _ = (from i in GetListValidDTO(listEmailConfigurationValidateDTO)
                      where InvalidLength(1, 100, i.InputIdentityUpdateEmailConfiguration?.InputUpdate?.Username)
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(i.InputIdentityUpdateEmailConfiguration!.Id, new InputIdentifierEmailConfiguration(i.OriginalEmailConfigurationDTO!.ExternalPropertiesDTO.FromEmail, i.OriginalEmailConfigurationDTO!.ExternalPropertiesDTO.EmailConfigurationType), "Usuário deve ter entre 1 e 100 caracteres")).ToList();
 
                 _ = (from i in GetListValidDTO(listEmailConfigurationValidateDTO)
                      where InvalidLength(1, 100, i.InputIdentityUpdateEmailConfiguration?.InputUpdate?.Password)
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(i.InputIdentityUpdateEmailConfiguration!.Id, new InputIdentifierEmailConfiguration(i.OriginalEmailConfigurationDTO!.ExternalPropertiesDTO.FromEmail, i.OriginalEmailConfigurationDTO!.ExternalPropertiesDTO.EmailConfigurationType), "Senha deve ter entre 1 e 100 caracteres")).ToList();
 
                 _ = (from i in GetListValidDTO(listEmailConfigurationValidateDTO)
                      where InvalidLength(0, 100, i.InputIdentityUpdateEmailConfiguration?.InputUpdate?.EmailCopy)
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(i.InputIdentityUpdateEmailConfiguration!.Id, new InputIdentifierEmailConfiguration(i.OriginalEmailConfigurationDTO!.ExternalPropertiesDTO.FromEmail, i.OriginalEmailConfigurationDTO!.ExternalPropertiesDTO.EmailConfigurationType), "E-mail de cópia deve ter entre 1 e 100 caracteres")).ToList();
 
                 _ = (from i in GetListValidDTO(listEmailConfigurationValidateDTO)
                      where InvalidEmail(i.InputIdentityUpdateEmailConfiguration?.InputUpdate?.FromEmail)
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(i.InputIdentityUpdateEmailConfiguration!.Id, new InputIdentifierEmailConfiguration(i.OriginalEmailConfigurationDTO!.ExternalPropertiesDTO.FromEmail, i.OriginalEmailConfigurationDTO!.ExternalPropertiesDTO.EmailConfigurationType), "Informe um e-mail válido")).ToList();
 
                 _ = (from i in GetListValidDTO(listEmailConfigurationValidateDTO)
                      where !string.IsNullOrEmpty(i.InputIdentityUpdateEmailConfiguration?.InputUpdate?.EmailCopy) && InvalidEmail(i.InputIdentityUpdateEmailConfiguration?.InputUpdate?.EmailCopy)
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(i.InputIdentityUpdateEmailConfiguration!.Id, new InputIdentifierEmailConfiguration(i.OriginalEmailConfigurationDTO!.ExternalPropertiesDTO.FromEmail, i.OriginalEmailConfigurationDTO!.ExternalPropertiesDTO.EmailConfigurationType), "Informe um e-mail válido")).ToList();
 
                 break;
             case EnumProcessType.Delete:
@@ -124,12 +125,12 @@ public class EmailConfigurationService(IEmailConfigurationRepository repository)
                 _ = (from i in GetListValidDTO(listEmailConfigurationValidateDTO)
                      where i.OriginalEmailConfigurationDTO == null
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(listEmailConfigurationValidateDTO.IndexOf(i), "Registro não encontrado")).ToList();
 
                 _ = (from i in GetListValidDTO(listEmailConfigurationValidateDTO)
                      where i.InputIdentityDeleteEmailConfiguration == null
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(listEmailConfigurationValidateDTO.IndexOf(i), "Informe os dados corretamente")).ToList();
 
                 break;
         }

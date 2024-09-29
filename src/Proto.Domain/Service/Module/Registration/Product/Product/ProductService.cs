@@ -19,109 +19,131 @@ public class ProductService(IProductRepository repository, IBrandRepository bran
                 _ = (from i in GetListValidDTO(listProductValidateDTO)
                      where i.OriginalProductDTO != null
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(listProductValidateDTO.IndexOf(i), "Já existe um registro com esse identificador")).ToList();
 
                 _ = (from i in GetListValidDTO(listProductValidateDTO)
                      where i.InputCreateProduct == null
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(listProductValidateDTO.IndexOf(i), "Informe os dados corretamente")).ToList();
 
                 _ = (from i in GetListValidDTO(listProductValidateDTO)
                      where InvalidLength(1, 6, i.InputCreateProduct?.Code)
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(new InputIdentifierProduct(i.InputCreateProduct!.Code), "Código deve ter entre 1 e 6 caracteres")).ToList();
 
                 _ = (from i in GetListValidDTO(listProductValidateDTO)
                      where InvalidLength(1, 100, i.InputCreateProduct?.Description)
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(new InputIdentifierProduct(i.InputCreateProduct!.Code), "Descrição deve ter entre 1 e 100 caracteres")).ToList();
 
                 _ = (from i in GetListValidDTO(listProductValidateDTO)
                      where InvalidLength(1, 100, i.InputCreateProduct?.BarCode)
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(new InputIdentifierProduct(i.InputCreateProduct!.Code), "Código de barras deve ter entre 1 e 100 caracteres")).ToList();
 
                 _ = (from i in GetListValidDTO(listProductValidateDTO)
                      where DecimalLowerThan(0, i.InputCreateProduct?.CostValue)
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(new InputIdentifierProduct(i.InputCreateProduct!.Code), "Valor de custo não pode ser menor que 0")).ToList();
 
                 _ = (from i in GetListValidDTO(listProductValidateDTO)
                      where DecimalLowerThan(0, i.InputCreateProduct?.SaleValue)
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(new InputIdentifierProduct(i.InputCreateProduct!.Code), "Valor de venda não pode ser menor que 0")).ToList();
+
                 _ = (from i in GetListValidDTO(listProductValidateDTO)
                      where DecimalLowerThan(0, i.InputCreateProduct?.Weight)
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(new InputIdentifierProduct(i.InputCreateProduct!.Code), "Peso não pode ser menor que 0")).ToList();
 
                 _ = (from i in GetListValidDTO(listProductValidateDTO)
                      where DecimalLowerThan(0, i.InputCreateProduct?.NetWeight)
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(new InputIdentifierProduct(i.InputCreateProduct!.Code), "Peso líquido não pode ser menor que 0")).ToList();
 
                 _ = (from i in GetListValidDTO(listProductValidateDTO)
-                     where InvalidLength(1, 400, i.InputCreateProduct?.Observation)
+                     where InvalidLength(0, 400, i.InputCreateProduct?.Observation)
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(new InputIdentifierProduct(i.InputCreateProduct!.Code), "Observação deve ter entre 0 e 400 caracteres")).ToList();
+
+                _ = (from i in GetListValidDTO(listProductValidateDTO)
+                     where InvalidRelatedProperty(i.InputCreateProduct!.BrandId, i.RelatedBrandDTO)
+                     let setInvalid = i.SetInvalid()
+                     select AddNotification(new InputIdentifierProduct(i.InputCreateProduct!.Code), "Informe uma marca válida")).ToList();
+
+                _ = (from i in GetListValidDTO(listProductValidateDTO)
+                     where InvalidRelatedProperty(i.InputCreateProduct!.ProductCategoryId, i.RelatedProductCategoryDTO)
+                     let setInvalid = i.SetInvalid()
+                     select AddNotification(new InputIdentifierProduct(i.InputCreateProduct!.Code), "Informe uma categoria válida")).ToList();
 
                 break;
             case EnumProcessType.Update:
                 _ = (from i in GetListValidDTO(listProductValidateDTO)
                      where i.OriginalProductDTO == null
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(listProductValidateDTO.IndexOf(i), "Registro não encontrado")).ToList();
 
                 _ = (from i in GetListValidDTO(listProductValidateDTO)
                      where i.InputIdentityUpdateProduct?.InputUpdate == null
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(listProductValidateDTO.IndexOf(i), "Informe os dados corretamente")).ToList();
 
                 _ = (from i in GetListValidDTO(listProductValidateDTO)
                      where InvalidLength(1, 100, i.InputIdentityUpdateProduct?.InputUpdate?.Description)
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(i.InputIdentityUpdateProduct!.Id, new InputIdentifierProduct(i.OriginalProductDTO!.ExternalPropertiesDTO.Code), "Descrição deve ter entre 1 e 100 caracteres")).ToList();
 
                 _ = (from i in GetListValidDTO(listProductValidateDTO)
                      where InvalidLength(1, 100, i.InputIdentityUpdateProduct?.InputUpdate?.BarCode)
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(i.InputIdentityUpdateProduct!.Id, new InputIdentifierProduct(i.OriginalProductDTO!.ExternalPropertiesDTO.Code), "Código de barras deve ter entre 1 e 100 caracteres")).ToList();
 
                 _ = (from i in GetListValidDTO(listProductValidateDTO)
                      where DecimalLowerThan(0, i.InputIdentityUpdateProduct?.InputUpdate?.CostValue)
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(i.InputIdentityUpdateProduct!.Id, new InputIdentifierProduct(i.OriginalProductDTO!.ExternalPropertiesDTO.Code), "Valor de custo não pode ser menor que 0")).ToList();
 
                 _ = (from i in GetListValidDTO(listProductValidateDTO)
                      where DecimalLowerThan(0, i.InputIdentityUpdateProduct?.InputUpdate?.SaleValue)
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(i.InputIdentityUpdateProduct!.Id, new InputIdentifierProduct(i.OriginalProductDTO!.ExternalPropertiesDTO.Code), "Valor de venda não pode ser menor que 0")).ToList();
+
                 _ = (from i in GetListValidDTO(listProductValidateDTO)
                      where DecimalLowerThan(0, i.InputIdentityUpdateProduct?.InputUpdate?.Weight)
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(i.InputIdentityUpdateProduct!.Id, new InputIdentifierProduct(i.OriginalProductDTO!.ExternalPropertiesDTO.Code), "Peso não pode ser menor que 0")).ToList();
 
                 _ = (from i in GetListValidDTO(listProductValidateDTO)
                      where DecimalLowerThan(0, i.InputIdentityUpdateProduct?.InputUpdate?.NetWeight)
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(i.InputIdentityUpdateProduct!.Id, new InputIdentifierProduct(i.OriginalProductDTO!.ExternalPropertiesDTO.Code), "Peso líquido não pode ser menor que 0")).ToList();
 
                 _ = (from i in GetListValidDTO(listProductValidateDTO)
-                     where InvalidLength(1, 400, i.InputIdentityUpdateProduct?.InputUpdate?.Observation)
+                     where InvalidLength(0, 400, i.InputIdentityUpdateProduct?.InputUpdate?.Observation)
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(i.InputIdentityUpdateProduct!.Id, new InputIdentifierProduct(i.OriginalProductDTO!.ExternalPropertiesDTO.Code), "Observação deve ter entre 0 e 400 caracteres")).ToList();
+
+                _ = (from i in GetListValidDTO(listProductValidateDTO)
+                     where InvalidRelatedProperty(i.InputIdentityUpdateProduct?.InputUpdate!.BrandId, i.RelatedBrandDTO)
+                     let setInvalid = i.SetInvalid()
+                     select AddNotification(i.InputIdentityUpdateProduct!.Id, new InputIdentifierProduct(i.OriginalProductDTO!.ExternalPropertiesDTO.Code), "Informe uma marca válida")).ToList();
+
+                _ = (from i in GetListValidDTO(listProductValidateDTO)
+                     where InvalidRelatedProperty(i.InputIdentityUpdateProduct?.InputUpdate!.ProductCategoryId, i.RelatedProductCategoryDTO)
+                     let setInvalid = i.SetInvalid()
+                     select AddNotification(i.InputIdentityUpdateProduct!.Id, new InputIdentifierProduct(i.OriginalProductDTO!.ExternalPropertiesDTO.Code), "Informe uma categoria válida")).ToList();
 
                 break;
             case EnumProcessType.Delete:
                 _ = (from i in GetListValidDTO(listProductValidateDTO)
                      where i.OriginalProductDTO == null
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(listProductValidateDTO.IndexOf(i), "Registro não encontrado")).ToList();
 
                 _ = (from i in GetListValidDTO(listProductValidateDTO)
                      where i.InputIdentityDeleteProduct == null
                      let setInvalid = i.SetInvalid()
-                     select true).ToList();
+                     select AddNotification(listProductValidateDTO.IndexOf(i), "Informe os dados corretamente")).ToList();
 
                 break;
         }

@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.SwaggerUI;
-using System.Reflection;
 
 namespace Proto.Api.Extensions;
 
@@ -12,7 +10,18 @@ public static class SwaggerExtension
     {
         services.AddSwaggerGen(c =>
         {
-            c.SwaggerDoc("v1", new OpenApiInfo { Title = "Proto API", Version = "v1" });
+            c.SwaggerDoc("v1", new OpenApiInfo
+            {
+                Title = "Proto API",
+                Description = "API de demonstração de conceito",
+                Version = "v1",
+                Contact = new OpenApiContact
+                {
+                    Name = "Christian Ribeiro",
+                    Url = new Uri("https://github.com/christian-ribeiro")
+                }
+            });
+
             c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {
                 Description = "JWT Authorization header using the Bearer scheme",
@@ -33,11 +42,6 @@ public static class SwaggerExtension
                     },
                     []
                 }
-            });
-
-            c.CustomOperationIds(apiDescription =>
-            {
-                return apiDescription.TryGetMethodInfo(out MethodInfo methodInfo) ? methodInfo.Name : null;
             });
 
             c.TagActionsBy(api =>
