@@ -50,11 +50,16 @@ public class BaseController_0<TService, TOutput, TInputIdentifier, TInputCreate,
 
     #region Read
     [HttpGet("{id}")]
+    [ProducesResponseType<BaseResponseApi<string>>(StatusCodes.Status404NotFound)]
     public virtual async Task<ActionResult<BaseResponseApi<TOutput>>> Get([FromRoute] long id)
     {
         try
         {
-            return await ResponseAsync(_service.Get(id));
+            TOutput response = _service.Get(id);
+            if (response == null)
+                return NotFound(new BaseResponseApi<string> { ErrorMessage = "Registro não encontrado" });
+
+            return await ResponseAsync(response);
         }
         catch (Exception ex)
         {
@@ -63,11 +68,16 @@ public class BaseController_0<TService, TOutput, TInputIdentifier, TInputCreate,
     }
 
     [HttpPost("GetByIdentifier")]
+    [ProducesResponseType<BaseResponseApi<string>>(StatusCodes.Status404NotFound)]
     public virtual async Task<ActionResult<BaseResponseApi<TOutput>>> GetByIdentifier([FromBody] TInputIdentifier inputIdentifier)
     {
         try
         {
-            return await ResponseAsync(_service.GetByIdentifier(inputIdentifier));
+            TOutput response = _service.GetByIdentifier(inputIdentifier);
+            if (response == null)
+                return NotFound(new BaseResponseApi<string> { ErrorMessage = "Registro não encontrado" });
+
+            return await ResponseAsync(response);
         }
         catch (Exception ex)
         {
@@ -80,7 +90,8 @@ public class BaseController_0<TService, TOutput, TInputIdentifier, TInputCreate,
     {
         try
         {
-            return await ResponseAsync(_service.GetAll());
+            List<TOutput> response = _service.GetAll();
+            return await ResponseAsync(response);
         }
         catch (Exception ex)
         {
@@ -89,11 +100,16 @@ public class BaseController_0<TService, TOutput, TInputIdentifier, TInputCreate,
     }
 
     [HttpPost("GetListByListIdentifier")]
+    [ProducesResponseType<BaseResponseApi<string>>(StatusCodes.Status404NotFound)]
     public virtual async Task<ActionResult<BaseResponseApi<TOutput>>> GetListByListIdentifier([FromBody] List<TInputIdentifier> listInputIdentifier)
     {
         try
         {
-            return await ResponseAsync(_service.GetListByListIdentifier(listInputIdentifier));
+            List<TOutput> response = _service.GetListByListIdentifier(listInputIdentifier);
+            if (response == null)
+                return NotFound(new BaseResponseApi<string> { ErrorMessage = "Registro não encontrado" });
+
+            return await ResponseAsync(response);
         }
         catch (Exception ex)
         {
@@ -102,11 +118,16 @@ public class BaseController_0<TService, TOutput, TInputIdentifier, TInputCreate,
     }
 
     [HttpPost("GetListByListId")]
+    [ProducesResponseType<BaseResponseApi<string>>(StatusCodes.Status404NotFound)]
     public virtual async Task<ActionResult<BaseResponseApi<TOutput>>> GetListByListId([FromBody] List<long> listId)
     {
         try
         {
-            return await ResponseAsync(_service.GetListByListId(listId));
+            List<TOutput> response = _service.GetListByListId(listId);
+            if (response == null)
+                return NotFound(new BaseResponseApi<string> { ErrorMessage = "Registro não encontrado" });
+
+            return await ResponseAsync(response);
         }
         catch (Exception ex)
         {
@@ -117,6 +138,7 @@ public class BaseController_0<TService, TOutput, TInputIdentifier, TInputCreate,
 
     #region Create
     [HttpPost("Create")]
+    [ProducesResponseType<BaseResponseApi<List<string>>>(StatusCodes.Status400BadRequest)]
     public virtual async Task<ActionResult<BaseResponseApi<long>>> Create([FromBody] TInputCreate inputCreate)
     {
         try
@@ -130,6 +152,7 @@ public class BaseController_0<TService, TOutput, TInputIdentifier, TInputCreate,
     }
 
     [HttpPost("Create/Multiple")]
+    [ProducesResponseType<BaseResponseApi<List<string>>>(StatusCodes.Status400BadRequest)]
     public virtual async Task<ActionResult<BaseResponseApi<List<long>>>> Create([FromBody] List<TInputCreate> listInputCreate)
     {
         try
@@ -145,6 +168,7 @@ public class BaseController_0<TService, TOutput, TInputIdentifier, TInputCreate,
 
     #region Update
     [HttpPut("Update")]
+    [ProducesResponseType<BaseResponseApi<List<string>>>(StatusCodes.Status400BadRequest)]
     public virtual async Task<ActionResult<BaseResponseApi<long>>> Update(TInputIdentityUpdate inputIdentityUpdate)
     {
         try
@@ -158,6 +182,7 @@ public class BaseController_0<TService, TOutput, TInputIdentifier, TInputCreate,
     }
 
     [HttpPut("Update/Multiple")]
+    [ProducesResponseType<BaseResponseApi<List<string>>>(StatusCodes.Status400BadRequest)]
     public virtual async Task<ActionResult<BaseResponseApi<List<long>>>> Update([FromBody] List<TInputIdentityUpdate> listInputIdentityUpdate)
     {
         try
@@ -173,6 +198,7 @@ public class BaseController_0<TService, TOutput, TInputIdentifier, TInputCreate,
 
     #region Delete
     [HttpDelete("Delete")]
+    [ProducesResponseType<BaseResponseApi<List<string>>>(StatusCodes.Status400BadRequest)]
     public virtual async Task<ActionResult<BaseResponseApi<bool>>> Delete([FromBody] TInputIdentityDelete inputIdentityDelete)
     {
         try
