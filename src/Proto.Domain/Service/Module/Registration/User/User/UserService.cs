@@ -238,7 +238,7 @@ public class UserService(IUserRepository repository, IEmailService emailService,
             originalUserDTO.InternalPropertiesDTO.SetProperty(nameof(originalUserDTO.InternalPropertiesDTO.PasswordRecoveryCode), recoveryCode);
             _repository.Update(originalUserDTO);
 
-            string htmlProto = File.ReadAllText("wwwroot/html-proto/recovery-password.html");
+            string htmlProto = File.ReadAllText("wwwroot/html-template/recovery-password.html");
             string userEncoded = WebUtility.HtmlEncode(originalUserDTO.ExternalPropertiesDTO.Name);
 
             htmlProto = htmlProto.Replace("{{USER}}", userEncoded);
