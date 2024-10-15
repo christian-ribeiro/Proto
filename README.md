@@ -1,5 +1,5 @@
 # Projeto de demonstração - Portfólio
-Projeto feito para ser utilizado como portfólio. O sistema contará com recurso de autenticação JWWT , implementação de desenvolvimento Low Code utilizando o MySQL e EntityFrameworkCore.
+Projeto feito para ser utilizado como portfólio. O sistema contará com recurso de autenticação JWT , implementação de desenvolvimento Low Code utilizando o MySQL e EntityFrameworkCore.
 
 ## Desenvolvimento
 - API em .NET 8
