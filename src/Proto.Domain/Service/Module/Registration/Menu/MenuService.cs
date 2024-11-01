@@ -6,4 +6,4 @@ using Proto.Domain.Service.Module.Base;
 
 namespace Proto.Domain.Service.Module.Registration;
 
-public class MenuService(IMenuRepository repository) : BaseService_1<IMenuRepository, OutputMenu, InputIdentifierMenu, MenuDTO, InternalPropertiesMenuDTO, AuxiliaryPropertiesMenuDTO>(repository), IMenuService { }
+public class MenuService(IMenuRepository repository) : BaseService_0_2<IMenuRepository, OutputMenu, InputIdentifierMenu, MenuDTO, InternalPropertiesMenuDTO, AuxiliaryPropertiesMenuDTO>(repository), IMenuService { }

@@ -3,7 +3,7 @@ using Proto.Arguments.Arguments.Module.Base;
 
 namespace Proto.Arguments.Arguments.Module.Registration;
 
-public class OutputMenu : BaseOutput<OutputMenu>
+public class OutputMenu : BaseOutput_0_1<OutputMenu>
 {
     #region NotMapped
     [JsonIgnore]

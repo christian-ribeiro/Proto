@@ -8,7 +8,7 @@ using Proto.Domain.Service.Module.Base;
 
 namespace Proto.Domain.Service.Module.General;
 
-public class EmailConfigurationService(IEmailConfigurationRepository repository) : BaseService_0<IEmailConfigurationRepository, OutputEmailConfiguration, InputIdentifierEmailConfiguration, InputCreateEmailConfiguration, InputUpdateEmailConfiguration, InputIdentityUpdateEmailConfiguration, InputIdentityDeleteEmailConfiguration, EmailConfigurationDTO, EmailConfigurationValidateDTO, InternalPropertiesEmailConfigurationDTO, ExternalPropertiesEmailConfigurationDTO, AuxiliaryPropertiesEmailConfigurationDTO>(repository), IEmailConfigurationService
+public class EmailConfigurationService(IEmailConfigurationRepository repository) : BaseService_0_1<IEmailConfigurationRepository, OutputEmailConfiguration, InputIdentifierEmailConfiguration, InputCreateEmailConfiguration, InputUpdateEmailConfiguration, InputIdentityUpdateEmailConfiguration, InputIdentityDeleteEmailConfiguration, EmailConfigurationDTO, EmailConfigurationValidateDTO, InternalPropertiesEmailConfigurationDTO, ExternalPropertiesEmailConfigurationDTO, AuxiliaryPropertiesEmailConfigurationDTO>(repository), IEmailConfigurationService
 {
     #region Base
     #region Validate

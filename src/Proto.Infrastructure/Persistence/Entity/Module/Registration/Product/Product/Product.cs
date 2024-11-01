@@ -4,7 +4,7 @@ using Proto.Infrastructure.Persistence.Entity.Module.Base;
 
 namespace Proto.Infrastructure.Persistence.Entity.Module.Registration;
 
-public class Product : BaseEntity<Product>
+public class Product : BaseEntry_0_1<Product>
 {
     public string Code { get; private set; }
     public string Description { get; private set; }

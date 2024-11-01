@@ -2,7 +2,7 @@
 
 namespace Proto.Arguments.Arguments.Module.Registration;
 
-public class OutputProductCategory : BaseOutput<OutputProductCategory>
+public class OutputProductCategory : BaseOutput_0_1<OutputProductCategory>
 {
     public string Code { get; set; }
     public string Description { get; set; }

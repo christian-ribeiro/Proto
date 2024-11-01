@@ -1,7 +1,4 @@
-﻿using System.Net;
-using System.Security.Claims;
-using System.Security.Cryptography;
-using Proto.Arguments.Arguments.Module.Registration;
+﻿using Proto.Arguments.Arguments.Module.Registration;
 using Proto.Arguments.Enum;
 using Proto.Arguments.General.Session;
 using Proto.Domain.DTO.Module.General;
@@ -13,10 +10,13 @@ using Proto.Domain.Interface.Service.Module.Registration;
 using Proto.Domain.Service.Module.Base;
 using Proto.Security.Hashing;
 using Proto.Utilities.Interface.Service;
+using System.Net;
+using System.Security.Claims;
+using System.Security.Cryptography;
 
 namespace Proto.Domain.Service.Module.Registration;
 
-public class UserService(IUserRepository repository, IEmailService emailService, IEmailConfigurationRepository emailConfigurationRepository) : BaseService_0<IUserRepository, OutputUser, InputIdentifierUser, InputCreateUser, InputUpdateUser, InputIdentityUpdateUser, InputIdentityDeleteUser, UserDTO, UserValidateDTO, InternalPropertiesUserDTO, ExternalPropertiesUserDTO, AuxiliaryPropertiesUserDTO>(repository), IUserService
+public class UserService(IUserRepository repository, IEmailService emailService, IEmailConfigurationRepository emailConfigurationRepository) : BaseService_0_1<IUserRepository, OutputUser, InputIdentifierUser, InputCreateUser, InputUpdateUser, InputIdentityUpdateUser, InputIdentityDeleteUser, UserDTO, UserValidateDTO, InternalPropertiesUserDTO, ExternalPropertiesUserDTO, AuxiliaryPropertiesUserDTO>(repository), IUserService
 {
     #region Base
     #region Validate

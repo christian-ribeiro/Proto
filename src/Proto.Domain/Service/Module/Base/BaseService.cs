@@ -8,22 +8,31 @@ using System.Text.RegularExpressions;
 
 namespace Proto.Domain.Service.Module.Base;
 
-public class BaseService_0<TRepository, TOutput, TInputIdentifier, TInputCreate, TInputUpdate, TInputIdentityUpdate, TInputIdentityDelete, TDTO, TValidateDTO, TInternalPropertiesDTO, TExternalPropertiesDTO, TAuxiliaryPropertiesDTO>(TRepository repository) : IBaseService_0<TOutput, TInputIdentifier, TInputCreate, TInputUpdate, TInputIdentityUpdate, TInputIdentityDelete>
-        where TRepository : IBaseRepository_0<TOutput, TInputIdentifier, TInputCreate, TInputUpdate, TInputIdentityUpdate, TInputIdentityDelete, TDTO, TInternalPropertiesDTO, TExternalPropertiesDTO, TAuxiliaryPropertiesDTO>
-        where TOutput : BaseOutput<TOutput>
+public class BaseService_0 : BaseService_0_1<IBaseRepository_0, BaseOutput_0, BaseInputIdentifier_0, BaseInputCreate_0, BaseInputUpdate_0, BaseInputIdentityUpdate_0, BaseInputIdentityDelete_0, BaseDTO_0, BaseValidateDTO, BaseInternalPropertiesDTO_0, BaseExternalPropertiesDTO_0, BaseAuxiliaryPropertiesDTO_0> { }
+public class BaseService_0_1<TRepository, TOutput, TInputIdentifier, TInputCreate, TInputUpdate, TInputIdentityUpdate, TInputIdentityDelete, TDTO, TValidateDTO, TInternalPropertiesDTO, TExternalPropertiesDTO, TAuxiliaryPropertiesDTO> : IBaseService_0_1<TOutput, TInputIdentifier, TInputCreate, TInputUpdate, TInputIdentityUpdate, TInputIdentityDelete>
+        where TRepository : IBaseRepository_0_1<TOutput, TInputIdentifier, TInputCreate, TInputUpdate, TInputIdentityUpdate, TInputIdentityDelete, TDTO, TInternalPropertiesDTO, TExternalPropertiesDTO, TAuxiliaryPropertiesDTO>
+        where TOutput : BaseOutput_0_1<TOutput>
         where TInputIdentifier : BaseInputIdentifier<TInputIdentifier>, new()
         where TInputCreate : BaseInputCreate<TInputCreate>
         where TInputUpdate : BaseInputUpdate<TInputUpdate>
         where TInputIdentityUpdate : BaseInputIdentityUpdate<TInputUpdate>
         where TInputIdentityDelete : BaseInputIdentityDelete<TInputIdentityDelete>
-        where TDTO : BaseDTO_0<TOutput, TInputIdentifier, TInputCreate, TInputUpdate, TInputIdentityUpdate, TInputIdentityDelete, TDTO, TInternalPropertiesDTO, TExternalPropertiesDTO, TAuxiliaryPropertiesDTO>, new()
+        where TDTO : BaseDTO_0_1<TOutput, TInputIdentifier, TInputCreate, TInputUpdate, TInputIdentityUpdate, TInputIdentityDelete, TDTO, TInternalPropertiesDTO, TExternalPropertiesDTO, TAuxiliaryPropertiesDTO>, new()
         where TValidateDTO : BaseValidateDTO
         where TInternalPropertiesDTO : BaseInternalPropertiesDTO<TInternalPropertiesDTO>, new()
         where TExternalPropertiesDTO : BaseExternalPropertiesDTO<TExternalPropertiesDTO>, new()
         where TAuxiliaryPropertiesDTO : BaseAuxiliaryPropertiesDTO<TAuxiliaryPropertiesDTO>, new()
 {
     public Guid _guidSessionDataRequest;
-    protected readonly TRepository _repository = repository;
+    protected readonly TRepository _repository;
+
+    public BaseService_0_1() { }
+
+    public BaseService_0_1(TRepository repository)
+    {
+        _repository = repository;
+    }
+
     public List<BaseResponseNotification> _listNotification { get; private set; } = [];
 
     #region Validate
@@ -173,11 +182,11 @@ public class BaseService_0<TRepository, TOutput, TInputIdentifier, TInputCreate,
     #endregion
 }
 
-public class BaseService_1<TRepository, TOutput, TInputIdentifier, TDTO, TInternalPropertiesDTO, TAuxiliaryPropertyDTO>(TRepository repository) : BaseService_0<TRepository, TOutput, TInputIdentifier, BaseInputCreate_0, BaseInputUpdate_0, BaseInputIdentityUpdate_0, BaseInputIdentityDelete_0, TDTO, BaseValidateDTO, TInternalPropertiesDTO, BaseExternalPropertiesDTO_0, TAuxiliaryPropertyDTO>(repository), IBaseService_1<TOutput, TInputIdentifier>
-        where TRepository : IBaseRepository_1<TOutput, TInputIdentifier, TDTO, TInternalPropertiesDTO, TAuxiliaryPropertyDTO>
-        where TOutput : BaseOutput<TOutput>
+public class BaseService_0_2<TRepository, TOutput, TInputIdentifier, TDTO, TInternalPropertiesDTO, TAuxiliaryPropertyDTO>(TRepository repository) : BaseService_0_1<TRepository, TOutput, TInputIdentifier, BaseInputCreate_0, BaseInputUpdate_0, BaseInputIdentityUpdate_0, BaseInputIdentityDelete_0, TDTO, BaseValidateDTO, TInternalPropertiesDTO, BaseExternalPropertiesDTO_0, TAuxiliaryPropertyDTO>(repository), IBaseService_0_2<TOutput, TInputIdentifier>
+        where TRepository : IBaseRepository_0_2<TOutput, TInputIdentifier, TDTO, TInternalPropertiesDTO, TAuxiliaryPropertyDTO>
+        where TOutput : BaseOutput_0_1<TOutput>
         where TInputIdentifier : BaseInputIdentifier<TInputIdentifier>, new()
-        where TDTO : BaseDTO_1<TOutput, TInputIdentifier, TDTO, TInternalPropertiesDTO, TAuxiliaryPropertyDTO>, new()
+        where TDTO : BaseDTO_0_2<TOutput, TInputIdentifier, TDTO, TInternalPropertiesDTO, TAuxiliaryPropertyDTO>, new()
         where TInternalPropertiesDTO : BaseInternalPropertiesDTO<TInternalPropertiesDTO>, new()
         where TAuxiliaryPropertyDTO : BaseAuxiliaryPropertiesDTO<TAuxiliaryPropertyDTO>, new()
 { }

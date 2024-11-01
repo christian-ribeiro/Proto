@@ -4,4 +4,4 @@ using Proto.Domain.Interface.Repository.Module.Base;
 
 namespace Proto.Domain.Interface.Repository.Module.Registration;
 
-public interface IBrandRepository : IBaseRepository_0<OutputBrand, InputIdentifierBrand, InputCreateBrand, InputUpdateBrand, InputIdentityUpdateBrand, InputIdentityDeleteBrand, BrandDTO, InternalPropertiesBrandDTO, ExternalPropertiesBrandDTO, AuxiliaryPropertiesBrandDTO> { }
+public interface IBrandRepository : IBaseRepository_0_1<OutputBrand, InputIdentifierBrand, InputCreateBrand, InputUpdateBrand, InputIdentityUpdateBrand, InputIdentityDeleteBrand, BrandDTO, InternalPropertiesBrandDTO, ExternalPropertiesBrandDTO, AuxiliaryPropertiesBrandDTO> { }

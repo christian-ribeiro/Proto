@@ -8,7 +8,7 @@ using Proto.Domain.Service.Module.Base;
 
 namespace Proto.Domain.Service.Module.Registration;
 
-public class UserMenuService(IUserMenuRepository repository, IMenuRepository menuRepository) : BaseService_0<IUserMenuRepository, OutputUserMenu, InputIdentifierUserMenu, InputCreateUserMenu, InputUpdateUserMenu, InputIdentityUpdateUserMenu, InputIdentityDeleteUserMenu, UserMenuDTO, UserMenuValidateDTO, InternalPropertiesUserMenuDTO, ExternalPropertiesUserMenuDTO, AuxiliaryPropertiesUserMenuDTO>(repository), IUserMenuService
+public class UserMenuService(IUserMenuRepository repository, IMenuRepository menuRepository) : BaseService_0_1<IUserMenuRepository, OutputUserMenu, InputIdentifierUserMenu, InputCreateUserMenu, InputUpdateUserMenu, InputIdentityUpdateUserMenu, InputIdentityDeleteUserMenu, UserMenuDTO, UserMenuValidateDTO, InternalPropertiesUserMenuDTO, ExternalPropertiesUserMenuDTO, AuxiliaryPropertiesUserMenuDTO>(repository), IUserMenuService
 {
     private readonly IMenuRepository _menuRepository = menuRepository;
 

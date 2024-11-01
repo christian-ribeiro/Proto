@@ -3,7 +3,7 @@ using Proto.Arguments.Enum;
 
 namespace Proto.Arguments.Arguments.Module.General;
 
-public class OutputEmailConfiguration : BaseOutput<OutputEmailConfiguration>
+public class OutputEmailConfiguration : BaseOutput_0_1<OutputEmailConfiguration>
 {
     public string Server { get; set; }
     public int Port { get; set; }

@@ -9,7 +9,7 @@ using Proto.Infrastructure.Persistence.Repository.Module.Base;
 
 namespace Proto.Infrastructure.Persistence.Repository.Module.General;
 
-public class EmailConfigurationRepository(AppDbContext context) : BaseRepository_0<AppDbContext, EmailConfiguration, OutputEmailConfiguration, InputIdentifierEmailConfiguration, InputCreateEmailConfiguration, InputUpdateEmailConfiguration, InputIdentityUpdateEmailConfiguration, InputIdentityDeleteEmailConfiguration, EmailConfigurationDTO, InternalPropertiesEmailConfigurationDTO, ExternalPropertiesEmailConfigurationDTO, AuxiliaryPropertiesEmailConfigurationDTO>(context), IEmailConfigurationRepository
+public class EmailConfigurationRepository(AppDbContext context) : BaseRepository_0_1<AppDbContext, EmailConfiguration, OutputEmailConfiguration, InputIdentifierEmailConfiguration, InputCreateEmailConfiguration, InputUpdateEmailConfiguration, InputIdentityUpdateEmailConfiguration, InputIdentityDeleteEmailConfiguration, EmailConfigurationDTO, InternalPropertiesEmailConfigurationDTO, ExternalPropertiesEmailConfigurationDTO, AuxiliaryPropertiesEmailConfigurationDTO>(context), IEmailConfigurationRepository
 {
     public EmailConfigurationDTO? GetByType(EnumEmailConfigurationType emailConfigurationType)
     {

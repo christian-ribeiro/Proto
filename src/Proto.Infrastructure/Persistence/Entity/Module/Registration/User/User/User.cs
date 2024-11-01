@@ -5,7 +5,7 @@ using Proto.Infrastructure.Persistence.Entity.Module.General;
 
 namespace Proto.Infrastructure.Persistence.Entity.Module.Registration;
 
-public class User : BaseEntity<User>
+public class User : BaseEntry_0_1<User>
 {
     public string Code { get; private set; }
     public string Name { get; private set; }

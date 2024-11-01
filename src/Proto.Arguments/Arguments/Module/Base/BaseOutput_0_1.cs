@@ -2,7 +2,8 @@
 
 namespace Proto.Arguments.Arguments.Module.Base;
 
-public class BaseOutput<TOutput> where TOutput : BaseOutput<TOutput>
+public class BaseOutput_0 : BaseOutput_0_1<BaseOutput_0> { }
+public class BaseOutput_0_1<TOutput> where TOutput : BaseOutput_0_1<TOutput>
 {
     public long Id { get; private set; }
     public virtual DateTime CreationDate { get; private set; }

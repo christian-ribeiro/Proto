@@ -3,7 +3,7 @@ using Proto.Arguments.Enum;
 
 namespace Proto.Arguments.Arguments.Module.Registration;
 
-public class OutputUser : BaseOutput<OutputUser>
+public class OutputUser : BaseOutput_0_1<OutputUser>
 {
     public string Code { get; set; }
     public string Name { get; set; }

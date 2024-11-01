@@ -13,8 +13,8 @@ namespace Proto.Api.Controllers.Module.Base;
 [ApiController]
 [Route("/api/[controller]")]
 public class BaseController_0<TService, TOutput, TInputIdentifier, TInputCreate, TInputUpdate, TInputIdentityUpdate, TInputIdentityDelete>(IUnitOfWork unitOfWork, TService service, IUserService userService) : Controller
-        where TService : IBaseService_0<TOutput, TInputIdentifier, TInputCreate, TInputUpdate, TInputIdentityUpdate, TInputIdentityDelete>
-        where TOutput : BaseOutput<TOutput>
+        where TService : IBaseService_0_1<TOutput, TInputIdentifier, TInputCreate, TInputUpdate, TInputIdentityUpdate, TInputIdentityDelete>
+        where TOutput : BaseOutput_0_1<TOutput>
         where TInputIdentifier : BaseInputIdentifier<TInputIdentifier>, new()
         where TInputCreate : BaseInputCreate<TInputCreate>
         where TInputUpdate : BaseInputUpdate<TInputUpdate>
@@ -267,8 +267,8 @@ public class BaseController_0<TService, TOutput, TInputIdentifier, TInputCreate,
 }
 
 public class BaseController_1<TService, TOutput, TInputIdentifier>(IUnitOfWork unitOfWork, TService service, IUserService userService) : BaseController_0<TService, TOutput, TInputIdentifier, BaseInputCreate_0, BaseInputUpdate_0, BaseInputIdentityUpdate_0, BaseInputIdentityDelete_0>(unitOfWork, service, userService)
-        where TService : IBaseService_1<TOutput, TInputIdentifier>
-        where TOutput : BaseOutput<TOutput>
+        where TService : IBaseService_0_2<TOutput, TInputIdentifier>
+        where TOutput : BaseOutput_0_1<TOutput>
         where TInputIdentifier : BaseInputIdentifier<TInputIdentifier>, new()
 {
     #region NotImplemented

@@ -3,6 +3,8 @@ using Proto.Arguments.General.Session;
 
 namespace Proto.Domain.DTO.Module.Base;
 
+public class BaseInternalPropertiesDTO_0 : BaseInternalPropertiesDTO<BaseInternalPropertiesDTO_0> { }
+
 public class BaseInternalPropertiesDTO<TInternalPropertiesDTO> : BaseSetProperty<TInternalPropertiesDTO>
         where TInternalPropertiesDTO : BaseInternalPropertiesDTO<TInternalPropertiesDTO>, new()
 {

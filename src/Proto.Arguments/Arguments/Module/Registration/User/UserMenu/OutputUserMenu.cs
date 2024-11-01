@@ -2,7 +2,7 @@
 
 namespace Proto.Arguments.Arguments.Module.Registration;
 
-public class OutputUserMenu : BaseOutput<OutputUserMenu>
+public class OutputUserMenu : BaseOutput_0_1<OutputUserMenu>
 {
     public long MenuId { get; set; }
     public int Position { get; set; }

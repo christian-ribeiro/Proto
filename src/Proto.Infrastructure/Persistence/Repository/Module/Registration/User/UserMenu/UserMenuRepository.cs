@@ -7,4 +7,4 @@ using Proto.Infrastructure.Persistence.Repository.Module.Base;
 
 namespace Proto.Infrastructure.Persistence.Repository.Module.Registration;
 
-public class UserMenuRepository(AppDbContext context) : BaseRepository_0<AppDbContext, UserMenu, OutputUserMenu, InputIdentifierUserMenu, InputCreateUserMenu, InputUpdateUserMenu, InputIdentityUpdateUserMenu, InputIdentityDeleteUserMenu, UserMenuDTO, InternalPropertiesUserMenuDTO, ExternalPropertiesUserMenuDTO, AuxiliaryPropertiesUserMenuDTO>(context), IUserMenuRepository { }
+public class UserMenuRepository(AppDbContext context) : BaseRepository_0_1<AppDbContext, UserMenu, OutputUserMenu, InputIdentifierUserMenu, InputCreateUserMenu, InputUpdateUserMenu, InputIdentityUpdateUserMenu, InputIdentityDeleteUserMenu, UserMenuDTO, InternalPropertiesUserMenuDTO, ExternalPropertiesUserMenuDTO, AuxiliaryPropertiesUserMenuDTO>(context), IUserMenuRepository { }

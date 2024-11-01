@@ -7,4 +7,4 @@ using Proto.Infrastructure.Persistence.Repository.Module.Base;
 
 namespace Proto.Infrastructure.Persistence.Repository.Module.Registration;
 
-public class ProductRepository(AppDbContext context) : BaseRepository_0<AppDbContext, Product, OutputProduct, InputIdentifierProduct, InputCreateProduct, InputUpdateProduct, InputIdentityUpdateProduct, InputIdentityDeleteProduct, ProductDTO, InternalPropertiesProductDTO, ExternalPropertiesProductDTO, AuxiliaryPropertiesProductDTO>(context), IProductRepository { }
+public class ProductRepository(AppDbContext context) : BaseRepository_0_1<AppDbContext, Product, OutputProduct, InputIdentifierProduct, InputCreateProduct, InputUpdateProduct, InputIdentityUpdateProduct, InputIdentityDeleteProduct, ProductDTO, InternalPropertiesProductDTO, ExternalPropertiesProductDTO, AuxiliaryPropertiesProductDTO>(context), IProductRepository { }

@@ -2,7 +2,7 @@
 
 namespace Proto.Arguments.Arguments.Module.Registration;
 
-public class OutputBrand : BaseOutput<OutputBrand>
+public class OutputBrand : BaseOutput_0_1<OutputBrand>
 {
     public string Code { get; set; }
     public string Description { get; set; }

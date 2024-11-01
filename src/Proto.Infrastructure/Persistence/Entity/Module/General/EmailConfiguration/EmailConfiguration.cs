@@ -4,7 +4,7 @@ using Proto.Infrastructure.Persistence.Entity.Module.Base;
 
 namespace Proto.Infrastructure.Persistence.Entity.Module.General;
 
-public class EmailConfiguration : BaseEntity<EmailConfiguration>
+public class EmailConfiguration : BaseEntry_0_1<EmailConfiguration>
 {
     public string Server { get; private set; }
     public int Port { get; private set; }

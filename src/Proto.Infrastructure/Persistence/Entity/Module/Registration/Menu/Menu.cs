@@ -3,7 +3,7 @@ using Proto.Infrastructure.Persistence.Entity.Module.Base;
 
 namespace Proto.Infrastructure.Persistence.Entity.Module.Registration;
 
-public class Menu : BaseEntity<Menu>
+public class Menu : BaseEntry_0_1<Menu>
 {
     public string Route { get; private set; }
     public string Description { get; private set; }

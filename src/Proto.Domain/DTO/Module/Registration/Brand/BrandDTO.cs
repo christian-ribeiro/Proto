@@ -3,4 +3,4 @@ using Proto.Domain.DTO.Module.Base;
 
 namespace Proto.Domain.DTO.Module.Registration;
 
-public class BrandDTO : BaseDTO_0<OutputBrand, InputIdentifierBrand, InputCreateBrand, InputUpdateBrand, InputIdentityUpdateBrand, InputIdentityDeleteBrand, BrandDTO, InternalPropertiesBrandDTO, ExternalPropertiesBrandDTO, AuxiliaryPropertiesBrandDTO> { }
+public class BrandDTO : BaseDTO_0_1<OutputBrand, InputIdentifierBrand, InputCreateBrand, InputUpdateBrand, InputIdentityUpdateBrand, InputIdentityDeleteBrand, BrandDTO, InternalPropertiesBrandDTO, ExternalPropertiesBrandDTO, AuxiliaryPropertiesBrandDTO> { }

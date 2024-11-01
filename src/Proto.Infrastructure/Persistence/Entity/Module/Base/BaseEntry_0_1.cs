@@ -3,7 +3,9 @@ using Proto.Infrastructure.Persistence.Entity.Module.Registration;
 
 namespace Proto.Infrastructure.Persistence.Entity.Module.Base;
 
-public class BaseEntity<TEntity> where TEntity : BaseEntity<TEntity>
+public class BaseEntry_0 : BaseEntry_0_1<BaseEntry_0> { }
+
+public class BaseEntry_0_1<TEntry> where TEntry : BaseEntry_0_1<TEntry>
 {
     public long Id { get; private set; }
     [NotMapped]
@@ -24,45 +26,45 @@ public class BaseEntity<TEntity> where TEntity : BaseEntity<TEntity>
     #endregion
     #endregion
 
-    public TEntity SetCreateData()
+    public TEntry SetCreateData()
     {
         CreationDate = DateTime.Now;
-        return (TEntity)this;
+        return (TEntry)this;
     }
 
-    public TEntity SetChangeData()
+    public TEntry SetChangeData()
     {
         ChangeDate = DateTime.Now;
-        return (TEntity)this;
+        return (TEntry)this;
     }
 
-    public TEntity SetInternalData(long id, DateTime creationDate, DateTime? changeDate, long? creationUserId, long? changeUserId)
+    public TEntry SetInternalData(long id, DateTime creationDate, DateTime? changeDate, long? creationUserId, long? changeUserId)
     {
         Id = id;
         CreationDate = creationDate;
         ChangeDate = changeDate;
         CreationUserId = creationUserId;
         ChangeUserId = changeUserId;
-        return (TEntity)this;
+        return (TEntry)this;
     }
 
-    public TEntity SetInternalData(long id)
+    public TEntry SetInternalData(long id)
     {
         Id = id;
-        return (TEntity)this;
+        return (TEntry)this;
     }
 
-    public TEntity SetInternalDataCreate(DateTime creationDate, long? creationUserId)
+    public TEntry SetInternalDataCreate(DateTime creationDate, long? creationUserId)
     {
         CreationDate = creationDate;
         CreationUserId = creationUserId;
-        return (TEntity)this;
+        return (TEntry)this;
     }
 
-    public TEntity SetInternalDataChange(DateTime? changeDate, long? changeUserId)
+    public TEntry SetInternalDataChange(DateTime? changeDate, long? changeUserId)
     {
         ChangeDate = changeDate;
         ChangeUserId = changeUserId;
-        return (TEntity)this;
+        return (TEntry)this;
     }
 }

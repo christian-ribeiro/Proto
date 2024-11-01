@@ -1,30 +1,40 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
 using Proto.Arguments.Arguments.Module.Base;
 using Proto.Arguments.General.Session;
 using Proto.Domain.DTO.Module.Base;
 using Proto.Domain.Interface.Repository.Module.Base;
 using Proto.Infrastructure.Extension;
+using Proto.Infrastructure.Persistence.Context;
 using Proto.Infrastructure.Persistence.Entity.Module.Base;
+using System.Linq.Expressions;
 
 namespace Proto.Infrastructure.Persistence.Repository.Module.Base;
 
-public abstract class BaseRepository_0<TContext, TEntity, TOutput, TInputIdentifier, TInputCreate, TInputUpdate, TInputIdentityUpdate, TInputIdentityDelete, TDTO, TInternalPropertiesDTO, TExternalPropertiesDTO, TAuxiliaryPropertiesDTO>(TContext context) : IBaseRepository_0<TOutput, TInputIdentifier, TInputCreate, TInputUpdate, TInputIdentityUpdate, TInputIdentityDelete, TDTO, TInternalPropertiesDTO, TExternalPropertiesDTO, TAuxiliaryPropertiesDTO>
+public abstract class BaseRepository_0 : BaseRepository_0_1<AppDbContext, BaseEntry_0, BaseOutput_0, BaseInputIdentifier_0, BaseInputCreate_0, BaseInputUpdate_0, BaseInputIdentityUpdate_0, BaseInputIdentityDelete_0, BaseDTO_0, BaseInternalPropertiesDTO_0, BaseExternalPropertiesDTO_0, BaseAuxiliaryPropertiesDTO_0> { }
+public abstract class BaseRepository_0_1<TContext, TEntity, TOutput, TInputIdentifier, TInputCreate, TInputUpdate, TInputIdentityUpdate, TInputIdentityDelete, TDTO, TInternalPropertiesDTO, TExternalPropertiesDTO, TAuxiliaryPropertiesDTO> : IBaseRepository_0_1<TOutput, TInputIdentifier, TInputCreate, TInputUpdate, TInputIdentityUpdate, TInputIdentityDelete, TDTO, TInternalPropertiesDTO, TExternalPropertiesDTO, TAuxiliaryPropertiesDTO>
     where TContext : DbContext
-    where TEntity : BaseEntity<TEntity>
-    where TOutput : BaseOutput<TOutput>
+    where TEntity : BaseEntry_0_1<TEntity>
+    where TOutput : BaseOutput_0_1<TOutput>
     where TInputIdentifier : BaseInputIdentifier<TInputIdentifier>, new()
     where TInputCreate : BaseInputCreate<TInputCreate>
     where TInputUpdate : BaseInputUpdate<TInputUpdate>
     where TInputIdentityUpdate : BaseInputIdentityUpdate<TInputUpdate>
     where TInputIdentityDelete : BaseInputIdentityDelete<TInputIdentityDelete>
-    where TDTO : BaseDTO_0<TOutput, TInputIdentifier, TInputCreate, TInputUpdate, TInputIdentityUpdate, TInputIdentityDelete, TDTO, TInternalPropertiesDTO, TExternalPropertiesDTO, TAuxiliaryPropertiesDTO>, new()
+    where TDTO : BaseDTO_0_1<TOutput, TInputIdentifier, TInputCreate, TInputUpdate, TInputIdentityUpdate, TInputIdentityDelete, TDTO, TInternalPropertiesDTO, TExternalPropertiesDTO, TAuxiliaryPropertiesDTO>, new()
     where TInternalPropertiesDTO : BaseInternalPropertiesDTO<TInternalPropertiesDTO>, new()
     where TExternalPropertiesDTO : BaseExternalPropertiesDTO<TExternalPropertiesDTO>, new()
     where TAuxiliaryPropertiesDTO : BaseAuxiliaryPropertiesDTO<TAuxiliaryPropertiesDTO>, new()
 {
-    protected readonly TContext _context = context;
-    protected DbSet<TEntity> _dbSet = context.Set<TEntity>();
+    protected readonly TContext _context;
+    protected DbSet<TEntity> _dbSet;
+
+    protected BaseRepository_0_1() { }
+
+    protected BaseRepository_0_1(TContext context)
+    {
+        _context = context;
+        _dbSet = context.Set<TEntity>();
+    }
 
     public long Create(TDTO dto)
     {
@@ -61,7 +71,7 @@ public abstract class BaseRepository_0<TContext, TEntity, TOutput, TInputIdentif
         if (!getOnlyPrincipal)
             query = query.IncludeVirtualProperties();
 
-        return BaseRepository_0<TContext, TEntity, TOutput, TInputIdentifier, TInputCreate, TInputUpdate, TInputIdentityUpdate, TInputIdentityDelete, TDTO, TInternalPropertiesDTO, TExternalPropertiesDTO, TAuxiliaryPropertiesDTO>.FromEntityToDTO(query.FirstOrDefault()!);
+        return BaseRepository_0_1<TContext, TEntity, TOutput, TInputIdentifier, TInputCreate, TInputUpdate, TInputIdentityUpdate, TInputIdentityDelete, TDTO, TInternalPropertiesDTO, TExternalPropertiesDTO, TAuxiliaryPropertiesDTO>.FromEntityToDTO(query.FirstOrDefault()!);
     }
 
     public List<TDTO> GetAll(bool getOnlyPrincipal = false)
@@ -193,12 +203,12 @@ public abstract class BaseRepository_0<TContext, TEntity, TOutput, TInputIdentif
     }
 }
 
-public abstract class BaseRepository_1<TContext, TEntity, TOutput, TInputIdentifier, TDTO, TInternalPropertiesDTO, TAuxiliaryPropertyDTO>(TContext context) : BaseRepository_0<TContext, TEntity, TOutput, TInputIdentifier, BaseInputCreate_0, BaseInputUpdate_0, BaseInputIdentityUpdate_0, BaseInputIdentityDelete_0, TDTO, TInternalPropertiesDTO, BaseExternalPropertiesDTO_0, TAuxiliaryPropertyDTO>(context), IBaseRepository_1<TOutput, TInputIdentifier, TDTO, TInternalPropertiesDTO, TAuxiliaryPropertyDTO>
+public abstract class BaseRepository_0_2<TContext, TEntity, TOutput, TInputIdentifier, TDTO, TInternalPropertiesDTO, TAuxiliaryPropertyDTO>(TContext context) : BaseRepository_0_1<TContext, TEntity, TOutput, TInputIdentifier, BaseInputCreate_0, BaseInputUpdate_0, BaseInputIdentityUpdate_0, BaseInputIdentityDelete_0, TDTO, TInternalPropertiesDTO, BaseExternalPropertiesDTO_0, TAuxiliaryPropertyDTO>(context), IBaseRepository_0_2<TOutput, TInputIdentifier, TDTO, TInternalPropertiesDTO, TAuxiliaryPropertyDTO>
     where TContext : DbContext
-    where TEntity : BaseEntity<TEntity>
-    where TOutput : BaseOutput<TOutput>
+    where TEntity : BaseEntry_0_1<TEntity>
+    where TOutput : BaseOutput_0_1<TOutput>
     where TInputIdentifier : BaseInputIdentifier<TInputIdentifier>, new()
-    where TDTO : BaseDTO_1<TOutput, TInputIdentifier, TDTO, TInternalPropertiesDTO, TAuxiliaryPropertyDTO>, new()
+    where TDTO : BaseDTO_0_2<TOutput, TInputIdentifier, TDTO, TInternalPropertiesDTO, TAuxiliaryPropertyDTO>, new()
     where TInternalPropertiesDTO : BaseInternalPropertiesDTO<TInternalPropertiesDTO>, new()
     where TAuxiliaryPropertyDTO : BaseAuxiliaryPropertiesDTO<TAuxiliaryPropertyDTO>, new()
 { }

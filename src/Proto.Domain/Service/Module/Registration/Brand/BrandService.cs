@@ -7,7 +7,7 @@ using Proto.Domain.Service.Module.Base;
 
 namespace Proto.Domain.Service.Module.Registration;
 
-public class BrandService(IBrandRepository repository) : BaseService_0<IBrandRepository, OutputBrand, InputIdentifierBrand, InputCreateBrand, InputUpdateBrand, InputIdentityUpdateBrand, InputIdentityDeleteBrand, BrandDTO, BrandValidateDTO, InternalPropertiesBrandDTO, ExternalPropertiesBrandDTO, AuxiliaryPropertiesBrandDTO>(repository), IBrandService
+public class BrandService(IBrandRepository repository) : BaseService_0_1<IBrandRepository, OutputBrand, InputIdentifierBrand, InputCreateBrand, InputUpdateBrand, InputIdentityUpdateBrand, InputIdentityDeleteBrand, BrandDTO, BrandValidateDTO, InternalPropertiesBrandDTO, ExternalPropertiesBrandDTO, AuxiliaryPropertiesBrandDTO>(repository), IBrandService
 {
     #region Base
     #region Validate

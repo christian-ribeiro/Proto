@@ -3,7 +3,7 @@ using Proto.Infrastructure.Persistence.Entity.Module.Base;
 
 namespace Proto.Infrastructure.Persistence.Entity.Module.Registration;
 
-public class UserMenu : BaseEntity<UserMenu>
+public class UserMenu : BaseEntry_0_1<UserMenu>
 {
     public long MenuId { get; private set; }
     public int Position { get; private set; }

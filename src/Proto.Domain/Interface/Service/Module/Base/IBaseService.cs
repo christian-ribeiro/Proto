@@ -2,8 +2,10 @@
 
 namespace Proto.Domain.Interface.Service.Module.Base;
 
-public interface IBaseService_0<TOutput, TInputIdentifier, TInputCreate, TInputUpdate, TInputIdentityUpdate, TInputIdentityDelete>
-        where TOutput : BaseOutput<TOutput>
+public interface IBaseService_0 : IBaseService_0_1<BaseOutput_0, BaseInputIdentifier_0, BaseInputCreate_0, BaseInputUpdate_0, BaseInputIdentityUpdate_0, BaseInputIdentityDelete_0> { }
+
+public interface IBaseService_0_1<TOutput, TInputIdentifier, TInputCreate, TInputUpdate, TInputIdentityUpdate, TInputIdentityDelete>
+        where TOutput : BaseOutput_0_1<TOutput>
         where TInputIdentifier : BaseInputIdentifier<TInputIdentifier>, new()
         where TInputCreate : BaseInputCreate<TInputCreate>
         where TInputUpdate : BaseInputUpdate<TInputUpdate>
@@ -25,7 +27,7 @@ public interface IBaseService_0<TOutput, TInputIdentifier, TInputCreate, TInputU
     List<BaseResponseNotification> GetListNotification();
 }
 
-public interface IBaseService_1<TOutput, TInputIdentifier> : IBaseService_0<TOutput, TInputIdentifier, BaseInputCreate_0, BaseInputUpdate_0, BaseInputIdentityUpdate_0, BaseInputIdentityDelete_0>
-        where TOutput : BaseOutput<TOutput>
+public interface IBaseService_0_2<TOutput, TInputIdentifier> : IBaseService_0_1<TOutput, TInputIdentifier, BaseInputCreate_0, BaseInputUpdate_0, BaseInputIdentityUpdate_0, BaseInputIdentityDelete_0>
+        where TOutput : BaseOutput_0_1<TOutput>
         where TInputIdentifier : BaseInputIdentifier<TInputIdentifier>, new()
 { }

@@ -10,8 +10,9 @@ builder.Services.ConfigureCors();
 builder.Services.ConfigureAuthentication();
 builder.Services.ConfigureSwagger();
 builder.Services.ConfigureController();
-builder.Services.ConfigureDependencyInjection();
 builder.Services.ConfigureMapper();
+builder.Services.ConfigureCompression();
+builder.Host.ConfigureDependencyInjection();
 
 var app = builder.Build();
 

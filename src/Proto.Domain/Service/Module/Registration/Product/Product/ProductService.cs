@@ -7,7 +7,7 @@ using Proto.Domain.Service.Module.Base;
 
 namespace Proto.Domain.Service.Module.Registration;
 
-public class ProductService(IProductRepository repository, IBrandRepository brandRepository, IProductCategoryRepository productCategoryRepository) : BaseService_0<IProductRepository, OutputProduct, InputIdentifierProduct, InputCreateProduct, InputUpdateProduct, InputIdentityUpdateProduct, InputIdentityDeleteProduct, ProductDTO, ProductValidateDTO, InternalPropertiesProductDTO, ExternalPropertiesProductDTO, AuxiliaryPropertiesProductDTO>(repository), IProductService
+public class ProductService(IProductRepository repository, IBrandRepository brandRepository, IProductCategoryRepository productCategoryRepository) : BaseService_0_1<IProductRepository, OutputProduct, InputIdentifierProduct, InputCreateProduct, InputUpdateProduct, InputIdentityUpdateProduct, InputIdentityDeleteProduct, ProductDTO, ProductValidateDTO, InternalPropertiesProductDTO, ExternalPropertiesProductDTO, AuxiliaryPropertiesProductDTO>(repository), IProductService
 {
     #region Base
     #region Validate

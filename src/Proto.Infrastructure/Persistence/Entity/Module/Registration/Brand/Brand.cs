@@ -3,7 +3,7 @@ using Proto.Infrastructure.Persistence.Entity.Module.Base;
 
 namespace Proto.Infrastructure.Persistence.Entity.Module.Registration;
 
-public class Brand : BaseEntity<Brand>
+public class Brand : BaseEntry_0_1<Brand>
 {
     public string Code { get; private set; }
     public string Description { get; private set; }
